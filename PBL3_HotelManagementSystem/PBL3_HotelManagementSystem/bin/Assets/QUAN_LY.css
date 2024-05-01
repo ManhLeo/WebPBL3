@@ -1,0 +1,224 @@
+*{
+    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    max-width: 1440px;
+}
+.taskbar{
+    background-color: black;
+    display: flex;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: max-content;
+    padding: 0px 20px 0px 20px;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+    font-size: 30px;
+}
+.Admin{
+    border: 2px solid white;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    width: max-content;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+}
+.container_content{
+    width: 100%;
+    height: calc(100vh - 100px);
+    background-color: #d4e5fa;
+    display: flex;
+}
+.Title{
+    width: 300px;
+    background-color: #212D32;
+    color: white;
+    font-weight: 500;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+.Title_item{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+#manager{
+    justify-content: space-between;
+}
+#manager:hover #Arrow{
+    transition: 1s;
+    translate: 0 10px;
+}
+.manager_item{
+    background-color: #2C3B41;
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 20px;
+    color: rgb(252, 245, 245);
+}
+
+.manager_container{
+    width: calc(100vw - 300px);
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.manager_item1{
+    width: 100%;
+    padding: 10px;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    color: rgb(92, 92, 92);
+    box-shadow: 0px 1px 13px 0px #0000002E;
+    font-weight: 500;
+    font-size: 20px;
+}
+.manager_item2{
+    width: 100%;
+    padding: 10px;
+    height: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background-color: white;
+    color: rgb(92, 92, 92);
+    box-shadow: 0px 1px 13px 0px #0000002E;
+    overflow: auto;
+    justify-content: space-between;
+}
+.line{
+    width: 100%;
+    height: 2px;
+    background-color: lightgray;
+    margin-top: 10px;
+}
+.room_choice_container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.choice{
+    width: 400px;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end
+}
+.actor{
+    padding: 10px;
+    width: 150px;
+    height: 200px;
+    /* background-color: #3C8DBC; */
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    font-weight: 400;
+    color: white;
+    align-items: center;
+    gap: 7px;
+}
+.trong{
+    background-color: #3C8DBC;
+}
+.dat{
+    background-color: #018e40;
+}
+.checkin{
+    background-color: #a88805;
+}
+.checkout{
+    background-color: #6101af;
+}
+.actor_title{
+    font-size: 18px;
+}
+.date{
+    display: flex;
+    gap: 10px;
+}
+.filter{
+    display: flex;
+    gap: 10px;
+}
+#Room_management{
+    display: flex;
+}
+#Actor_management{
+    display: none;
+}
+#Service_management{
+    display: none;
+}
+.input1{
+    width: 200px;
+}
+input{
+    margin-right: 10px;
+}
+.button1{
+    padding: 10px 20px 10px 20px;
+    border-radius: 25px;
+    border: 2px solid;
+    background-color: #3C8DBC;
+    color: white;
+    width: max-content;
+}
+.button1:hover{
+    background-color: white;
+    color: #3C8DBC;
+}
+button{
+    padding: 5px 10px 5px 10px;
+    color: white;
+    border: 1px solid black;
+    background-color: black;
+    width: max-content;
+}
+table{
+    width: 100%;
+    /* border: 1px solid; */
+    height: max-content;
+    text-align: left;
+    border-collapse: collapse;
+}
+th, td{
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}
+td:nth-child(3) {
+    color: rgb(92, 92, 92); /* Màu chữ của cột Mật khẩu */
+}
+td:nth-child(4) {
+    color: rgb(92, 92, 92); /* Màu chữ của cột Mật khẩu */
+}
+td:nth-child(5) {
+    color: rgb(92, 92, 92); /* Màu chữ của cột Mật khẩu */
+}
+.button2{
+    background-color: red;
+    border: 2px solid red;
+}

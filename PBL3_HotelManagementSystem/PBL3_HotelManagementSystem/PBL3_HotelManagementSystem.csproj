@@ -121,9 +121,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QUANLYController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BUS\HotelBUS.cs" />
     <Compile Include="Models\Generated\Database.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -133,6 +135,25 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\B.png" />
+    <Content Include="Assets\BackGround.png" />
+    <Content Include="Assets\Bien.png" />
+    <Content Include="Assets\Login.css" />
+    <Content Include="Assets\Login.js" />
+    <Content Include="Assets\Login_background.png" />
+    <Content Include="Assets\Login_content.png" />
+    <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\Logo_white.png" />
+    <Content Include="Assets\Page.css" />
+    <Content Include="Assets\Page.js" />
+    <Content Include="Assets\pexels-pixabay-261156.png" />
+    <Content Include="Assets\QUAN_LY.css" />
+    <Content Include="Assets\QUAN_LY.js" />
+    <Content Include="Assets\Room1_1.png" />
+    <Content Include="Assets\Room1_2.png" />
+    <Content Include="Assets\Room1_3.png" />
+    <Content Include="Assets\Room2_1.png" />
+    <Content Include="Assets\Room3_1.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -189,6 +210,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_MainLayout.cshtml" />
+    <Content Include="Views\QUANLY\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
