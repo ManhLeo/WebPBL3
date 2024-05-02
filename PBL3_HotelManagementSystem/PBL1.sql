@@ -34,7 +34,7 @@ create table LoaiPhong (
     SoNguoi int,
     SoGiuong int
 );
-insert into LoaiPhong(IDLoaiPhong, TenLoaiPhong, HinhAnh, DonGia, SoNguoi, SoGiuong) values ('LP01', 'VIP1', 'image1', 1000000, 2, 1 )
+insert into LoaiPhong(IDLoaiPhong, TenLoaiPhong, HinhAnh, DonGia, SoNguoi, SoGiuong) values ('LP02', 'VIP2', 'Room1_1.png', 1200000, 2, 1 )
 
 create table Phong (
     IDPHG nvarchar(10) primary key,
