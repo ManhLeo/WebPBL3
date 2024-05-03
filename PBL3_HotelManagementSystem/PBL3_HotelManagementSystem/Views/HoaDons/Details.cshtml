@@ -1,0 +1,50 @@
+﻿@model PBL3_HotelManagementSystem.Models.HoaDon
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HoaDon</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDHDChiTiet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDHDChiTiet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayTaoHD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayTaoHD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TongDonGia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TongDonGia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KhachHang.HoTen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KhachHang.HoTen)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDHD }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

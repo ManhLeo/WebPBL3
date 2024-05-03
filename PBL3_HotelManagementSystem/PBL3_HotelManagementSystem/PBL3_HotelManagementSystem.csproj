@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -45,10 +46,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -120,18 +129,78 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\DatDichVuChiTietsController.cs" />
+    <Compile Include="Controllers\DatDichVusController.cs" />
+    <Compile Include="Controllers\DatPhongsController.cs" />
+    <Compile Include="Controllers\DichVusController.cs" />
+    <Compile Include="Controllers\HoaDonChiTietsController.cs" />
+    <Compile Include="Controllers\HoaDonsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\QUANLYController.cs" />
+    <Compile Include="Controllers\KhachHangsController.cs" />
+    <Compile Include="Controllers\LoaiDVsController.cs" />
+    <Compile Include="Controllers\LoaiPhongsController.cs" />
+    <Compile Include="Controllers\PhongsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BUS\HotelBUS.cs" />
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DatDichVu.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DatDichVuChiTiet.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DatPhong.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DichVu.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Generated\Database.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HoaDon.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HoaDonChiTiet.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KhachHang.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoaiDV.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoaiPhong.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PetaPoco.cs" />
+    <Compile Include="Models\Phong.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QLKhachSan.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLKhachSan.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QLKhachSan.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QLKhachSan.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLKhachSan.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>QLKhachSan.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +246,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\QLKhachSan.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLKhachSan.edmx</DependentUpon>
+      <LastGenOutput>QLKhachSan.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\QLKhachSan.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLKhachSan.edmx</DependentUpon>
+      <LastGenOutput>QLKhachSan.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -185,6 +264,13 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\Generated\PetaPoco.Generator.ttinclude" />
     <Content Include="Models\Generated\PetaPoco.Core.ttinclude" />
+    <EntityDeploy Include="Models\QLKhachSan.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLKhachSan.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\QLKhachSan.edmx.diagram">
+      <DependentUpon>QLKhachSan.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -211,7 +297,61 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_MainLayout.cshtml" />
-    <Content Include="Views\QUANLY\Index.cshtml" />
+    <Content Include="Views\LoaiPhongs\Create.cshtml" />
+    <Content Include="Views\LoaiPhongs\Delete.cshtml" />
+    <Content Include="Views\LoaiPhongs\Details.cshtml" />
+    <Content Include="Views\LoaiPhongs\Edit.cshtml" />
+    <Content Include="Views\LoaiPhongs\Index.cshtml" />
+    <Content Include="Views\Phongs\Create.cshtml" />
+    <Content Include="Views\Phongs\Delete.cshtml" />
+    <Content Include="Views\Phongs\Details.cshtml" />
+    <Content Include="Views\Phongs\Edit.cshtml" />
+    <Content Include="Views\Phongs\Index.cshtml" />
+    <Content Include="Views\DatPhongs\Create.cshtml" />
+    <Content Include="Views\DatPhongs\Delete.cshtml" />
+    <Content Include="Views\DatPhongs\Details.cshtml" />
+    <Content Include="Views\DatPhongs\Edit.cshtml" />
+    <Content Include="Views\DatPhongs\Index.cshtml" />
+    <Content Include="Views\Accounts\Create.cshtml" />
+    <Content Include="Views\Accounts\Delete.cshtml" />
+    <Content Include="Views\Accounts\Details.cshtml" />
+    <Content Include="Views\Accounts\Edit.cshtml" />
+    <Content Include="Views\Accounts\Index.cshtml" />
+    <Content Include="Views\DatDichVus\Create.cshtml" />
+    <Content Include="Views\DatDichVus\Delete.cshtml" />
+    <Content Include="Views\DatDichVus\Details.cshtml" />
+    <Content Include="Views\DatDichVus\Edit.cshtml" />
+    <Content Include="Views\DatDichVus\Index.cshtml" />
+    <Content Include="Views\DatDichVuChiTiets\Create.cshtml" />
+    <Content Include="Views\DatDichVuChiTiets\Delete.cshtml" />
+    <Content Include="Views\DatDichVuChiTiets\Details.cshtml" />
+    <Content Include="Views\DatDichVuChiTiets\Edit.cshtml" />
+    <Content Include="Views\DatDichVuChiTiets\Index.cshtml" />
+    <Content Include="Views\DichVus\Create.cshtml" />
+    <Content Include="Views\DichVus\Delete.cshtml" />
+    <Content Include="Views\DichVus\Details.cshtml" />
+    <Content Include="Views\DichVus\Edit.cshtml" />
+    <Content Include="Views\DichVus\Index.cshtml" />
+    <Content Include="Views\HoaDons\Create.cshtml" />
+    <Content Include="Views\HoaDons\Delete.cshtml" />
+    <Content Include="Views\HoaDons\Details.cshtml" />
+    <Content Include="Views\HoaDons\Edit.cshtml" />
+    <Content Include="Views\HoaDons\Index.cshtml" />
+    <Content Include="Views\HoaDonChiTiets\Create.cshtml" />
+    <Content Include="Views\HoaDonChiTiets\Delete.cshtml" />
+    <Content Include="Views\HoaDonChiTiets\Details.cshtml" />
+    <Content Include="Views\HoaDonChiTiets\Edit.cshtml" />
+    <Content Include="Views\HoaDonChiTiets\Index.cshtml" />
+    <Content Include="Views\KhachHangs\Create.cshtml" />
+    <Content Include="Views\KhachHangs\Delete.cshtml" />
+    <Content Include="Views\KhachHangs\Details.cshtml" />
+    <Content Include="Views\KhachHangs\Edit.cshtml" />
+    <Content Include="Views\KhachHangs\Index.cshtml" />
+    <Content Include="Views\LoaiDVs\Create.cshtml" />
+    <Content Include="Views\LoaiDVs\Delete.cshtml" />
+    <Content Include="Views\LoaiDVs\Details.cshtml" />
+    <Content Include="Views\LoaiDVs\Edit.cshtml" />
+    <Content Include="Views\LoaiDVs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -279,7 +419,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

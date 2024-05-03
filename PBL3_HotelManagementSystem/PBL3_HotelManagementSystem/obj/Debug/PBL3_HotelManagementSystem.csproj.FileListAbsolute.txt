@@ -156,3 +156,7 @@ C:\Users\Admin\Desktop\GIT\WebPBL3\PBL3_HotelManagementSystem\PBL3_HotelManageme
 C:\Users\Admin\Desktop\GIT\WebPBL3\PBL3_HotelManagementSystem\PBL3_HotelManagementSystem\obj\Debug\PBL3_HotelManagementSystem.csproj.CopyComplete
 C:\Users\Admin\Desktop\GIT\WebPBL3\PBL3_HotelManagementSystem\PBL3_HotelManagementSystem\obj\Debug\PBL3_HotelManagementSystem.dll
 C:\Users\Admin\Desktop\GIT\WebPBL3\PBL3_HotelManagementSystem\PBL3_HotelManagementSystem\obj\Debug\PBL3_HotelManagementSystem.pdb
+C:\Users\Admin\Desktop\GIT\WebPBL3\PBL3_HotelManagementSystem\PBL3_HotelManagementSystem\bin\EntityFramework.dll
+C:\Users\Admin\Desktop\GIT\WebPBL3\PBL3_HotelManagementSystem\PBL3_HotelManagementSystem\bin\EntityFramework.SqlServer.dll
+C:\Users\Admin\Desktop\GIT\WebPBL3\PBL3_HotelManagementSystem\PBL3_HotelManagementSystem\bin\EntityFramework.xml
+C:\Users\Admin\Desktop\GIT\WebPBL3\PBL3_HotelManagementSystem\PBL3_HotelManagementSystem\bin\EntityFramework.SqlServer.xml

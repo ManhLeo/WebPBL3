@@ -5,4 +5,78 @@
 
 
 
-@RenderBody()
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/QUAN_LY.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="taskbar">
+            <div style="display: flex;align-items: center;">
+                <img src="~/Assets/Logo_white.png" alt="" width="100px">
+                HMV HOTEL
+            </div>
+            <div class="Admin">
+                <i class="fa-solid fa-user-tie"></i>
+                ADMIN
+            </div>
+        </div>
+        <div class="container_content">
+            <div class="Title">
+                <div class="Title_item">
+                    <i class="fa-solid fa-house"></i>
+                    Trang chủ
+                </div>
+                <div class="Title_item">
+                    <i class="fa-solid fa-address-card"></i>
+                    Giới thiệu
+                </div>
+                <div class="Title_item">
+                    <i class="fa-solid fa-cart-flatbed"></i>
+                    Đặt ngay
+                </div>
+                <div class="Title_item" id="manager">
+                    <div>
+                        <i class="fa-solid fa-list-check"></i>
+                        Quản lý
+                    </div>
+                    <i class="fa-solid fa-arrow-down" id="Arrow"></i>
+                </div>
+                <div class="manager_item">
+                    <div>
+                        <input type="radio" name="type" onclick="roomManagement()" checked>
+                        Tình trạng phòng
+                    </div>
+                    <div>
+                        <input type="radio" name="type" onclick="actorManagement()">
+                        Quản lý khách hàng
+                    </div>
+                    <div>
+                        <input type="radio" name="type" onclick="serviceManagement()">
+                        Quản lý dịch vụ
+                    </div>
+                    <div>
+                        <input type="radio" name="type" onclick="billManagement()">
+                        Quản lý hóa đơn
+                    </div>
+                </div>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/Assets/QUAN_LY.js"></script>
+</body>
+</html>
+
+
+

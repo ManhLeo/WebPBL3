@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="13e4037ed1d34909ac74acd63f4f0608" Name="Diagram1" ZoomLevel="39">
+        <EntityTypeShape EntityType="PBL3_5Model.Account" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PBL3_5Model.DatDichVu" Width="1.5" PointX="9.875" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PBL3_5Model.DatDichVuChiTiet" Width="1.5" PointX="12.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PBL3_5Model.DatPhong" Width="1.5" PointX="4.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PBL3_5Model.DichVu" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PBL3_5Model.HoaDon" Width="1.5" PointX="5.875" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PBL3_5Model.HoaDonChiTiet" Width="1.5" PointX="10.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PBL3_5Model.KhachHang" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PBL3_5Model.LoaiDV" Width="1.5" PointX="1.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PBL3_5Model.LoaiPhong" Width="1.5" PointX="7.125" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PBL3_5Model.Phong" Width="1.5" PointX="7" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PBL3_5Model.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="PBL3_5Model.FK__DatDichVu__IDDat__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="PBL3_5Model.FK__DatDichVu__IDDV__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="PBL3_5Model.FK__DatDichVu__IDKH__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="PBL3_5Model.FK__HoaDonChi__IDDat__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="PBL3_5Model.FK__DatPhong__IDKH__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="PBL3_5Model.FK__DatPhong__IDPHG__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="PBL3_5Model.FK__DichVu__IDLoaiDV__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="PBL3_5Model.FK__HoaDon__IDKH__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="PBL3_5Model.FK__HoaDonChiT__IDHD__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="PBL3_5Model.FK__Phong__IDLoaiPho__3D5E1FD2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
