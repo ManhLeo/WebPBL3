@@ -12,13 +12,54 @@ namespace PBL3_HotelManagementSystem.Controllers
 {
     public class AccountsController : Controller
     {
-        private PBL3_5Entities1 db = new PBL3_5Entities1();
+        private HotelManagementDbContext db = new HotelManagementDbContext();
 
-        // GET: Accounts
-        public ActionResult Index()
+        // GET: Account/Login
+        public ActionResult Login()
         {
-            return View(db.Accounts.ToList());
+            return View();
         }
+
+        // POST: Account/Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(string email, string password)
+        {
+            if (ModelState.IsValid)
+            {
+                var account = db.Accounts.SingleOrDefault(predicate: a => a.Email == email && a.Pass == password);
+                if (account != null)
+                {
+                    Session["UserID"] = account.IDAccount;
+                    Session["UserName"] = account.UserName;
+                    Session["UserRole"] = account.PhanQuyen;
+                    if (account.PhanQuyen == "admin")
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else if (account.PhanQuyen == "Khách Hàng")
+                    {
+                        return RedirectToAction("Index", "Home"); // Chuyển hướng đến trang chính của khách hàng
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Sai tài khoản hoặc mật khẩu!";
+                }
+            }
+            return View();
+        }
+
+
+
+        // GET: Account/Logout
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Login", "Account");
+        }
+
+
 
         // GET: Accounts/Details/5
         public ActionResult Details(string id)

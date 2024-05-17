@@ -1,0 +1,107 @@
+﻿
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Assets/Login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="container_item">
+            <div class="content">
+                <div class="content_img">
+                    <img src="~/Assets/Logo_white.png" alt="" width="300px">
+                </div>
+                <div class="content_item">
+                    <div class="Title">
+                        <div class="Title_item" id="TTLogin" onclick="MyLogin()">
+                            Đăng nhập
+                            <div class="Line2" id="LineLogin"></div>
+                        </div>
+                        <div class="Line"></div>
+                        <div class="Title_item" id="TTSigup" onclick="MySigup()">
+                            Đăng ký
+                            <div class="Line2" id="LineSigup"></div>
+                        </div>
+                    </div>
+                    <div id="Login">
+                        @using (Html.BeginForm("Login", "Accounts", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="Email">
+                                Email
+                            </div>
+                            <input type="email" name="email" required>
+                            <div class="Email">
+                                Password
+                            </div>
+                            <input type="password" name="password" required>
+                            <div class="Note" id="Note">
+                                @if (ViewBag.ErrorMessage != null)
+                                {
+                                    <span>@ViewBag.ErrorMessage</span>
+                                }
+                            </div>
+                            <div class="Tick">
+                                <input type="checkbox" id="rememberMe" name="rememberMe">
+                                Ghi nhớ mật khẩu
+                            </div>
+                            <div style="width: 100%;display: flex;justify-content: center;margin-top: 10px;">
+                                <button type="submit">
+                                    ĐĂNG NHẬP
+                                </button>
+                            </div>
+                        }
+                    </div>
+                    <div id="Sigup">
+                        <form id="signupForm">
+                            <div class="Email">
+                                Họ tên
+                            </div>
+                            <input type="text" name="name" required>
+                            <div class="Email">
+                                CCCD
+                            </div>
+                            <input type="text" name="cccd" required>
+                            <div class="Email">
+                                Số điện thoại
+                            </div>
+                            <input type="text" name="phone" required>
+                            <div class="Email">
+                                Email
+                            </div>
+                            <input type="email" name="email" required>
+                            <div class="Email">
+                                Mật khẩu
+                            </div>
+                            <input type="password" name="password" required>
+                            <div class="Email">
+                                Nhập lại mật khẩu
+                            </div>
+                            <input type="password" name="confirmPassword" required>
+                            <div style="width: 100%;display: flex;justify-content: center;margin-top: 10px;">
+                                <button type="submit">
+                                    ĐĂNG KÝ
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Assets/Login.js"></script>
+</body>
+</html>

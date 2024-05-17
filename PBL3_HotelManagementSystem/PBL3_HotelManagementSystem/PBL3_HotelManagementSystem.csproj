@@ -129,18 +129,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AccountsController.cs" />
-    <Compile Include="Controllers\DatDichVuChiTietsController.cs" />
-    <Compile Include="Controllers\DatDichVusController.cs" />
-    <Compile Include="Controllers\DatPhongsController.cs" />
-    <Compile Include="Controllers\DichVusController.cs" />
-    <Compile Include="Controllers\HoaDonChiTietsController.cs" />
-    <Compile Include="Controllers\HoaDonsController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\KhachHangsController.cs" />
-    <Compile Include="Controllers\LoaiDVsController.cs" />
-    <Compile Include="Controllers\LoaiPhongsController.cs" />
-    <Compile Include="Controllers\PhongsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -170,6 +160,7 @@
     <Compile Include="Models\HoaDonChiTiet.cs">
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HotelManagementDbContext.cs" />
     <Compile Include="Models\KhachHang.cs">
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
@@ -297,65 +288,9 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_MainLayout.cshtml" />
-    <Content Include="Views\LoaiPhongs\Create.cshtml" />
-    <Content Include="Views\LoaiPhongs\Delete.cshtml" />
-    <Content Include="Views\LoaiPhongs\Details.cshtml" />
-    <Content Include="Views\LoaiPhongs\Edit.cshtml" />
-    <Content Include="Views\LoaiPhongs\Index.cshtml" />
-    <Content Include="Views\Phongs\Create.cshtml" />
-    <Content Include="Views\Phongs\Delete.cshtml" />
-    <Content Include="Views\Phongs\Details.cshtml" />
-    <Content Include="Views\Phongs\Edit.cshtml" />
-    <Content Include="Views\Phongs\Index.cshtml" />
-    <Content Include="Views\DatPhongs\Create.cshtml" />
-    <Content Include="Views\DatPhongs\Delete.cshtml" />
-    <Content Include="Views\DatPhongs\Details.cshtml" />
-    <Content Include="Views\DatPhongs\Edit.cshtml" />
-    <Content Include="Views\DatPhongs\Index.cshtml" />
-    <Content Include="Views\Accounts\Create.cshtml" />
-    <Content Include="Views\Accounts\Delete.cshtml" />
-    <Content Include="Views\Accounts\Details.cshtml" />
-    <Content Include="Views\Accounts\Edit.cshtml" />
-    <Content Include="Views\Accounts\Index.cshtml" />
-    <Content Include="Views\DatDichVus\Create.cshtml" />
-    <Content Include="Views\DatDichVus\Delete.cshtml" />
-    <Content Include="Views\DatDichVus\Details.cshtml" />
-    <Content Include="Views\DatDichVus\Edit.cshtml" />
-    <Content Include="Views\DatDichVus\Index.cshtml" />
-    <Content Include="Views\DatDichVuChiTiets\Create.cshtml" />
-    <Content Include="Views\DatDichVuChiTiets\Delete.cshtml" />
-    <Content Include="Views\DatDichVuChiTiets\Details.cshtml" />
-    <Content Include="Views\DatDichVuChiTiets\Edit.cshtml" />
-    <Content Include="Views\DatDichVuChiTiets\Index.cshtml" />
-    <Content Include="Views\DichVus\Create.cshtml" />
-    <Content Include="Views\DichVus\Delete.cshtml" />
-    <Content Include="Views\DichVus\Details.cshtml" />
-    <Content Include="Views\DichVus\Edit.cshtml" />
-    <Content Include="Views\DichVus\Index.cshtml" />
-    <Content Include="Views\HoaDons\Create.cshtml" />
-    <Content Include="Views\HoaDons\Delete.cshtml" />
-    <Content Include="Views\HoaDons\Details.cshtml" />
-    <Content Include="Views\HoaDons\Edit.cshtml" />
-    <Content Include="Views\HoaDons\Index.cshtml" />
-    <Content Include="Views\HoaDonChiTiets\Create.cshtml" />
-    <Content Include="Views\HoaDonChiTiets\Delete.cshtml" />
-    <Content Include="Views\HoaDonChiTiets\Details.cshtml" />
-    <Content Include="Views\HoaDonChiTiets\Edit.cshtml" />
-    <Content Include="Views\HoaDonChiTiets\Index.cshtml" />
-    <Content Include="Views\KhachHangs\Create.cshtml" />
-    <Content Include="Views\KhachHangs\Delete.cshtml" />
-    <Content Include="Views\KhachHangs\Details.cshtml" />
-    <Content Include="Views\KhachHangs\Edit.cshtml" />
-    <Content Include="Views\KhachHangs\Index.cshtml" />
-    <Content Include="Views\LoaiDVs\Create.cshtml" />
-    <Content Include="Views\LoaiDVs\Delete.cshtml" />
-    <Content Include="Views\LoaiDVs\Details.cshtml" />
-    <Content Include="Views\LoaiDVs\Edit.cshtml" />
-    <Content Include="Views\LoaiDVs\Index.cshtml" />
+    <Content Include="Views\Accounts\Login.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />

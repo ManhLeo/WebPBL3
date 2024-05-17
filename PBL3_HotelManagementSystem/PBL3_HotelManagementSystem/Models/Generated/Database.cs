@@ -24,14 +24,14 @@
 // 
 // The following connection settings were used to generate this file
 // 
-//     Connection String Name: `OKEntities`
-//     Provider:               `System.Data.EntityClient`
-//     Connection String:      `metadata=res://*/Models.QLKS.csdl|res://*/Models.QLKS.ssdl|res://*/Models.QLKS.msl;provider=System.Data.SqlClient;provider connection string="Data Source=LAPTOP-E2UO0FGP;Initial Catalog=OK;Integrated Security=True;Multiple Active Result Sets=True;Application Name=EntityFramework"`
+//     Connection String Name: `PBL3_5Entities`
+//     Provider:               ``
+//     Connection String:      `There is no connection string name called 'PBL3_5Entities'`
 //     Schema:                 ``
 //     Include Views:          `False`
 
 
 // -----------------------------------------------------------------------------------------
-// Failed to load provider `System.Data.EntityClient` - Unable to find the requested .Net Framework Data Provider.  It may not be installed.
+// Failed to load provider `` - Value cannot be null. Parameter name: providerInvariantName
 // -----------------------------------------------------------------------------------------
 

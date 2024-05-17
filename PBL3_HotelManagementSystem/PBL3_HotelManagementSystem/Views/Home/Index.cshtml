@@ -1,683 +1,196 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="manager_container" id="Room_management">
-    <div class="manager_item1">
-        <div style="width: 100%;">
-            Quản lý phòng
-            <div class="line"></div>
-        </div>
-        <div class="room_choice_container">
-            <div class="choice">
-                Từ ngày:
-                <input type="date" class="input1">
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Assets/Page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="Form" id="Form">
+        <div class="Form_container">
+            <div class="Form_item" style="justify-content: center;">
+                <p style="font-weight: 600;font-size: 24px;color: black;">ĐẶT PHÒNG</p>
             </div>
-            <div class="choice">
-                Đến ngày:
-                <input type="date" class="input1">
+            <div class="Form_item">
+                <p>Họ và tên:</p>
+                <input type="text" class="input">
             </div>
-            <div class="choice">
-                Loại phòng:
-                <input list="roomTypes" id="roomType" name="roomType" class="input input1">
+            <div class="Form_item">
+                <p>Email:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" class="input">
+                <p>SĐT:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" class="input">
+                <p>Loại phòng:</p>
+                <input list="roomTypes" id="roomType" name="roomType" class="input">
                 <datalist id="roomTypes">
-                    <option value="Tất cả">
                     <option value="Thường">
                     <option value="Vip1">
                     <option value="Vip2">
                 </datalist>
             </div>
-            <div class="choice">
-                Trạng thái:
-                <input list="Conditions" id="Condition" name="Condition" class="Condition input1">
-                <datalist id="Conditions">
-                    <option value="Tất cả">
-                    <option value="Trống">
-                    <option value="Bận">
-                    <option value="Checkin">
-                    <option value="Checkout">
-                </datalist>
+            <div class="Form_item" class="input">
+                <p>Số lượng:</p>
+                <input type="text" class="input">
             </div>
-        </div>
-        <div style="width:100%;display: flex;justify-content: center;gap: 20px;">
-            <button class="button1">Kiểm tra</button>
-            <button class="button1">Đặt phòng</button>
-        </div>
-    </div>
-    <div class="manager_item2">
-        <div class="actor trong">
-            <p class="actor_title">Phòng 101</p>
-            <p>Trống</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
+            <div class="Form_item">
+                <p>Ngày nhận phòng:</p>
+                <input type="date" class="input">
             </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
+            <div class="Form_item">
+                <p>Ngày trả phòng:</p>
+                <input type="date" class="input">
             </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Đặt
-                </button>
-                <button>
-                    Checkin
-                </button>
-            </div>
-        </div>
-        <div class="actor dat">
-            <p class="actor_title">Phòng 102</p>
-            <p>Bận</p>
-            <p>Nguyễn Văn Huy</p>
-            <p>0986879156</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Checkout
-                </button>
-                <button>
-                    Hủy
-                </button>
-            </div>
-        </div>
-        <div class="actor checkin">
-            <p class="actor_title">Phòng 103</p>
-            <p>Checkin</p>
-            <p>Nguyễn Hưng</p>
-            <p>0122358765</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Checkin
-                </button>
-                <button>
-                    Hủy
-                </button>
-            </div>
-        </div>
-        <div class="actor checkout">
-            <p class="actor_title">Phòng 104</p>
-            <p>Checkin</p>
-            <p>Nguyễn Hưng</p>
-            <p>0122358765</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Checkout
-                </button>
-                <button>
-                    Hủy
-                </button>
-            </div>
-        </div>
-        <div class="actor checkin">
-            <p class="actor_title">Phòng 105</p>
-            <p>Checkin</p>
-            <p>Trần Bình</p>
-            <p>0122358765</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Checkin
-                </button>
-                <button>
-                    Hủy
-                </button>
-            </div>
-        </div>
-        <div class="actor checkin">
-            <p class="actor_title">Phòng 106</p>
-            <p>Checkin</p>
-            <p>Lê Giang</p>
-            <p>0122358765</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Checkin
-                </button>
-                <button>
-                    Hủy
-                </button>
-            </div>
-        </div>
-        <div class="actor trong">
-            <p class="actor_title">Phòng 107</p>
-            <p>Trống</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Đặt
-                </button>
-                <button>
-                    Checkin
-                </button>
-            </div>
-        </div>
-        <div class="actor trong">
-            <p class="actor_title">Phòng 108</p>
-            <p>Trống</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Đặt
-                </button>
-                <button>
-                    Checkin
-                </button>
-            </div>
-        </div>
-        <div class="actor trong">
-            <p class="actor_title">Phòng 109</p>
-            <p>Trống</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Đặt
-                </button>
-                <button>
-                    Checkin
-                </button>
-            </div>
-        </div>
-        <div class="actor trong">
-            <p class="actor_title">Phòng 110</p>
-            <p>Trống</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Đặt
-                </button>
-                <button>
-                    Checkin
-                </button>
-            </div>
-        </div>
-        <div class="actor trong">
-            <p class="actor_title">Phòng 111</p>
-            <p>Trống</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Đặt
-                </button>
-                <button>
-                    Checkin
-                </button>
-            </div>
-        </div>
-        <div class="actor trong">
-            <p class="actor_title">Phòng 112</p>
-            <p>Trống</p>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div class="date">
-                <i class="fa-regular fa-calendar-days"></i>
-                <p>27/4/2024  00:00</p>
-            </div>
-            <div style="display: flex;gap: 10px;">
-                <button>
-                    Đặt
-                </button>
-                <button>
-                    Checkin
-                </button>
+            <div class="Form_item" style="justify-content: center;margin-top: 20px;">
+                <button class="button1">ĐẶT PHÒNG</button>
+                <button class="button1" onclick="CloseForm()">Thoát</button>
             </div>
         </div>
     </div>
-</div>
-<div class="manager_container" id="Actor_management">
-    <div class="manager_item1">
-        <div style="width: 100%;">
-            Quản lý khách hàng
-            <div class="line"></div>
-        </div>
-        <div class="filter">
-            Số điện thoại:
-            <input type="text" placeholder="Số điện thoại cần tìm">
-            <button>Tìm kiếm</button>
-            <button class="button2">Thêm khách hàng</button>
-        </div>
-    </div>
-    <div class="manager_item2">
-        <table>
-            <tr>
-                <th>Mã KH</th>
-                <th>Tên KH</th>
-                <th>Số điện thoại</th>
-                <th>Email</th>
-                <th>Mật khẩu(nếu có) </th>
-                <th></th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Nguyễn Văn Hùng</td>
-                <td>0987589213</td>
-                <td>HungNV@gmail.com</td>
-                <td>Hung03051991</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Lê Giang</td>
-                <td>0987589213</td>
-                <td>GiangLe@gmail.com</td>
-                <td>Giang14051976</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Lê Huy</td>
-                <td>0987589213</td>
-                <td>Huy05121980@gmail.com</td>
-                <td>Huy05121980</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Nguyễn Văn Hùng</td>
-                <td>0987589213</td>
-                <td>HungNV@gmail.com</td>
-                <td>Hung03051991</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Lê Giang</td>
-                <td>0987589213</td>
-                <td>GiangLe@gmail.com</td>
-                <td>Giang14051976</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>Lê Huy</td>
-                <td>0987589213</td>
-                <td>Huy05121980@gmail.com</td>
-                <td>Huy05121980</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>Lê Giang</td>
-                <td>0987589213</td>
-                <td>GiangLe@gmail.com</td>
-                <td>Giang14051976</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>Lê Huy</td>
-                <td>0987589213</td>
-                <td>Huy05121980@gmail.com</td>
-                <td>Huy05121980</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>Lê Giang</td>
-                <td>0987589213</td>
-                <td>GiangLe@gmail.com</td>
-                <td>Giang14051976</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>Lê Huy</td>
-                <td>0987589213</td>
-                <td>Huy05121980@gmail.com</td>
-                <td>Huy05121980</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>11</td>
-                <td>Lê Giang</td>
-                <td>0987589213</td>
-                <td>GiangLe@gmail.com</td>
-                <td>Giang14051976</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>12</td>
-                <td>Lê Huy</td>
-                <td>0987589213</td>
-                <td>Huy05121980@gmail.com</td>
-                <td>Huy05121980</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-<div class="manager_container" id="Service_management">
-    <div class="manager_item1">
-        <div style="width: 100%;">
-            Quản lý dịch vụ
-            <div class="line"></div>
-        </div>
-        <div class="filter">
-            Dịch vụ:
-            <input type="text" placeholder="Thông tin dịch vụ">
-            <button>Tìm kiếm</button>
-            <button class="button2">Thêm dịch vụ</button>
+    <div class="Taskbar">
+        <div class="Taskbar_container">
+            <img src="~/Assets/Logo.png" alt="" width="100px">
+            <div class="Taskbar_content">
+                <div id="item1">
+                    <div class="Taskbar_item">
+                        TRANG CHỦ
+                    </div>
+                    <div class="Taskbar_item">
+                        GIỚI THIỆU
+                    </div>
+                    <div class="Taskbar_item">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <div class="Taskbar_item">
+                        <button class="button1" onclick="MyForm()">ĐẶT NGAY</button>
+                    </div>
+                </div>
+                <div id="item2">
+                    <button class="button2" onclick="window.location.href='@Url.Action("Login", "Accounts")'">ĐĂNG NHẬP - ĐĂNG kÝ</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="manager_item2">
-        <table>
-            <tr>
-                <th>Mã dịch vụ</th>
-                <th>Tên dịch vụ</th>
-                <th>Giá dịch vụ</th>
-                <th>Số lượng sử dụng</th>
-                <th></th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Giặt sấy</td>
-                <td>30.000đồng/kg</td>
-                <td>5/30</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Buffet sáng</td>
-                <td>200.000đồng/Người</td>
-                <td>20/50</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Buffet trưa</td>
-                <td>700.000đồng/Người</td>
-                <td>40/50</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Buffet tối</td>
-                <td>1000.000đồng/Người</td>
-                <td>30/50</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Đưa đón sân bay</td>
-                <td>2000.000đồng/xe</td>
-                <td>3/5</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>Spa</td>
-                <td>500.000đồng/người</td>
-                <td>10/20</td>
-                <td>
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-<div class="manager_container" id="Bill_management">
-    <div class="manager_item1">
-        <div style="width: 100%;">
-            Quản lý hóa đơn
-            <div class="line"></div>
+    <div class="container">
+        <div class="img"></div>
+        <div class="content">
+            <div class="content_item1">
+                <p style="font-weight: 600;font-size: 16px;">Loại phòng:</p>
+                <div>
+                    <input type="radio" name="type">
+                    Thường
+                </div>
+                <div>
+                    <input type="radio" name="type">
+                    VIP1
+                </div>
+                <div>
+                    <input type="radio" name="type">
+                    VIP2
+                </div>
+                <div>
+                    <input type="radio" name="type1">
+                    Phòng đơn
+                </div>
+                <div>
+                    <input type="radio" name="type1">
+                    Phòng đôi
+                </div>
+            </div>
+            <div class="content_item2">
+                <div class="room">
+                    <div class="room_img">
+                        <img src="~/Assets/Room1_1.png" alt="">
+                        <img src="~/Assets/Room1_2.png" alt="">
+                        <img src="~/Assets/Room1_3.png" alt="">
+                    </div>
+                    <div class="room_content">
+                        <p style="font-weight: 600;font-size: 20px;">THÔNG TIN PHÒNG:</p>
+                        <p>Loại phòng: Thường</p>
+                        <p>
+                            Giá phòng
+                            <ul style="padding-left: 50px;">
+                                <li>
+                                    Phòng đơn: 200k/ngày
+                                </li>
+                                <li>
+                                    Phòng đôi: 300k/ngày
+                                </li>
+                            </ul>
+                        </p>
+                        <p>Tiện ích: Máy lạnh, tivi, tủ lạnh,...</p>
+                        <button class="button1" onclick="MyForm()">ĐẶT NGAY</button>
+                    </div>
+                </div>
+                <div class="room">
+                    <div class="room_img">
+                        <img src="~/Assets/Room2_1.png" alt="">
+                        <img src="~/Assets/Room1_2.png" alt="">
+                        <img src="~/Assets/Room1_3.png" alt="">
+                    </div>
+                    <div class="room_content">
+                        <p style="font-weight: 600;font-size: 20px;">THÔNG TIN PHÒNG:</p>
+                        <p>Loại phòng: Vip1</p>
+                        <p>
+                            Giá phòng
+                            <ul style="padding-left: 50px;">
+                                <li>
+                                    Phòng đơn: 500k/ngày
+                                </li>
+                                <li>
+                                    Phòng đôi: 800k/ngày
+                                </li>
+                            </ul>
+                        </p>
+                        <p>Tiện ích: Máy lạnh, tivi, tủ lạnh, spa, phòng Gym, hồ bơi...</p>
+                        <button class="button1" onclick="MyForm()">ĐẶT NGAY</button>
+                    </div>
+                </div>
+                <div class="room">
+                    <div class="room_img">
+                        <img src="~/Assets/Room3_1.png" alt="">
+                        <img src="~/Assets/Room1_2.png" alt="">
+                        <img src="~/Assets/Room1_3.png" alt="">
+                    </div>
+                    <div class="room_content">
+                        <p style="font-weight: 600;font-size: 20px;">THÔNG TIN PHÒNG:</p>
+                        <p>Loại phòng: Vip2</p>
+                        <p>
+                            Giá phòng
+                            <ul style="padding-left: 50px;">
+                                <li>
+                                    Phòng đơn: 1000k/ngày
+                                </li>
+                                <li>
+                                    Phòng đôi: 1500k/ngày
+                                </li>
+                            </ul>
+                        </p>
+                        <p>Tiện ích: Máy lạnh, tivi, tủ lạnh, spa, phòng Gym, hồ bơi, buffet, dịch vụ đưa đón tận nơi...</p>
+                        <button class="button1" onclick="MyForm()">ĐẶT NGAY</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="filter">
-            Từ ngày
-            <input type="date">
-            đến ngày
-            <input type="date">
-            <button>Tìm kiếm</button>
-        </div>
     </div>
-    <div class="manager_item2">
-        <table>
-            <tr>
-                <th>Mã HĐ</th>
-                <th>Phòng</th>
-                <th>Khách hàng</th>
-                <th>Vào lúc</th>
-                <th>Trả lúc</th>
-                <th>Khoản khác</th>
-                <th>Tổng cộng</th>
-                <th>Thanh toán</th>
-                <th>Trạng thái</th>
-            </tr>
-            <tr>
-                <td>HD1</td>
-                <td>102</td>
-                <td>Nguyễn Văn Huy</td>
-                <td>30/4/2024  07:37</td>
-                <td>01/5/2024  08:10</td>
-                <td></td>
-                <td>700.000</td>
-                <td>1400.000</td>
-                <td>Đã Thanh Toán</td>
 
-            </tr>
-            <tr>
-                <td>HD2</td>
-                <td>103</td>
-                <td>Nguyễn Văn Huy</td>
-                <td>30/4/2024  07:37</td>
-                <td>01/5/2024  08:10</td>
-                <td></td>
-                <td>700.000</td>
-                <td>0</td>
-                <td>Chuyển qua HD1</td>
-            </tr>
-            <tr>
-                <td>HD3</td>
-                <td>110</td>
-                <td>Nguyễn Hưng</td>
-                <td>30/4/2024  07:37</td>
-                <td>01/5/2024  08:10</td>
-                <td></td>
-                <td>1000.000</td>
-                <td>1000.000</td>
-                <td>Đã Thanh Toán</td>
-            </tr>
-            <tr>
-                <td>HD4</td>
-                <td>112</td>
-                <td>Lê Thị Hà</td>
-                <td>30/4/2024  07:37</td>
-                <td>01/5/2024  08:10</td>
-                <td></td>
-                <td>1000.000</td>
-                <td>1000.000</td>
-                <td>Đã Thanh Toán</td>
-            </tr>
-            <tr>
-                <td>HD5</td>
-                <td>110</td>
-                <td>Nguyễn Hưng</td>
-                <td>30/4/2024  07:37</td>
-                <td>01/5/2024  08:10</td>
-                <td></td>
-                <td>1000.000</td>
-                <td>1000.000</td>
-                <td>Đã Thanh Toán</td>
-            </tr>
-            <tr>
-                <td>HD6</td>
-                <td>112</td>
-                <td>Lê Thị Hà</td>
-                <td>30/4/2024  07:37</td>
-                <td>01/5/2024  08:10</td>
-                <td></td>
-                <td>1000.000</td>
-                <td>1000.000</td>
-                <td>Đã Thanh Toán</td>
-            </tr>
-            <tr>
-                <td>HD7</td>
-                <td>110</td>
-                <td>Nguyễn Hưng</td>
-                <td>30/4/2024  07:37</td>
-                <td>01/5/2024  08:10</td>
-                <td></td>
-                <td>1000.000</td>
-                <td>1000.000</td>
-                <td>Đã Thanh Toán</td>
-            </tr>
-            <tr>
-                <td>HD8</td>
-                <td>112</td>
-                <td>Lê Thị Hà</td>
-                <td>30/4/2024  07:37</td>
-                <td>01/5/2024  08:10</td>
-                <td></td>
-                <td>1000.000</td>
-                <td>1000.000</td>
-                <td>Đã Thanh Toán</td>
-            </tr>
-            <tr>
-                <td>HD9</td>
-                <td>110</td>
-                <td>Nguyễn Hưng</td>
-                <td>30/4/2024  07:37</td>
-                <td>01/5/2024  08:10</td>
-                <td></td>
-                <td>1000.000</td>
-                <td>1000.000</td>
-                <td>Đã Thanh Toán</td>
-            </tr>
-            <tr>
-                <td>HD10</td>
-                <td>112</td>
-                <td>Lê Thị Hà</td>
-                <td>30/4/2024  07:37</td>
-                <td>01/5/2024  08:10</td>
-                <td></td>
-                <td>1000.000</td>
-                <td>1000.000</td>
-                <td>Đã Thanh Toán</td>
-            </tr>
-        </table>
-    </div>
-</div>
+    <script src="~/Assets/Page.js"></script>
+</body>
+</html>
+
