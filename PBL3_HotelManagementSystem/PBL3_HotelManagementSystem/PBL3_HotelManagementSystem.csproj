@@ -184,10 +184,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\QLKhachSan.Designer.cs">
+    <Compile Include="Models\QLKhachSan1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>QLKhachSan.edmx</DependentUpon>
+      <DependentUpon>QLKhachSan1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>QLKhachSan.tt</DependentUpon>
@@ -239,12 +239,12 @@
     </Content>
     <Content Include="Models\QLKhachSan.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QLKhachSan.edmx</DependentUpon>
+      <DependentUpon>QLKhachSan1.edmx</DependentUpon>
       <LastGenOutput>QLKhachSan.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\QLKhachSan.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QLKhachSan.edmx</DependentUpon>
+      <DependentUpon>QLKhachSan1.edmx</DependentUpon>
       <LastGenOutput>QLKhachSan.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -255,12 +255,12 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\Generated\PetaPoco.Generator.ttinclude" />
     <Content Include="Models\Generated\PetaPoco.Core.ttinclude" />
-    <EntityDeploy Include="Models\QLKhachSan.edmx">
+    <EntityDeploy Include="Models\QLKhachSan1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QLKhachSan.Designer.cs</LastGenOutput>
+      <LastGenOutput>QLKhachSan1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\QLKhachSan.edmx.diagram">
-      <DependentUpon>QLKhachSan.edmx</DependentUpon>
+    <Content Include="Models\QLKhachSan1.edmx.diagram">
+      <DependentUpon>QLKhachSan1.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

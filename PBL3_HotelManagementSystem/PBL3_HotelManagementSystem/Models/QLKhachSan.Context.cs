@@ -13,10 +13,10 @@ namespace PBL3_HotelManagementSystem.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PBL3_5Entities1 : DbContext
+    public partial class OKEntities : DbContext
     {
-        public PBL3_5Entities1()
-            : base("name=PBL3_5Entities1")
+        public OKEntities()
+            : base("name=OKEntities")
         {
         }
     

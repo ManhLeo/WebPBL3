@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PBL3_5Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="OKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="IDAccount" />
           </Key>
           <Property Name="IDAccount" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="UserName" Type="nvarchar(max)" />
-          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Pass" Type="nvarchar(max)" />
           <Property Name="PhanQuyen" Type="nvarchar" MaxLength="10" />
         </EntityType>
@@ -81,7 +81,7 @@
           <Property Name="HoTen" Type="nvarchar(max)" />
           <Property Name="CCCD" Type="varchar" MaxLength="12" />
           <Property Name="SDT" Type="varchar" MaxLength="10" />
-          <Property Name="Email" Type="varchar(max)" />
+          <Property Name="Email" Type="varchar(max)" Nullable="false" />
           <Property Name="GioiTinh" Type="bit" />
           <Property Name="DiaChi" Type="nvarchar(max)" />
         </EntityType>
@@ -100,7 +100,7 @@
           </Key>
           <Property Name="IDLoaiPhong" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="TenLoaiPhong" Type="nvarchar" MaxLength="50" />
-          <Property Name="HinhAnh" Type="image" />
+          <Property Name="HinhAnh" Type="varchar" MaxLength="50" />
           <Property Name="DonGia" Type="float" />
           <Property Name="SoNguoi" Type="int" />
           <Property Name="SoGiuong" Type="int" />
@@ -244,7 +244,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PBL3_5ModelStoreContainer">
+        <EntityContainer Name="OKModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DatDichVu" EntityType="Self.DatDichVu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DatDichVuChiTiet" EntityType="Self.DatDichVuChiTiet" Schema="dbo" store:Type="Tables" />
@@ -302,14 +302,14 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PBL3_5Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="OKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="IDAccount" />
           </Key>
           <Property Name="IDAccount" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PhanQuyen" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -392,7 +392,7 @@
           <Property Name="HoTen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CCCD" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="GioiTinh" Type="Boolean" />
           <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DatDichVus" Relationship="Self.FK__DatDichVu__IDKH__48CFD27E" FromRole="KhachHang" ToRole="DatDichVu" />
@@ -415,7 +415,7 @@
           </Key>
           <Property Name="IDLoaiPhong" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TenLoaiPhong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HinhAnh" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="HinhAnh" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DonGia" Type="Double" />
           <Property Name="SoNguoi" Type="Int32" />
           <Property Name="SoGiuong" Type="Int32" />
@@ -562,7 +562,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PBL3_5Entities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="OKEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="DatDichVus" EntityType="Self.DatDichVu" />
           <EntitySet Name="DatDichVuChiTiets" EntityType="Self.DatDichVuChiTiet" />
@@ -621,9 +621,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PBL3_5ModelStoreContainer" CdmEntityContainer="PBL3_5Entities1">
+        <EntityContainerMapping StorageEntityContainer="OKModelStoreContainer" CdmEntityContainer="OKEntities">
           <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="PBL3_5Model.Account">
+            <EntityTypeMapping TypeName="OKModel.Account">
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="IDAccount" ColumnName="IDAccount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -634,7 +634,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DatDichVus">
-            <EntityTypeMapping TypeName="PBL3_5Model.DatDichVu">
+            <EntityTypeMapping TypeName="OKModel.DatDichVu">
               <MappingFragment StoreEntitySet="DatDichVu">
                 <ScalarProperty Name="IDDatDV" ColumnName="IDDatDV" />
                 <ScalarProperty Name="IDKH" ColumnName="IDKH" />
@@ -644,7 +644,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DatDichVuChiTiets">
-            <EntityTypeMapping TypeName="PBL3_5Model.DatDichVuChiTiet">
+            <EntityTypeMapping TypeName="OKModel.DatDichVuChiTiet">
               <MappingFragment StoreEntitySet="DatDichVuChiTiet">
                 <ScalarProperty Name="IDDatDVChiTiet" ColumnName="IDDatDVChiTiet" />
                 <ScalarProperty Name="IDDatDV" ColumnName="IDDatDV" />
@@ -654,7 +654,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DatPhongs">
-            <EntityTypeMapping TypeName="PBL3_5Model.DatPhong">
+            <EntityTypeMapping TypeName="OKModel.DatPhong">
               <MappingFragment StoreEntitySet="DatPhong">
                 <ScalarProperty Name="IDDatPhong" ColumnName="IDDatPhong" />
                 <ScalarProperty Name="IDKH" ColumnName="IDKH" />
@@ -667,7 +667,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DichVus">
-            <EntityTypeMapping TypeName="PBL3_5Model.DichVu">
+            <EntityTypeMapping TypeName="OKModel.DichVu">
               <MappingFragment StoreEntitySet="DichVu">
                 <ScalarProperty Name="IDDV" ColumnName="IDDV" />
                 <ScalarProperty Name="TenDV" ColumnName="TenDV" />
@@ -676,7 +676,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HoaDons">
-            <EntityTypeMapping TypeName="PBL3_5Model.HoaDon">
+            <EntityTypeMapping TypeName="OKModel.HoaDon">
               <MappingFragment StoreEntitySet="HoaDon">
                 <ScalarProperty Name="IDHD" ColumnName="IDHD" />
                 <ScalarProperty Name="IDKH" ColumnName="IDKH" />
@@ -687,7 +687,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HoaDonChiTiets">
-            <EntityTypeMapping TypeName="PBL3_5Model.HoaDonChiTiet">
+            <EntityTypeMapping TypeName="OKModel.HoaDonChiTiet">
               <MappingFragment StoreEntitySet="HoaDonChiTiet">
                 <ScalarProperty Name="IDHDChiTiet" ColumnName="IDHDChiTiet" />
                 <ScalarProperty Name="IDHD" ColumnName="IDHD" />
@@ -698,7 +698,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhachHangs">
-            <EntityTypeMapping TypeName="PBL3_5Model.KhachHang">
+            <EntityTypeMapping TypeName="OKModel.KhachHang">
               <MappingFragment StoreEntitySet="KhachHang">
                 <ScalarProperty Name="IDKH" ColumnName="IDKH" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
@@ -711,7 +711,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiDVs">
-            <EntityTypeMapping TypeName="PBL3_5Model.LoaiDV">
+            <EntityTypeMapping TypeName="OKModel.LoaiDV">
               <MappingFragment StoreEntitySet="LoaiDV">
                 <ScalarProperty Name="IDLoaiDV" ColumnName="IDLoaiDV" />
                 <ScalarProperty Name="TenLoaiDV" ColumnName="TenLoaiDV" />
@@ -721,7 +721,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiPhongs">
-            <EntityTypeMapping TypeName="PBL3_5Model.LoaiPhong">
+            <EntityTypeMapping TypeName="OKModel.LoaiPhong">
               <MappingFragment StoreEntitySet="LoaiPhong">
                 <ScalarProperty Name="IDLoaiPhong" ColumnName="IDLoaiPhong" />
                 <ScalarProperty Name="TenLoaiPhong" ColumnName="TenLoaiPhong" />
@@ -733,7 +733,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Phongs">
-            <EntityTypeMapping TypeName="PBL3_5Model.Phong">
+            <EntityTypeMapping TypeName="OKModel.Phong">
               <MappingFragment StoreEntitySet="Phong">
                 <ScalarProperty Name="IDPHG" ColumnName="IDPHG" />
                 <ScalarProperty Name="IDLoaiPhong" ColumnName="IDLoaiPhong" />
@@ -743,7 +743,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="PBL3_5Model.sysdiagram">
+            <EntityTypeMapping TypeName="OKModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
