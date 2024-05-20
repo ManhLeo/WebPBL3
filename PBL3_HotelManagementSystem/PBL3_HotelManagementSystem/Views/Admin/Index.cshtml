@@ -1,0 +1,265 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/Assets/QUAN_LY.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="Form" id="RoomForm">
+        <div class="Form_container">
+            <div class="Form_item" style="justify-content: center;">
+                <p style="font-weight: 600;font-size: 24px;color: black;">ĐẶT PHÒNG</p>
+            </div>
+            <div class="Form_item">
+                <p>Họ và tên:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item">
+                <p>Email:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" class="input">
+                <p>SĐT:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" class="input">
+                <p>Loại phòng:</p>
+                <input list="roomTypes" id="roomType" name="roomType" class="input">
+                <datalist id="roomTypes">
+                    <option value="Thường">
+                    <option value="Vip1">
+                    <option value="Vip2">
+                </datalist>
+            </div>
+            <div class="Form_item" class="input">
+                <p>Số lượng:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item">
+                <p>Ngày nhận phòng:</p>
+                <input type="date" class="input">
+            </div>
+            <div class="Form_item">
+                <p>Ngày trả phòng:</p>
+                <input type="date" class="input">
+            </div>
+            <div class="Form_item" style="justify-content: center;margin-top: 20px;">
+                <button class="button1">ĐẶT PHÒNG</button>
+                <button class="button1" onclick="CloseForm('RoomForm')">Thoát</button>
+            </div>
+        </div>
+    </div>
+    <div class="Form" id="ActorForm">
+        <div class="Form_container">
+            <div class="Form_item" style="justify-content: center;">
+                <p style="font-weight: 600;font-size: 24px;color: black;">THÊM KHÁCH HÀNG</p>
+            </div>
+            <div class="Form_item">
+                <p>Họ và tên:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item">
+                <p>Email:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" class="input">
+                <p>SĐT:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" class="input">
+                <p>Mật khẩu</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" style="justify-content: center;margin-top: 20px;">
+                <button class="button1">THÊM</button>
+                <button class="button1" onclick="CloseForm('ActorForm')">Thoát</button>
+            </div>
+        </div>
+    </div>
+    <div class="Form" id="ServiceForm">
+        <div class="Form_container">
+            <div class="Form_item" style="justify-content: center;">
+                <p style="font-weight: 600;font-size: 24px;color: black;">THÊM DỊCH VỤ</p>
+            </div>
+            <div class="Form_item">
+                <p>Tên dịch vụ:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item">
+                <p>Giá dịch vụ:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" style="justify-content: center;margin-top: 20px;">
+                <button class="button1">THÊM</button>
+                <button class="button1" onclick="CloseForm('ServiceForm')">Thoát</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="taskbar">
+            <div style="display: flex;align-items: center;">
+                <img src="~/Assets/Logo_white.png" alt="" width="100px">
+                HMV HOTEL
+            </div>
+            <div class="Admin">
+                <i class="fa-solid fa-user-tie"></i>
+                ADMIN
+            </div>
+        </div>
+        <div class="container_content">
+            <div class="Title">
+                <div class="Title_item" onclick="TrangChu()">
+                    <i class="fa-solid fa-house"></i>
+                    Trang chủ
+                </div>
+                <div class="Title_item">
+                    <i class="fa-solid fa-address-card"></i>
+                    Giới thiệu
+                </div>
+                <div class="Title_item" onclick="MyForm('RoomForm')">
+                    <i class="fa-solid fa-cart-flatbed"></i>
+                    Đặt ngay
+                </div>
+                <div class="Title_item" id="manager">
+                    <div>
+                        <i class="fa-solid fa-list-check"></i>
+                        Quản lý
+                    </div>
+                    <i class="fa-solid fa-arrow-down" id="Arrow"></i>
+                </div>
+                <div class="manager_item">
+                    <div>
+                        <input type="radio" name="type" onclick="roomManagement()" checked>
+                        Tình trạng phòng
+                    </div>
+                    <div>
+                        <input type="radio" name="type" onclick="actorManagement()">
+                        Quản lý khách hàng
+                    </div>
+                    <div>
+                        <input type="radio" name="type" onclick="serviceManagement()">
+                        Quản lý dịch vụ
+                    </div>
+                    <div>
+                        <input type="radio" name="type" onclick="billManagement()">
+                        Quản lý hóa đơn
+                    </div>
+                </div>
+            </div>
+            <div class="manager_container" id="Room_management">
+                <div class="manager_item1">
+                    <div style="width: 100%;">
+                        Quản lý phòng
+                        <div class="line"></div>
+                    </div>
+                    <div class="room_choice_container">
+                        <div class="choice">
+                            Từ ngày:
+                            <input type="date" class="input1">
+                        </div>
+                        <div class="choice">
+                            Đến ngày:
+                            <input type="date" class="input1">
+                        </div>
+                        <div class="choice">
+                            Loại phòng:
+                            <input list="roomTypes" id="roomType" name="roomType" class="input input1">
+                            <datalist id="roomTypes">
+                                <option value="Tất cả">
+                                <option value="Thường">
+                                <option value="Vip1">
+                                <option value="Vip2">
+                            </datalist>
+                        </div>
+                        <div class="choice">
+                            Trạng thái:
+                            <input list="Conditions" id="Condition" name="Condition" class="Condition input1">
+                            <datalist id="Conditions">
+                                <option value="Tất cả">
+                                <option value="Trống">
+                                <option value="Bận">
+                                <option value="Checkin">
+                                <option value="Checkout">
+                            </datalist>
+                        </div>
+                    </div>
+                    <div style="width:100%;display: flex;justify-content: center;gap: 20px;">
+                        <button class="button1">Kiểm tra</button>
+                        <button class="button1" onclick="MyForm('RoomForm')">Đặt phòng</button>
+                    </div>
+                </div>
+                <div class="manager_item2">
+
+                </div>
+            </div>
+            <div class="manager_container" id="Actor_management">
+                <div class="manager_item1">
+                    <div style="width: 100%;">
+                        Quản lý khách hàng
+                        <div class="line"></div>
+                    </div>
+                    <div class="filter">
+                        Số điện thoại:
+                        <input type="text" placeholder="Số điện thoại cần tìm">
+                        <button>Tìm kiếm</button>
+                        <button class="button2" onclick="MyForm('ActorForm')">Thêm khách hàng</button>
+                    </div>
+                </div>
+                <div class="manager_item2">
+                    <table>
+                    </table>
+                </div>
+            </div>
+            <div class="manager_container" id="Service_management">
+                <div class="manager_item1">
+                    <div style="width: 100%;">
+                        Quản lý dịch vụ
+                        <div class="line"></div>
+                    </div>
+                    <div class="filter">
+                        Dịch vụ:
+                        <input type="text" placeholder="Thông tin dịch vụ">
+                        <button>Tìm kiếm</button>
+                        <button class="button2" onclick="MyForm('ServiceForm')">Thêm dịch vụ</button>
+                    </div>
+                </div>
+                <div class="manager_item2">
+                    <table>
+                    </table>
+                </div>
+            </div>
+            <div class="manager_container" id="Bill_management">
+                <div class="manager_item1">
+                    <div style="width: 100%;">
+                        Quản lý hóa đơn
+                        <div class="line"></div>
+                    </div>
+                    <div class="filter">
+                        Từ ngày
+                        <input type="date">
+                        đến ngày
+                        <input type="date">
+                        <button>Tìm kiếm</button>
+                    </div>
+                </div>
+                <div class="manager_item2">
+                    <table>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Assets/QUAN_LY.js"></script>
+</body>
+</html>
