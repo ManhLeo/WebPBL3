@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PBL3_HotelManagementSystem.Helpers;
 using PBL3_HotelManagementSystem.Models;
 
 namespace PBL3_HotelManagementSystem.Controllers
@@ -163,6 +164,61 @@ namespace PBL3_HotelManagementSystem.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //=================//
+
+        // GET: Accounts/Register
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        // POST: Accounts/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = db.Accounts.FirstOrDefault(u => u.Email == model.Email);
+                if (existingUser != null)
+                {
+                    ViewBag.ErrorMessage = "Email đã tồn tại.";
+                    return View(model);
+                }
+
+                var newUser = new Account
+                {
+                    IDAccount = "KH" + (db.KhachHangs.Count() + 1).ToString("D2"),
+                    UserName = model.FullName,
+                    Email = model.Email,
+                    Pass = PasswordHelper.HashPassword(model.Password), // Hash mật khẩu trước khi lưu
+                    PhanQuyen = "Khách Hàng"
+                };
+
+                db.Accounts.Add(newUser);
+
+                var newCustomer = new KhachHang
+                {
+                    IDKH = newUser.IDAccount,
+                    HoTen = model.FullName,
+                    CCCD = model.CCCD,
+                    SDT = model.PhoneNumber,
+                    Email = model.Email,
+                    GioiTinh = model.Gender,
+                    DiaChi = model.Address
+                };
+
+                db.KhachHangs.Add(newCustomer);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.ErrorMessage = "Vui lòng kiểm tra lại thông tin.";
+            return View(model);
         }
     }
 }

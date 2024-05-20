@@ -132,6 +132,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PasswordHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -190,6 +191,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QLKhachSan1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
@@ -199,6 +201,7 @@
     <Content Include="Assets\B.png" />
     <Content Include="Assets\BackGround.png" />
     <Content Include="Assets\Bien.png" />
+    <Content Include="Assets\Register.css" />
     <Content Include="Assets\Login.css" />
     <Content Include="Assets\Login.js" />
     <Content Include="Assets\Login_background.png" />
@@ -291,6 +294,7 @@
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Accounts\Register.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
