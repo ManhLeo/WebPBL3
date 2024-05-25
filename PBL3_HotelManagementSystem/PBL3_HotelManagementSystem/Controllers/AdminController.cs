@@ -17,7 +17,12 @@ namespace PBL3_HotelManagementSystem.Controllers
         {
             return View();
         }
+        // Method to get services
+        public JsonResult GetServices()
+        {
+            var services = db.DichVus.ToList(); // Assuming you have a DbSet<Service> in your DbContext
+            return Json(services, JsonRequestBehavior.AllowGet);
+        }
 
-        
     }
 }

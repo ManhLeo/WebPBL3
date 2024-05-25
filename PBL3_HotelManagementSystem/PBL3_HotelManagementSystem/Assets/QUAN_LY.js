@@ -79,6 +79,32 @@ function CloseForm(ID) {
     document.getElementById(ID).style.display = "none";
 }
 
-function TrangChu() {
-    window.location.href = "./Page.html";
-}
+$(document).ready(function () {
+    $.ajax({
+        type: "GET",
+        url: "/Admin/GetServices",
+        success: function (data) {
+            $("#serviceTable tbody").empty();
+
+            $.each(data, function (index, service) {
+                var loaiDV = service.LoaiDV || {};
+                var tenLoaiDV = loaiDV.TenLoaiDV || '';
+                var donGia = loaiDV.DonGia || '';
+                var soNguoi = loaiDV.SoNguoi || '';
+
+                var row = "<tr>" +
+                    "<td>" + service.IDDV + "</td>" +
+                    "<td>" + service.TenDV + "</td>" +
+                    "<td>" + tenLoaiDV + "</td>" +
+                    "<td>" + donGia + "</td>" +
+                    "<td>" + soNguoi + "</td>" +
+                    "</tr>";
+                $("#serviceTable tbody").append(row);
+            });
+        },
+        error: function () {
+            alert("Đã xảy ra lỗi khi tải dữ liệu dịch vụ.");
+        }
+    });
+});
+

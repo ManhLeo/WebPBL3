@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Admin";
     Layout = null;
 }
 
@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="~/Assets/QUAN_LY.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -119,7 +120,7 @@
         </div>
         <div class="container_content">
             <div class="Title">
-                <div class="Title_item" onclick="TrangChu()">
+                <div class="Title_item" onclick="window.location.href='@Url.Action("Index", "Home")'">
                     <i class="fa-solid fa-house"></i>
                     Trang chủ
                 </div>
@@ -235,7 +236,19 @@
                     </div>
                 </div>
                 <div class="manager_item2">
-                    <table>
+                    <table id="serviceTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên dịch vụ</th>
+                                <th>Tên loại dịch vụ</th>
+                                <th>Giá dịch vụ</th>
+                                <th>Số người</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be appended here by JavaScript -->
+                        </tbody>
                     </table>
                 </div>
             </div>

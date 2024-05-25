@@ -1,7 +1,8 @@
-﻿@{
-    ViewBag.Title = "Register";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿
 
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -70,6 +71,21 @@
                             <input type="text" name="CCCD" class="input" required>
                             <div class="title">Số điện thoại</div>
                             <input type="text" name="PhoneNumber" class="input" required>
+                            <div class="title">
+                                Giới tính
+                            </div>
+                            <div style="display: flex;gap: 20px;font-size: 20px;font-weight: 400;">
+                                <div>
+                                    <input type="radio" name="Gender" class="radio">Nam
+                                </div>
+                                <div>
+                                    <input type="radio" name="Gender" class="radio">Nữ
+                                </div>
+                            </div>
+                            <div class="title">
+                                Địa chỉ
+                            </div>
+                            <input type="text" class="input">
                             <div class="title">Email</div>
                             <input type="email" name="Email" class="input" required>
                             <div class="title">Mật khẩu</div>
@@ -94,5 +110,3 @@
     <script src="~/Assets/Login.js"></script>
 </body>
 </html>
-
-

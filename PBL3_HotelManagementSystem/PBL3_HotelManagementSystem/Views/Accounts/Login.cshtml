@@ -64,30 +64,45 @@
                     @using (Html.BeginForm("Register", "Accounts", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-                        <div class="content">
-                            <div class="title">Họ và tên</div>
-                            <input type="text" name="FullName" class="input" required>
-                            <div class="title">CCCD</div>
-                            <input type="text" name="CCCD" class="input" required>
-                            <div class="title">Số điện thoại</div>
-                            <input type="text" name="PhoneNumber" class="input" required>
-                            <div class="title">Email</div>
-                            <input type="email" name="Email" class="input" required>
-                            <div class="title">Mật khẩu</div>
-                            <input type="password" name="Password" class="input" required>
-                            <div class="title">Nhập lại mật khẩu</div>
-                            <input type="password" name="ConfirmPassword" class="input" required>
+                    <div class="content">
+                        <div class="title">Họ và tên</div>
+                        <input type="text" name="FullName" class="input" required>
+                        <div class="title">CCCD</div>
+                        <input type="text" name="CCCD" class="input" required>
+                        <div class="title">Số điện thoại</div>
+                        <input type="text" name="PhoneNumber" class="input" required>
+                        <div class="title">
+                            Giới tính
                         </div>
-                        <div class="loi">
-                            @if (ViewBag.ErrorMessage != null)
-                            {
-                                <span>@ViewBag.ErrorMessage</span>
-                            }
+                        <div style="display: flex;gap: 20px;font-size: 20px;font-weight: 400;">
+                            <div>
+                                <input type="radio" name="Gender" class="radio">Nam
+                            </div>
+                            <div>
+                                <input type="radio" name="Gender" class="radio">Nữ
+                            </div>
                         </div>
-                        <div class="button">
-                            <button type="submit">Đăng ký</button>
+                        <div class="title">
+                            Địa chỉ
                         </div>
-                    }
+                        <input type="text" class="input">
+                        <div class="title">Email</div>
+                        <input type="email" name="Email" class="input" required>
+                        <div class="title">Mật khẩu</div>
+                        <input type="password" name="Password" class="input" required>
+                        <div class="title">Nhập lại mật khẩu</div>
+                        <input type="password" name="ConfirmPassword" class="input" required>
+                    </div>
+                    <div class="loi">
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <span>@ViewBag.ErrorMessage</span>
+                        }
+                    </div>
+                    <div class="button">
+                        <button type="submit">Đăng ký</button>
+                    </div>
+                }
                 </div>
             </div>
         </div>

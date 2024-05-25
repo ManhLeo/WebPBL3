@@ -130,3 +130,5 @@ create table HoaDonChiTiet (
     foreign key (IDHD) references HoaDon(IDHD),
     foreign key (IDDatDVChiTiet) references DatDichVuChiTiet(IDDatDVChiTiet)
 );
+
+

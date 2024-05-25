@@ -1,9 +1,16 @@
-﻿function MyForm(){
-    document.getElementById("Form").style.display = "flex";  
+﻿
+
+function MyForm() {
+    document.getElementById("Form").style.display = "flex";
 }
-function CloseForm(){
-    document.getElementById("Form").style.display = "none"; 
+function Mydetail() {
+    const detail = document.querySelector('.detail');
+    detail.style.display = "flex";
 }
-function MyLogin() {
-    window.location.href = "/Accounts/Login"; // Chuyển hướng đến action Login trong controller Accounts
+
+function Close() {
+    document.getElementById("Form").style.display = "none";
+}
+function MyCloseDetail() {
+    document.getElementById("detail").style.display = "none";
 }
