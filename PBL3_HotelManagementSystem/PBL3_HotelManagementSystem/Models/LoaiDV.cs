@@ -9,23 +9,25 @@
 
 namespace PBL3_HotelManagementSystem.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class LoaiDV
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LoaiDV()
         {
             this.DichVus = new HashSet<DichVu>();
         }
-    
+
+        [Key]
         public string IDLoaiDV { get; set; }
         public string TenLoaiDV { get; set; }
-        public Nullable<double> DonGia { get; set; }
-        public Nullable<int> SoNguoi { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public double DonGia { get; set; }
+        public int SoNguoi { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<DichVu> DichVus { get; set; }
     }
 }

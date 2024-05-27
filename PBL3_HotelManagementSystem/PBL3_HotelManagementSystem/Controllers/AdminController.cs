@@ -1,10 +1,12 @@
 ﻿using PBL3_HotelManagementSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
+
 
 namespace PBL3_HotelManagementSystem.Controllers
 {
@@ -15,13 +17,8 @@ namespace PBL3_HotelManagementSystem.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
-        }
-        // Method to get services
-        public JsonResult GetServices()
-        {
-            var services = db.DichVus.ToList(); // Assuming you have a DbSet<Service> in your DbContext
-            return Json(services, JsonRequestBehavior.AllowGet);
+            var services = db.DichVus.ToList();
+            return View(services);
         }
 
     }

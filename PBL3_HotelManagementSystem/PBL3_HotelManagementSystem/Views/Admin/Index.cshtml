@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<PBL3_HotelManagementSystem.Models.DichVu>
+@{
     ViewBag.Title = "Admin";
     Layout = null;
 }
@@ -231,7 +232,7 @@
                     <div class="filter">
                         Dịch vụ:
                         <input type="text" placeholder="Thông tin dịch vụ">
-                        <button>Tìm kiếm</button>
+                        <button onclick="searchServices()">Tìm kiếm</button>
                         <button class="button2" onclick="MyForm('ServiceForm')">Thêm dịch vụ</button>
                     </div>
                 </div>
@@ -247,11 +248,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Rows will be appended here by JavaScript -->
+                            
+                                @foreach (var services in Model)
+                                {
+                                    <tr>
+                                        <td>@services.IDDV</td>
+                                        <td>@services.TenDV</td>
+                                        <td>@services.LoaiDV.TenLoaiDV</td>
+                                        <td>@services.LoaiDV.DonGia</td>
+                                        <td>@services.LoaiDV.SoNguoi</td>
+                                    </tr>
+                                }
+                            
                         </tbody>
                     </table>
                 </div>
             </div>
+
             <div class="manager_container" id="Bill_management">
                 <div class="manager_item1">
                     <div style="width: 100%;">
@@ -274,5 +287,6 @@
         </div>
     </div>
     <script src="~/Assets/QUAN_LY.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 </body>
 </html>

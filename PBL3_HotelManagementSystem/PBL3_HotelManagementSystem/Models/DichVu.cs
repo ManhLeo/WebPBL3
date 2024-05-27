@@ -11,21 +11,24 @@ namespace PBL3_HotelManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DichVu
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DichVu()
         {
             this.DatDichVus = new HashSet<DatDichVu>();
         }
-    
+
+        [Key]
         public string IDDV { get; set; }
         public string TenDV { get; set; }
+
+        [ForeignKey("LoaiDV")]
         public string IDLoaiDV { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DatDichVu> DatDichVus { get; set; }
         public virtual LoaiDV LoaiDV { get; set; }
+
+        public virtual ICollection<DatDichVu> DatDichVus { get; set; }
     }
 }

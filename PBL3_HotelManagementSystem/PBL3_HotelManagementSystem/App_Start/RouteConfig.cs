@@ -26,10 +26,17 @@ namespace PBL3_HotelManagementSystem
             );
 
             routes.MapRoute(
-                name: "GetServices",
-                url: "Admin/GetServices",
-                defaults: new { controller = "Admin", action = "GetServices" }
+            name: "AdminGetServices",
+            url: "Admin/GetServices",
+            defaults: new { controller = "Admin", action = "GetServices" }
+        );
+
+            routes.MapRoute(
+                name: "GetServicesData",
+                url: "Admin/GetServicesData",
+                defaults: new { controller = "Admin", action = "GetServicesData" }
             );
+
 
 
             routes.MapRoute(
