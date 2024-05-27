@@ -216,16 +216,22 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    foreach (var customer in item.Rooms)
+                                    foreach (var room in item.Rooms)
                                     {
                                         <tr>
-                                            <td>@customer.IDPHG</td>
-                                            <td>@customer.TenPHG</td>
-                                            <td>@customer.LoaiPhong.HinhAnh</td>
-                                            <td>@customer.LoaiPhong.DonGia</td>
-                                            <td>@customer.LoaiPhong.SoGiuong</td>
-                                            <td>@customer.LoaiPhong.SoNguoi</td>
-                                            <td>@customer.TrangThai</td>
+                                            <td>@room.IDPHG</td>
+                                            <td>@room.TenPHG</td>
+                                            <td>@room.LoaiPhong.HinhAnh</td>
+                                            <td>@room.LoaiPhong.DonGia</td>
+                                            <td>@room.LoaiPhong.SoGiuong</td>
+                                            <td>@room.LoaiPhong.SoNguoi</td>
+                                            <td>@room.TrangThai</td>
+                                            <td>
+                                                <!-- Thêm cột cho nút thao tác -->
+                                                <button onclick="editRoom('@room.IDPHG')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                                <button onclick="deleteRoom('@room.IDPHG')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                            </td>
+
                                         </tr>
                                     }
                                 }
@@ -273,6 +279,12 @@
                                         <td>@customer.Email</td>
                                         <td>@customer.GioiTinh</td>
                                         <td>@customer.DiaChi</td>
+                                        <td>
+                                            <!-- Thêm cột cho nút thao tác -->
+                                            <button onclick="editRoom('@customer.IDKH')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="deleteRoom('@customer.IDKH')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                        </td>
+
                                     </tr>
                                 }
                             }
@@ -316,6 +328,12 @@
                                         <td>@service.LoaiDV.TenLoaiDV</td>
                                         <td>@service.LoaiDV.DonGia</td>
                                         <td>@service.LoaiDV.SoNguoi</td>
+                                        <td>
+                                            <!-- Thêm cột cho nút thao tác -->
+                                            <button onclick="editRoom('@service.IDDV')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="deleteRoom('@service.IDDV')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                        </td>
+
                                     </tr>
                                 }
                             }
@@ -323,7 +341,6 @@
                     </table>
                 </div>
             </div>
-
             <div class="manager_container" id="Bill_management">
                 <div class="manager_item1">
                     <div style="width: 100%;">
@@ -348,12 +365,17 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    foreach (var customer in item.Bills)
+                                    foreach (var bill in item.Bills)
                                     {
                                         <tr>
-                                            <td>@customer.IDHD</td>
-                                            <td>@customer.IDKH</td>
-                                            <td>@customer.TongDonGia</td>
+                                            <td>@bill.IDHD</td>
+                                            <td>@bill.IDKH</td>
+                                            <td>@bill.TongDonGia</td>
+                                            <td>
+                                                <!-- Thêm cột cho nút thao tác -->
+                                                <button onclick="editRoom('@bill.IDHD')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                                <button onclick="deleteRoom('@bill.IDHD')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                            </td>
                                         </tr>
                                     }
                                 }
