@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PBL3_HotelManagementSystem.Models.DichVu>
+﻿@model IEnumerable<PBL3_HotelManagementSystem.Models.IndexViewModel>
+
 @{
     ViewBag.Title = "Admin";
     Layout = null;
@@ -202,7 +203,34 @@
                     </div>
                 </div>
                 <div class="manager_item2">
-
+                    <table>
+                        <thead>
+                            <th>ID Phòng</th>
+                            <th>Tên Phòng</th>
+                            <th>Hình Ảnh</th>
+                            <th>Giá</th>
+                            <th>Số giường</th>
+                            <th>Số người</th>
+                            <th>Trạng thái</th>
+                        </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    foreach (var customer in item.Rooms)
+                                    {
+                                        <tr>
+                                            <td>@customer.IDPHG</td>
+                                            <td>@customer.TenPHG</td>
+                                            <td>@customer.LoaiPhong.HinhAnh</td>
+                                            <td>@customer.LoaiPhong.DonGia</td>
+                                            <td>@customer.LoaiPhong.SoGiuong</td>
+                                            <td>@customer.LoaiPhong.SoNguoi</td>
+                                            <td>@customer.TrangThai</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                    </table>
                 </div>
             </div>
             <div class="manager_container" id="Actor_management">
@@ -220,6 +248,36 @@
                 </div>
                 <div class="manager_item2">
                     <table>
+                        <thead>
+                            <tr>
+                                <th>IDKH</th>
+                                <th>Họ và tên</th>
+                                <th>CCCD</th>
+                                <th>SĐT</th>
+                                <th>Email</th>
+                                <th>Giới tính</th>
+                                <th>Địa chỉ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                foreach (var customer in item.Customers)
+                                {
+                                    <tr>
+                                        <td>@customer.IDKH</td>
+                                        <td>@customer.HoTen</td>
+                                        <td>@customer.CCCD</td>
+                                        <td>@customer.SDT</td>
+                                        <td>@customer.Email</td>
+                                        <td>@customer.GioiTinh</td>
+                                        <td>@customer.DiaChi</td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -248,18 +306,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
-                                @foreach (var services in Model)
+                            @foreach (var item in Model)
+                            {
+                                foreach (var service in item.Services)
                                 {
                                     <tr>
-                                        <td>@services.IDDV</td>
-                                        <td>@services.TenDV</td>
-                                        <td>@services.LoaiDV.TenLoaiDV</td>
-                                        <td>@services.LoaiDV.DonGia</td>
-                                        <td>@services.LoaiDV.SoNguoi</td>
+                                        <td>@service.IDDV</td>
+                                        <td>@service.TenDV</td>
+                                        <td>@service.LoaiDV.TenLoaiDV</td>
+                                        <td>@service.LoaiDV.DonGia</td>
+                                        <td>@service.LoaiDV.SoNguoi</td>
                                     </tr>
                                 }
-                            
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -281,6 +340,24 @@
                 </div>
                 <div class="manager_item2">
                     <table>
+                        <thead>
+                            <th>ID Hóa đơn</th>
+                            <th>ID Khách Hàng</th>
+                            <th>Thành tiền</th>
+                        </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    foreach (var customer in item.Bills)
+                                    {
+                                        <tr>
+                                            <td>@customer.IDHD</td>
+                                            <td>@customer.IDKH</td>
+                                            <td>@customer.TongDonGia</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
                     </table>
                 </div>
             </div>

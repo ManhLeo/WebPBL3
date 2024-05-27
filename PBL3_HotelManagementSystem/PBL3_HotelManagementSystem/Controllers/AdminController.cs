@@ -14,12 +14,26 @@ namespace PBL3_HotelManagementSystem.Controllers
     public class AdminController : Controller
     {
         private HotelManagementDbContext db = new HotelManagementDbContext();
+
         // GET: Admin
         public ActionResult Index()
         {
             var services = db.DichVus.ToList();
-            return View(services);
-        }
+            var customers = db.KhachHangs.ToList();
+            var rooms = db.Phongs.ToList();
+            var bills = db.HoaDons.ToList(); 
 
+            var viewModelList = new List<IndexViewModel>(){
+                new IndexViewModel
+                {
+                    Services = services,
+                    Customers = customers,
+                    Rooms = rooms,
+                    Bills = bills
+                }
+            };
+
+            return View(viewModelList);
+        }
     }
 }

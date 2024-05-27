@@ -163,6 +163,7 @@
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HotelManagementDbContext.cs" />
+    <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\KhachHang.cs">
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
