@@ -11,6 +11,7 @@ function mySignUp() {
     document.getElementById("LineSignUp").style.opacity = "1";
 }
 
+
 document.getElementById('loginForm').addEventListener('submit', function (e) {
     e.preventDefault();
     let email = document.getElementById("txtEmail").value;

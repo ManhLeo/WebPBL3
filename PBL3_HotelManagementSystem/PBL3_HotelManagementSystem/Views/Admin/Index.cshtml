@@ -277,12 +277,12 @@
                                         <td>@customer.CCCD</td>
                                         <td>@customer.SDT</td>
                                         <td>@customer.Email</td>
-                                        <td>@customer.GioiTinh</td>
+                                        <td>@(customer.GioiTinh.HasValue ? (customer.GioiTinh.Value ? "Nam" : "Nữ") : "")</td>
                                         <td>@customer.DiaChi</td>
                                         <td>
                                             <!-- Thêm cột cho nút thao tác -->
-                                            <button onclick="editRoom('@customer.IDKH')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
-                                            <button onclick="deleteRoom('@customer.IDKH')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                            <button onclick="editCustomer('@customer.IDKH')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="deleteCustomer('@customer.IDKH')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
                                         </td>
 
                                     </tr>
@@ -330,8 +330,8 @@
                                         <td>@service.LoaiDV.SoNguoi</td>
                                         <td>
                                             <!-- Thêm cột cho nút thao tác -->
-                                            <button onclick="editRoom('@service.IDDV')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
-                                            <button onclick="deleteRoom('@service.IDDV')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                            <button onclick="editService('@service.IDDV')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="deleteService('@service.IDDV')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
                                         </td>
 
                                     </tr>
@@ -373,8 +373,8 @@
                                             <td>@bill.TongDonGia</td>
                                             <td>
                                                 <!-- Thêm cột cho nút thao tác -->
-                                                <button onclick="editRoom('@bill.IDHD')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
-                                                <button onclick="deleteRoom('@bill.IDHD')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                                <button onclick="editBill('@bill.IDHD')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                                <button onclick="deleteBill('@bill.IDHD')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
                                             </td>
                                         </tr>
                                     }

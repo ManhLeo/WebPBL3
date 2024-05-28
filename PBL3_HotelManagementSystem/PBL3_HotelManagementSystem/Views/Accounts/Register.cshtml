@@ -1,4 +1,4 @@
-﻿
+﻿@model PBL3_HotelManagementSystem.Models.RegisterViewModel
 
 @{
     ViewBag.Title = "Register";
@@ -41,9 +41,9 @@
                         @Html.AntiForgeryToken()
                         <div class="content">
                             <div class="title">Email</div>
-                            <input type="email" name="email" class="input" required>
+                            <input type="email" id="txtEmail" name="email" class="input" required>
                             <div class="title">Mật khẩu</div>
-                            <input type="password" name="password" class="input" required>
+                            <input type="password" id="txtPassword" name="password" class="input" required>
                         </div>
                         <div class="loi">
                             @if (ViewBag.ErrorMessage != null)
@@ -66,32 +66,35 @@
                         @Html.AntiForgeryToken()
                         <div class="content">
                             <div class="title">Họ và tên</div>
-                            <input type="text" name="FullName" class="input" required>
+                            @Html.TextBoxFor(m => m.FullName, new { @class = "input", required = "required" })
+
                             <div class="title">CCCD</div>
-                            <input type="text" name="CCCD" class="input" required>
+                            @Html.TextBoxFor(m => m.CCCD, new { @class = "input", required = "required" })
+
                             <div class="title">Số điện thoại</div>
-                            <input type="text" name="PhoneNumber" class="input" required>
-                            <div class="title">
-                                Giới tính
-                            </div>
-                            <div style="display: flex;gap: 20px;font-size: 20px;font-weight: 400;">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "input", required = "required" })
+
+                            <div class="title">Giới tính</div>
+                            <div style="display: flex; gap: 20px; font-size: 20px; font-weight: 400;">
                                 <div>
-                                    <input type="radio" name="Gender" class="radio">Nam
+                                    @Html.RadioButtonFor(m => m.Gender, true, new { @class = "radio", id = "GenderMale" }) Nam
                                 </div>
                                 <div>
-                                    <input type="radio" name="Gender" class="radio">Nữ
+                                    @Html.RadioButtonFor(m => m.Gender, false, new { @class = "radio", id = "GenderFemale" }) Nữ
                                 </div>
                             </div>
-                            <div class="title">
-                                Địa chỉ
-                            </div>
-                            <input type="text" class="input">
+
+                            <div class="title">Địa chỉ</div>
+                            @Html.TextBoxFor(m => m.Address, new { @class = "input" })
+
                             <div class="title">Email</div>
-                            <input type="email" name="Email" class="input" required>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "input", required = "required" })
+
                             <div class="title">Mật khẩu</div>
-                            <input type="password" name="Password" class="input" required>
+                            @Html.PasswordFor(m => m.Password, new { @class = "input", required = "required" })
+
                             <div class="title">Nhập lại mật khẩu</div>
-                            <input type="password" name="ConfirmPassword" class="input" required>
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input", required = "required" })
                         </div>
                         <div class="loi">
                             @if (ViewBag.ErrorMessage != null)

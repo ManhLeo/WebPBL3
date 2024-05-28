@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -204,7 +205,7 @@ namespace PBL3_HotelManagementSystem.Controllers
                 {
                     IDKH = newUser.IDAccount,
                     HoTen = model.FullName,
-                    CCCD = model.CCCD,
+                    CCCD = model.CCCD, 
                     SDT = model.PhoneNumber,
                     Email = model.Email,
                     GioiTinh = model.Gender,

@@ -9,39 +9,31 @@ namespace PBL3_HotelManagementSystem.Models
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "Họ và tên")]
         public string FullName { get; set; }
 
         [Required]
-        [Display(Name = "CCCD")]
         public string CCCD { get; set; }
 
         [Required]
-        [Display(Name = "Số điện thoại")]
         public string PhoneNumber { get; set; }
 
         [Required]
+        public bool Gender { get; set; } //true = nam, false = nữ
+
+        [Required]
+        public string Address { get; set; }
+
+        [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Nhập lại mật khẩu")]
-        [Compare("Password", ErrorMessage = "Mật khẩu và xác nhận mật khẩu không khớp.")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-        [Required]
-        [Display(Name = "Giới tính")]
-        public bool Gender { get; set; }
-
-        [Required]
-        [Display(Name = "Địa chỉ")]
-        public string Address { get; set; }
     }
 }

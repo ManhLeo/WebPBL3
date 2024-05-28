@@ -38,30 +38,98 @@ namespace PBL3_HotelManagementSystem.Controllers
         }
 
 
-        // POST: Admin/DeleteCustomer
+        //===========DELETE===========//
+        // POST: Admin/DeleteRoom
         [HttpPost]
-        public ActionResult DeleteCustomer(string customerId)
+        public ActionResult DeleteRoom(string id)
         {
-            try
+            if (id == null)
             {
-                var customer = db.KhachHangs.Find(customerId);
-                if (customer == null)
-                {
-                    return HttpNotFound();
-                }
-
-                db.KhachHangs.Remove(customer);
-                db.SaveChanges();
-
-                TempData["SuccessMessage"] = "Xóa thông tin khách hàng thành công.";
+                return HttpNotFound();
             }
-            catch (Exception ex)
+
+            var rooms = db.Phongs.Find(id);
+            if (rooms == null)
             {
-                TempData["ErrorMessage"] = "Đã xảy ra lỗi trong quá trình xóa thông tin khách hàng.";
-                // Ghi log lỗi và xử lý lỗi khác (nếu cần)
+                return HttpNotFound();
             }
+
+            db.Phongs.Remove(rooms);
+            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
+
+        // POST: Admin/DeleteCustomer
+        [HttpPost]
+        public ActionResult DeleteCustomer(string id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var customer = db.KhachHangs.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            var account = db.Accounts.Find(id);
+            if (account == null)
+            {
+                return HttpNotFound();
+            }
+
+
+            db.KhachHangs.Remove(customer);
+            db.Accounts.Remove(account);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        // POST: Admin/DeleteService
+        [HttpPost]
+        public ActionResult DeleteService(string id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var services = db.DichVus.Find(id);
+            if (services == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.DichVus.Remove(services);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        // POST: Admin/DeleteBill
+        [HttpPost]
+        public ActionResult DeleteBill(string id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var bills = db.HoaDons.Find(id);
+            if (bills == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.HoaDons.Remove(bills);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
     }
 }
