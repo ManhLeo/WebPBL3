@@ -1,0 +1,348 @@
+function roomManagement() {
+    document.getElementById("Room_management").style.display = "flex";
+    document.getElementById("Actor_management").style.display = "none";
+    document.getElementById("Service_management").style.display = "none";
+    document.getElementById("Bill_management").style.display = "none";
+    //thiết lập chiều cao
+    let managerItem1Elements = document.querySelectorAll('.manager_item1');
+    managerItem1Elements.forEach(function (element) {
+        element.style.height = "40%";
+    });
+
+    var managerItem2Elements = document.querySelectorAll('.manager_item2');
+    managerItem2Elements.forEach(function (element) {
+        element.style.height = "60%";
+    });
+}
+
+function actorManagement() {
+    document.getElementById("Room_management").style.display = "none";
+    document.getElementById("Actor_management").style.display = "flex";
+    document.getElementById("Service_management").style.display = "none";
+    document.getElementById("Bill_management").style.display = "none";
+    // document.querySelector("td:nth-child(3)").style.color = "rgb(92, 92, 92)";
+    // document.querySelector("td:nth-child(4)").style.color = "red";
+
+    let managerItem1Elements = document.querySelectorAll('.manager_item1');
+    managerItem1Elements.forEach(function (element) {
+        element.style.height = "20%";
+    });
+
+    var managerItem2Elements = document.querySelectorAll('.manager_item2');
+    managerItem2Elements.forEach(function (element) {
+        element.style.height = "80%";
+    });
+}
+
+function serviceManagement() {
+    document.getElementById("Room_management").style.display = "none";
+    document.getElementById("Actor_management").style.display = "none";
+    document.getElementById("Service_management").style.display = "flex";
+    document.getElementById("Bill_management").style.display = "none";
+    // document.querySelector("td:nth-child(3)").style.color = "rgb(92, 92, 92)";
+    // document.querySelector("td:nth-child(4)").style.color = "red";
+
+    let managerItem1Elements = document.querySelectorAll('.manager_item1');
+    managerItem1Elements.forEach(function (element) {
+        element.style.height = "20%";
+    });
+
+    var managerItem2Elements = document.querySelectorAll('.manager_item2');
+    managerItem2Elements.forEach(function (element) {
+        element.style.height = "80%";
+    });
+}
+
+function billManagement() {
+    document.getElementById("Room_management").style.display = "none";
+    document.getElementById("Actor_management").style.display = "none";
+    document.getElementById("Service_management").style.display = "none";
+    document.getElementById("Bill_management").style.display = "flex";
+    // document.querySelector("td:nth-child(3)").style.color = "rgb(92, 92, 92)";
+    // document.querySelector("td:nth-child(4)").style.color = "red";
+
+    let managerItem1Elements = document.querySelectorAll('.manager_item1');
+    managerItem1Elements.forEach(function (element) {
+        element.style.height = "20%";
+    });
+
+    var managerItem2Elements = document.querySelectorAll('.manager_item2');
+    managerItem2Elements.forEach(function (element) {
+        element.style.height = "80%";
+    });
+}
+
+function MyForm(ID) {
+    document.getElementById(ID).style.display = "Flex";
+}
+function CloseForm(ID) {
+    document.getElementById(ID).style.display = "none";
+}
+// Function to delete a customer
+function deleteCustomer(customerID) {
+    // Confirm with the user before deleting
+    if (confirm("Are you sure you want to delete this customer?")) {
+        // Send a POST request to the server to delete the customer
+        fetch('/Admin/DeleteCustomer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: customerID })
+        })
+            .then(response => {
+                // Check if the request was successful
+                if (response.ok) {
+                    // Reload the page to reflect the changes
+                    window.location.reload();
+                } else {
+                    // Display an error message
+                    alert("Failed to delete customer.");
+                }
+            })
+            .catch(error => {
+                // Display an error message
+                console.error('Error:', error);
+                alert("An error occurred while deleting customer.");
+            });
+    }
+}
+
+// Function to delete a room
+function deleteRoom(roomID) {
+    // Confirm with the user before deleting
+    if (confirm("Are you sure you want to delete this room?")) {
+        // Send a POST request to the server to delete the room
+        fetch('/Admin/DeleteRoom', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: roomID })
+        })
+            .then(response => {
+                // Check if the request was successful
+                if (response.ok) {
+                    // Reload the page to reflect the changes
+                    window.location.reload();
+                } else {
+                    // Display an error message
+                    alert("Failed to delete room.");
+                }
+            })
+            .catch(error => {
+                // Display an error message
+                console.error('Error:', error);
+                alert("An error occurred while deleting room.");
+            });
+    }
+}
+
+// Function to delete a service
+function deleteService(serviceID) {
+    // Confirm with the user before deleting
+    if (confirm("Are you sure you want to delete this service?")) {
+        // Send a POST request to the server to delete the service
+        fetch('/Admin/DeleteService', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: serviceID })
+        })
+            .then(response => {
+                // Check if the request was successful
+                if (response.ok) {
+                    // Reload the page to reflect the changes
+                    window.location.reload();
+                } else {
+                    // Display an error message
+                    alert("Failed to delete service.");
+                }
+            })
+            .catch(error => {
+                // Display an error message
+                console.error('Error:', error);
+                alert("An error occurred while deleting service.");
+            });
+    }
+}
+
+// Function to delete a bill
+function deleteBill(billID) {
+    // Confirm with the user before deleting
+    if (confirm("Are you sure you want to delete this bill?")) {
+        // Send a POST request to the server to delete the bill
+        fetch('/Admin/DeleteBill', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: billID })
+        })
+            .then(response => {
+                // Check if the request was successful
+                if (response.ok) {
+                    // Reload the page to reflect the changes
+                    window.location.reload();
+                } else {
+                    // Display an error message
+                    alert("Failed to delete bill.");
+                }
+            })
+            .catch(error => {
+                // Display an error message
+                console.error('Error:', error);
+                alert("An error occurred while deleting bill.");
+            });
+    }
+}
+
+
+// Function to search services
+function searchServices() {
+    var searchText = document.getElementById("searchServiceInput").value;
+
+    // Gửi yêu cầu tìm kiếm dịch vụ đến server
+    fetch('/Admin/SearchServices', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ searchText: searchText })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Xóa các hàng hiện có trong bảng
+            var tbody = document.querySelector('#serviceTable tbody');
+            tbody.innerHTML = '';
+
+            // Hiển thị kết quả tìm kiếm trong bảng
+            data.forEach(service => {
+                var row = document.createElement('tr');
+                row.innerHTML = `<td>${service.IDDV}</td>` +
+                    `<td>${service.TenDV}</td>` +
+                    `<td>${service.LoaiDV}</td>` +
+                    `<td>${service.DonGia}</td>`;
+
+                // Thêm hàng vào bảng
+                tbody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            // Hiển thị thông báo lỗi nếu có lỗi xảy ra
+            console.error('Error:', error);
+            alert("An error occurred while searching services.");
+        });
+}
+// Function to search services
+function searchCustomers() {
+    var searchText = document.getElementById("searchCustomerInput").value;
+
+    // Gửi yêu cầu tìm kiếm dịch vụ đến server
+    fetch('/Admin/SearchCustomers', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ searchText: searchText })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Xóa các hàng hiện có trong bảng
+            var tbody = document.querySelector('#customerTable tbody');
+            tbody.innerHTML = '';
+
+            // Hiển thị kết quả tìm kiếm trong bảng
+            data.forEach(customer => {
+                var row = document.createElement('tr');
+                row.innerHTML = `<td>${customer.IDKH}</td>` +
+                    `<td>${customer.HoTen}</td>` +
+                    `<td>${customer.CCCD}</td>` +
+                    `<td>${customer.SDT}</td>` +
+                    `<td>${customer.Email}</td>` +
+                    `<td>${customer.GioiTinh ? "Nam" : "Nữ"}</td>` +
+                    `<td>${customer.DiaChi}</td>`; 
+
+                // Thêm hàng vào bảng
+                tbody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            // Hiển thị thông báo lỗi nếu có lỗi xảy ra
+            console.error('Error:', error);
+            alert("An error occurred while searching customers.");
+        });
+}
+
+
+document.addEventListener("DOMContentLoaded", function (event) {
+    // Lấy loại phòng từ server và cập nhật dropdown menu
+    $.ajax({
+        url: '/Admin/GetRoomTypes',
+        type: 'GET',
+        dataType: 'json',
+        success: function (roomTypes) {
+            var roomTypeDropdown = document.getElementById('condition1');
+            if (roomTypeDropdown) {
+                roomTypeDropdown.innerHTML = ''; // Xóa các tùy chọn cũ trước khi thêm mới
+
+                // Thêm tùy chọn "Tất cả" vào đầu danh sách
+                var allOption = document.createElement('option');
+                allOption.value = 'Tất cả';
+                allOption.textContent = 'Tất cả';
+                roomTypeDropdown.appendChild(allOption);
+
+                roomTypes.forEach(function (roomType) {
+                    var option = document.createElement('option');
+                    option.value = roomType;
+                    option.textContent = roomType;
+                    roomTypeDropdown.appendChild(option);
+                });
+            } else {
+                console.error('Không tìm thấy phần tử HTML với id là condition1');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Lỗi khi lấy loại phòng:', error);
+        }
+    });
+
+    // Lấy trạng thái phòng từ server và cập nhật dropdown menu
+    $.ajax({
+        url: '/Admin/GetRoomStatuses',
+        type: 'GET',
+        dataType: 'json',
+        success: function (roomStatuses) {
+            var roomStatusDropdown = document.getElementById('condition');
+            if (roomStatusDropdown) {
+                roomStatusDropdown.innerHTML = ''; // Xóa các tùy chọn cũ trước khi thêm mới
+
+                // Thêm tùy chọn "Tất cả" vào đầu danh sách
+                var allOption = document.createElement('option');
+                allOption.value = 'Tất cả';
+                allOption.textContent = 'Tất cả';
+                roomStatusDropdown.appendChild(allOption);
+
+                roomStatuses.forEach(function (roomStatus) {
+                    var option = document.createElement('option');
+                    option.value = roomStatus;
+                    option.textContent = roomStatus;
+                    roomStatusDropdown.appendChild(option);
+                });
+            } else {
+                console.error('Không tìm thấy phần tử HTML với id là condition');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Lỗi khi lấy trạng thái phòng:', error);
+        }
+    });
+});
+
+
+
+
+
+
+

@@ -1,0 +1,83 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\HOAI VU\\source\\repos\\WebPBL3-main\\PBL3_HotelManagementSystem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D5BAAFD3-1E87-4128-AB43-CDCD2B356D75}|PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem.csproj|C:\\Users\\HOAI VU\\source\\repos\\WebPBL3-main\\PBL3_HotelManagementSystem\\pbl3_hotelmanagementsystem\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5BAAFD3-1E87-4128-AB43-CDCD2B356D75}|PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem.csproj|solutionrelative:pbl3_hotelmanagementsystem\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5BAAFD3-1E87-4128-AB43-CDCD2B356D75}|PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem.csproj|c:\\users\\hoai vu\\source\\repos\\webpbl3-main\\pbl3_hotelmanagementsystem\\pbl3_hotelmanagementsystem\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5BAAFD3-1E87-4128-AB43-CDCD2B356D75}|PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem.csproj|solutionrelative:pbl3_hotelmanagementsystem\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5BAAFD3-1E87-4128-AB43-CDCD2B356D75}|PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem.csproj|C:\\Users\\HOAI VU\\source\\repos\\WebPBL3-main\\PBL3_HotelManagementSystem\\pbl3_hotelmanagementsystem\\assets\\quan_ly.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{D5BAAFD3-1E87-4128-AB43-CDCD2B356D75}|PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem.csproj|solutionrelative:pbl3_hotelmanagementsystem\\assets\\quan_ly.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\HOAI VU\\source\\repos\\WebPBL3-main\\PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "PBL3_HotelManagementSystem\\Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\HOAI VU\\source\\repos\\WebPBL3-main\\PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "PBL3_HotelManagementSystem\\Controllers\\AdminController.cs",
+              "ViewState": "AQIAAIwAAAAAAAAAAAAAAJ8AAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T20:36:19.028Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "QUAN_LY.js",
+              "DocumentMoniker": "C:\\Users\\HOAI VU\\source\\repos\\WebPBL3-main\\PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem\\Assets\\QUAN_LY.js",
+              "RelativeDocumentMoniker": "PBL3_HotelManagementSystem\\Assets\\QUAN_LY.js",
+              "ToolTip": "C:\\Users\\HOAI VU\\source\\repos\\WebPBL3-main\\PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem\\Assets\\QUAN_LY.js",
+              "RelativeToolTip": "PBL3_HotelManagementSystem\\Assets\\QUAN_LY.js",
+              "ViewState": "AQIAAAEBAAAAAAAAAAAUwBIBAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-28T20:36:19.14Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\HOAI VU\\source\\repos\\WebPBL3-main\\PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem\\Views\\Admin\\Index.cshtml",
+              "RelativeDocumentMoniker": "PBL3_HotelManagementSystem\\Views\\Admin\\Index.cshtml",
+              "ToolTip": "C:\\Users\\HOAI VU\\source\\repos\\WebPBL3-main\\PBL3_HotelManagementSystem\\PBL3_HotelManagementSystem\\Views\\Admin\\Index.cshtml",
+              "RelativeToolTip": "PBL3_HotelManagementSystem\\Views\\Admin\\Index.cshtml",
+              "ViewState": "AQIAAFYBAAAAAAAAAAAAAP8AAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-28T20:36:19.141Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

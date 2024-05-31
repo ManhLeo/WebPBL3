@@ -1,0 +1,115 @@
+﻿@model PBL3_HotelManagementSystem.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Assets/Register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="container_item">
+            <div class="logo">
+                <img src="~/Assets/Logo_white.png" alt="" width="100px">
+                HMV Hotel
+            </div>
+            <div class="login">
+                <div class="login_title">
+                    <div onclick="myLogin()">
+                        Đăng nhập
+                        <div class="line" id="LineLogin"></div>
+                    </div>
+                    <div onclick="mySignUp()">
+                        Đăng ký
+                        <div class="line" id="LineSignUp"></div>
+                    </div>
+                </div>
+                <div class="login_content" id="Login">
+                    @using (Html.BeginForm("Login", "Accounts", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="content">
+                            <div class="title">Email</div>
+                            <input type="email" id="txtEmail" name="email" class="input" required>
+                            <div class="title">Mật khẩu</div>
+                            <input type="password" id="txtPassword" name="password" class="input" required>
+                        </div>
+                        <div class="loi">
+                            @if (ViewBag.ErrorMessage != null)
+                            {
+                                <span>@ViewBag.ErrorMessage</span>
+                            }
+                        </div>
+                        <div class="button">
+                            <button type="submit">Đăng nhập</button>
+                            <div>
+                                <input type="checkbox" id="rememberMe" name="rememberMe">
+                                Ghi nhớ mật khẩu
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="login_content" id="SignUp">
+                    @using (Html.BeginForm("Register", "Accounts", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="content">
+                            <div class="title">Họ và tên</div>
+                            @Html.TextBoxFor(m => m.FullName, new { @class = "input", required = "required" })
+
+                            <div class="title">CCCD</div>
+                            @Html.TextBoxFor(m => m.CCCD, new { @class = "input", required = "required" })
+
+                            <div class="title">Số điện thoại</div>
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "input", required = "required" })
+
+                            <div class="title">Giới tính</div>
+                            <div style="display: flex; gap: 20px; font-size: 20px; font-weight: 400;">
+                                <div>
+                                    @Html.RadioButtonFor(m => m.Gender, true, new { @class = "radio", id = "GenderMale" }) Nam
+                                </div>
+                                <div>
+                                    @Html.RadioButtonFor(m => m.Gender, false, new { @class = "radio", id = "GenderFemale" }) Nữ
+                                </div>
+                            </div>
+
+                            <div class="title">Địa chỉ</div>
+                            @Html.TextBoxFor(m => m.Address, new { @class = "input" })
+
+                            <div class="title">Email</div>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "input", required = "required" })
+
+                            <div class="title">Mật khẩu</div>
+                            @Html.PasswordFor(m => m.Password, new { @class = "input", required = "required" })
+
+                            <div class="title">Nhập lại mật khẩu</div>
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input", required = "required" })
+                        </div>
+                        <div class="loi">
+                            @if (ViewBag.ErrorMessage != null)
+                            {
+                                <span>@ViewBag.ErrorMessage</span>
+                            }
+                        </div>
+                        <div class="button">
+                            <button type="submit">Đăng ký</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Assets/Login.js"></script>
+</body>
+</html>

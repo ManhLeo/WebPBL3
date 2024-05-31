@@ -1,0 +1,229 @@
+﻿@{
+    ViewBag.Title = "Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Assets/Page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="detail" id="detail">
+        <div class="detail_container">
+            <div class="slide-wrap">
+                <div class="slider">
+                    <div class="slide" id="slide-1">
+                        <img src="~/Assets/Room2_1.png" alt="" width="100%">
+                    </div>
+                    <div class="slide" id="slide-2">
+                        <img src="~/Assets/Room2_1.png" alt="" width="100%">
+                    </div>
+                    <div class="slide" id="slide-3">
+                        <img src="~/Assets/Room1_1.png" alt="" width="100%">
+                    </div>
+                </div>
+                <div class="link_img">
+                    <a href="#slide-1">
+                        <img src="~/Assets/Room2_1.png" alt="" width="100%">
+                    </a>
+                    <a href="#slide-2">
+                        <img src="~/Assets/Room2_1.png" alt="" width="100%">
+                    </a>
+                    <a href="#slide-3">
+                        <img src="~/Assets/Room1_1.png" alt="" width="100%">
+                    </a>
+                </div>
+            </div>
+            <div class="detail_infor">
+                <div class="Room_title" id="Room">
+                    <!-- Phòng tổng thống
+                    <div onclick="MyCloseDetail()">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div> -->
+                </div>
+                <ul id="Room_detail">
+                    <!-- <li>Chào mừng quý khách đến với phòng Tổng thống - biểu tượng của sự sang trọng và đẳng cấp.
+                        Nằm ở vị trí đặc biệt trong khách sạn của chúng tôi, phòng Tổng thống không chỉ là nơi lưu trú mà còn là trải nghiệm đỉnh cao dành cho những ai tìm kiếm sự hoàn hảo và tinh tế.</li>
+                    <li>Tiện ích: Xe đưa đón tận nơi, hồ bơi, phòng Gym,...</li>
+                    <li>Giá phòng: 5.000.000 đồng/ đêm</li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="Form" id="Form">
+        <div class="Form_container">
+            <div class="Form_logo">
+                <img src="~/Assets/Logo.png" alt="" width="50px">
+                HMV Hotel
+            </div>
+            <div class="Form_title">
+                ĐẶT PHÒNG
+            </div>
+            <input type="text" placeholder="Họ và tên:" class="input50">
+            <input type="text" placeholder="CCCD:" class="input50">
+            <input type="text" placeholder="Email:" class="input50">
+            <input type="text" placeholder="Số điện thoại:" class="input50">
+            <input type="text" placeholder="Địa chỉ" class="input100">
+            <input list="roomTypes" id="roomType" name="roomType" class="input50" placeholder="Loại phòng">
+            <datalist id="roomTypes">
+                <option value="Thường">
+                <option value="Vip1">
+                <option value="Vip2">
+            </datalist>
+            <input type="text" placeholder="Số lượng phòng:" class="input50">
+            <div class="checkbox-list">
+                <label>
+                    <input type="checkbox" name="DV" value="Buffet sáng" onchange="updateSelection()"> Buffet sáng
+                </label>
+                <label>
+                    <input type="checkbox" name="DV" value="Buffet trưa" onchange="updateSelection()"> Buffet trưa
+                </label>
+                <label>
+                    <input type="checkbox" name="DV" value="Tiệc đêm" onchange="updateSelection()"> Tiệc đêm
+                </label>
+                <label>
+                    <input type="checkbox" name="DV" value="Massage" onchange="updateSelection()"> Massage
+                </label>
+                <label>
+                    <input type="checkbox" name="DV" value="Đưa đón" onchange="updateSelection()"> Đưa đón
+                </label>
+                <label>
+                    <input type="checkbox" name="DV" value="Bể bơi" onchange="updateSelection()"> Bể bơi
+                </label>
+            </div>
+            <input type="date" placeholder="Ngày nhận phòng" class="input50">
+            <i class="fa-solid fa-arrow-right"></i>
+            <input type="date" placeholder="Ngày trả phòng" class="input50">
+            <div class="Form_note">
+                <span style="color: red;font-weight: 600;margin-bottom: 30px;text-decoration: underline;">Lưu ý:</span>
+                Quý khách vui lòng trả phòng trước 10 giờ sáng
+            </div>
+            <div style="width: 100%;display: flex;gap: 20px;justify-content: center;">
+                <button>Đặt phòng</button>
+                <button onclick="Close()">Thoát</button>
+            </div>
+        </div>
+    </div>
+    <div class="Taskbar">
+        <div class="Taskbar_container">
+            <div class="logo">
+                <img src="~/Assets/Logo.png" alt="" width="100px">
+                HMV Hotel
+            </div>
+            <div style="display: flex;gap: 15px;">
+                <div class="User" onclick="window.location.href='@Url.Action("Login", "Accounts")'">
+                    Đăng nhập
+                </div>
+                <div class="User" onclick="window.location.href='@Url.Action("Register", "Accounts")'">
+                    Đăng ký
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="banner">
+            <div class="banner_content">
+                <h2>HMV Hotel</h2>
+                <p>Xin trân trọng phục vụ quý khách!</p>
+            </div>
+        </div>
+        <div class="Selecter">
+            <div class="Selecter_container">
+                <input type="text" placeholder="Thông tin phòng, tiện ích,.." class="input1">
+                <button>Tìm kiếm</button>
+                <button onclick="MyForm()">Đặt phòng</button>
+            </div>
+        </div>
+        <div class="Room">
+            <div class="Room_item">
+                <img src="~/Assets/Room3_1.png" alt="" style="border-radius: 8px;" width="260px">
+                <div class="Room_infor">
+                    <div class="Room_title" id="Room1">
+                        Phòng tổng thống
+                    </div>
+                    <ul id="Room1_infor">
+                        <li class="li">
+                            Chào mừng quý khách đến với phòng Tổng thống - biểu tượng của sự sang trọng và đẳng cấp.
+                            Nằm ở vị trí đặc biệt trong khách sạn của chúng tôi, phòng Tổng thống không chỉ là nơi lưu trú mà còn là trải nghiệm đỉnh cao dành cho những ai tìm kiếm sự hoàn hảo và tinh tế.
+                        </li>
+                        <li class="li">Tiện ích: Xe đưa đón tận nơi, hồ bơi, phòng Gym,...</li>
+                        <li class="li">Giá phòng: 5.000.000 đồng/ đêm</li>
+                    </ul>
+                    <div class="link" onclick="Mydetail('Room1')">
+                        Chi tiết
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <button onclick="MyForm()">Đặt phòng</button>
+                </div>
+            </div>
+            <div class="Room_item">
+                <img src="~/Assets/Room2_1.png" alt="" style="border-radius: 8px;" width="260px">
+                <div class="Room_infor">
+                    <div class="Room_title" id="Room2">
+                        Phòng hạng sang
+                    </div>
+                    <ul id="Room2_infor">
+                        <li class="li">
+                            Chào mừng quý khách đến với phòng Hạng Sang - nơi kết hợp hoàn hảo giữa sự thoải mái và phong cách hiện đại.
+
+                            Quý khách sẽ được tận hưởng giường ngủ êm ái, không gian làm việc thuận tiện, và khu vực tiếp khách thoải mái. Phòng tắm riêng với bồn tắm và vòi sen cao cấp, kèm theo các sản phẩm chăm sóc cá nhân chất lượng, sẽ mang đến cho quý khách những giây phút thư giãn tuyệt đối.
+                        </li>
+                        <li class="li">Tiện ích: Xe đưa đón tận nơi, hồ bơi, phòng Gym,...</li>
+                        <li class="li">Giá phòng: 2.000.000 đồng/ đêm</li>
+                    </ul>
+                    <div class="link" onclick="Mydetail('Room2')">
+                        Chi tiết
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <button onclick="MyForm()">Đặt phòng</button>
+                </div>
+            </div>
+            <div class="Room_item">
+                <img src="~/Assets/Room1_1.png" alt="" style="border-radius: 8px;" width="260px">
+                <div class="Room_infor">
+                    <div class="Room_title" id="Room3">
+                        Phòng thường
+                    </div>
+                    <ul id="Room3_infor">
+                        <li class="li">Chào mừng quý khách đến với phòng Thường của khách sạn chúng tôi - nơi mang đến sự thoải mái và tiện nghi trong một không gian ấm cúng và thanh lịch. Dù quý khách đến để nghỉ dưỡng hay công tác, phòng Thường của chúng tôi luôn là lựa chọn lý tưởng với mức giá hợp lý cùng dịch vụ chu đáo.</li>
+                        <li class="li">Tiện ích: Nội thất tiện nghi, chất lượng, rộng rãi, thoáng mát,...</li>
+                        <li class="li">Giá phòng: 1.000.000 đồng/ đêm</li>
+                    </ul>
+                    <div class="link" onclick="Mydetail('Room3')">
+                        Chi tiết
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <button onclick="MyForm()">Đặt phòng</button>
+                </div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="Hotel_intro">
+            <div class="Hotel_intro_item">
+                <img src="https://res.klook.com/image/upload/v1639469267/UED%20Team%EF%BC%88for%20DE%20only%EF%BC%89/System%20Icon/Hotel/Public%20icon/illustration_Money_saving_travel_xl.webp" alt="" width="54px">
+                <div>
+                    <h3 style="margin-bottom: 2px;">Ưu đãi đặc biệt</h3>
+                    <p>Nhận mức giá hấp dẫn và tìm những deal khuyến mãi phù hợp với bạn.</p>
+                </div>
+            </div>
+            <div class="Hotel_intro_item">
+                <img src="https://res.klook.com/image/upload/v1639469267/UED%20Team%EF%BC%88for%20DE%20only%EF%BC%89/System%20Icon/Hotel/Public%20icon/illustration_Customer_Service_xl.webp" alt="" width="54px">
+                <div>
+                    <h3 style="margin-bottom: 2px;">Hỗ trợ khách hàng 24/7</h3>
+                    <p>Chúng tôi luôn có mặt ở đây khi bạn cần.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Assets/Page.js"></script>
+</body>
+</html>

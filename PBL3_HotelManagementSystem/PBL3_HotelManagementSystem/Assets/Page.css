@@ -1,0 +1,532 @@
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    font-family: "Inter", sans-serif;
+}
+
+html {
+    /* overflow-x: hidden; */
+}
+
+.Taskbar {
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    z-index: 100;
+}
+
+.Taskbar_container {
+    width: 100%;
+    padding: 0px 30px 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    font-family: "Dancing Script", cursive;
+    font-weight: 600;
+    font-size: 44px;
+    align-items: center;
+}
+
+.User {
+    width: max-content;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 24px;
+    border: 3px solid;
+}
+
+.Taskbar_item {
+    font-size: 24px;
+    font-weight: 600;
+    color: rgb(116, 114, 114);
+    width: 120px;
+}
+
+#Taskbar_item_1 {
+    color: black;
+}
+
+.container {
+    width: 100%;
+    max-width: 1440px;
+    position: relative;
+    top: 97px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 320px;
+    width: 100%;
+    background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEwIiBoZWlnaHQ9IjE2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfMTI4NjdfMjcxNzA1KSI+PHBhdGggZD0iTS0xMDUuNDIzIDE1NC42MTJjLTE5LjQzNi0xNy4xMzktMzEuNzkyLTQzLjA5My0zOS40NjktNjcuMzk0LTYuMDY0LTE5LjEzLTE3LjI0LTU1LjM2MyAyLjIyOC02OS44NyA5LjU5NS03LjE0IDIyLjA5Mi04LjgzNyAzNC4wMDgtMTAuMDI2YTkzMi4yODYgOTMyLjI4NiAwIDAxMTc3Ljc1LS44MDZjMTIuMDcgMS4xMDYgMzEuNjMzIDMuNTM2IDMzLjk2MyAxOC40MzQgMi40MTIgMTUuNTM0LTIzLjg5MyA0Mi45ODQtNDMuMDMgNjAuODM1LTM3LjkxNCAzNS4zMTUtODUuNTcyIDgwLjg3OC0xNDEuMzkzIDc5Ljg0MWEzOC42MTkgMzguNjE5IDAgMDEtMjQuMDU3LTExLjAxNHoiIGZpbGw9IiNGRkMyMDAiLz48L2c+PGRlZnM+PGNsaXBQYXRoIGlkPSJjbGlwMF8xMjg2N18yNzE3MDUiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0wIDBoMTEwdjE2MEgweiIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==") left bottom 20px no-repeat,url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE5MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfMTI4NjdfMjcxNzAwKSI+PHBhdGggZD0iTTUuMDIzIDEzOS40MzJ2LTcuMjI0YzEuODItMzcuOTM2IDEwLjc0NS03NC41NDMgMTkuMDkxLTExMS40MTZBODM3LjQyNiA4MzcuNDI2IDAgMDE1My41NTItODIuMjkzYzE0LjA3NC0zOC42NDYgNDQuMzk4LTExOS42NiA5OS4wNTQtMTA5LjZDMjk5LjEyMS0xNjQuNjM3IDM4OC42MjktODYuMTQ5IDM0NC44NTItMjguMTM2IDMzMC4zNzgtOC45OSAzMTEuMTk3IDcuMzIgMjkzLjEyNyAyMi43NDJjLTI3LjM1IDIzLjUzMy01NS45NDIgNDUuNjQ4LTg1LjQ2OCA2Ni40NzdhNzQwLjYzMyA3NDAuNjMzIDAgMDEtOTMuODE1IDU3LjYxNGMtMjMuMTMxIDExLjYxMi01MC4zMDMgMjQuNjQxLTc2Ljg1NCAyNC4xNTQtMTIuMDMyIDAtMjUuOTczLTYuMDI4LTMwLjE5MS0xOC4wODJhNDEuNTkgNDEuNTkgMCAwMS0xLjc3Ni0xMy40NzN6IiBmaWxsPSIjRkY1QjAwIi8+PHBhdGggZD0iTTc0Ljc1IDExNS42MDljNC42NjItMTAuMTY3IDE5LjQwMi0xMi42NDkgMjguODAzLTYuNjEyIDkuNDAxIDYuMDM3IDEzLjYyNiAxOC4wMzQgMTMuMzQzIDI5LjE5OC0uMjgzIDExLjE2NC00LjM0NSAyMS44ODEtOC4zNTYgMzIuMzE1LS45NDIgMi40NDctMS45MTkgNC45NTUtMy42ODUgNi44Ny0xLjc2NSAxLjkxNS00LjUzMyAzLjE2LTcuMDI3IDIuMzg3LTQuNTY3LTEuNDI1LTQuOTUzLTcuNzI4LTQuMDYyLTEyLjQzNGE5My4zNiA5My4zNiAwIDAxMzMuNTkzLTU1LjQzNGM0LjA0NS0zLjE4NiA4LjczMy02LjE0OCAxMy44NzUtNi4wMTEgOC41MTguMTcyIDE0Ljc4MiA5LjAzNCAxNS4yNDUgMTcuNTUzLjQ2MyA4LjUxOS0zLjI3MyAxNi42NTItNi45MzMgMjQuMzU1LTEuNDMxIDMuMDE0LTQuMDQ1IDYuNTc4LTcuMjA3IDUuNTQ3LTMuNTIyLTEuMTQyLTIuOTQ4LTYuNDE1LTEuMDItOS41ODMgNy43ODItMTIuNzcgMjYuNzU1LTE2Ljk3IDM5LjE4MS04LjY2NSIgc3Ryb2tlPSIjRkZGREY3IiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvZz48ZGVmcz48Y2xpcFBhdGggaWQ9ImNsaXAwXzEyODY3XzI3MTcwMCI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMGgyMDB2MTkwSDB6Ii8+PC9jbGlwUGF0aD48L2RlZnM+PC9zdmc+") 100% 0 no-repeat,url(https://res.klook.com/image/upload/v1688637267/UED_new/Hotel/Hotel_%E5%9E%82%E7%9B%B4%E9%A1%B5%E8%BF%AD%E4%BB%A3_2307/Banner_hotel_vertical-page.jpg) 50%/cover no-repeat;
+}
+
+.banner_content {
+    width: 1160px;
+    color: white;
+    padding-bottom: 50px;
+    font-weight: 600;
+    font-size: 36px;
+}
+
+    .banner_content p {
+        font-family: "Dancing Script", cursive;
+    }
+
+.Selecter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: -40px;
+}
+
+.Selecter_container {
+    width: max-content;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .08);
+    z-index: 99;
+    background-color: white;
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    border-radius: 16px;
+}
+
+.Room {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.Room_item {
+    width: 900px;
+    display: flex;
+    padding: 30px;
+    color: black;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .08);
+    transition-duration: 1s;
+}
+
+    .Room_item:hover {
+        transform: translate(0px,-20px);
+    }
+
+.Room_infor {
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 1px;
+    line-height: 1.428571429;
+}
+
+.Room_title {
+    width: 100%;
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail {
+    background-color: rgba(189, 188, 188, 0.5);
+    width: 100vw; /* Độ rộng của form */
+    height: 100vh; /* Độ cao của form */
+    position: fixed; /* Sử dụng vị trí cố định */
+    top: 50%; /* Đặt top ở giữa màn hình */
+    left: 50%; /* Đặt left ở giữa màn hình */
+    transform: translate(-50%, -50%); /* Dịch chuyển form điều chỉnh về trung tâm */
+    z-index: 101; /* Đảm bảo form hiển thị trên các phần tử khác */
+    display: none; /* Mặc định ẩn form */
+    justify-content: center; /* Căn chỉnh nội dung theo chiều ngang */
+    align-items: center;
+}
+
+.detail_container {
+    width: 800px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 6px 4px 6px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 30px;
+}
+
+.detail_infor {
+    width: 380px;
+    padding: 20px 20px 20px 0px;
+}
+
+.line {
+    width: 100%;
+    height: 2px;
+    background-color: lightgray;
+}
+
+.Hotel_intro {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 50px 0px;
+}
+
+.Hotel_intro_item {
+    display: flex;
+    gap: 10px;
+    width: 400px;
+}
+
+#Page {
+    display: flex;
+}
+
+#HistoryContainer {
+    display: none;
+    padding-top: 50px;
+}
+
+#PersonalInfor {
+    display: none;
+}
+
+
+/* css history */
+.History {
+    width: 700px;
+    background-color: antiquewhite;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .08);
+    border-radius: 16px;
+}
+
+.History_infor {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 40px;
+    font-weight: 400;
+    font-size: 20px;
+    color: #5b5b5b;
+}
+
+.History_infor_content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.History_condition_1 {
+    color: green;
+}
+
+.History_condition_2 {
+    color: red;
+}
+
+/* css PersonalInfor */
+.Personal_infor {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    flex-direction: column;
+    gap: 20px;
+    width: 500px;
+    font-weight: 400;
+    font-size: 20px;
+    justify-content: center;
+    border: 2px solid;
+    border-radius: 4px;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .08);
+}
+
+.Personal_infor_Title {
+    width: 100%;
+    font-weight: 700;
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.Personal_infor div {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .Personal_infor div p::before {
+        content: "• ";
+    }
+
+.Personal_infor input[type=text] {
+    width: 200px;
+    height: 30px;
+    border: none;
+    border-bottom: 2px solid black;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.Personal_infor input[type="radio"] {
+    width: 20px;
+    margin-left: 20px;
+    margin-right: 5px;
+}
+
+.Form {
+    width: 100vw; /* Độ rộng của form */
+    height: 100vh; /* Độ cao của form */
+    position: fixed; /* Sử dụng vị trí cố định */
+    top: 50%; /* Đặt top ở giữa màn hình */
+    left: 50%; /* Đặt left ở giữa màn hình */
+    transform: translate(-50%, -50%); /* Dịch chuyển form điều chỉnh về trung tâm */
+    z-index: 101; /* Đảm bảo form hiển thị trên các phần tử khác */
+    display: none; /* Mặc định ẩn form */
+    justify-content: center; /* Căn chỉnh nội dung theo chiều ngang */
+    align-items: center;
+}
+
+.Form_container {
+    display: block;
+    width: 500px;
+    /* height: 600px; */
+    /* background-color: #EBAB56; */
+    z-index: 101;
+    box-shadow: 6px 4px 6px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px 30px;
+    font-weight: 300;
+    font-size: 16px;
+    background-color: white;
+    border-radius: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Form_logo {
+    display: flex;
+    font-family: "Dancing Script", cursive;
+    font-weight: 600;
+    font-size: 24px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.Form_title {
+    font-weight: 700;
+    font-size: 32px;
+    color: black;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.Form_item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.Form_note {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.input1 {
+    width: 400px;
+    height: 50px;
+    padding: 10px;
+    font-size: 20px;
+    border: 2px solid lightgrey;
+    border-radius: 8px;
+}
+
+.input50 {
+    width: 48%;
+    height: 50px;
+    padding: 10px;
+    font-size: 20px;
+    border: 2px solid lightgrey;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.input100 {
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    font-size: 20px;
+    border: 2px solid lightgrey;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    width: max-content;
+    padding: 10px 20px;
+    background-color: orangered;
+    border: 2px solid orangered;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+}
+
+    button:hover {
+        background-color: white;
+        color: orangered;
+    }
+
+    button:disabled {
+        opacity: 0.6;
+    }
+
+        /* Vô hiệu hóa hiệu ứng hover khi nút bị vô hiệu hóa */
+        button:disabled:hover {
+            background-color: orangered;
+            border: 2px solid orangered;
+            color: white;
+        }
+
+.hidden {
+    display: none;
+}
+
+li {
+    margin-left: 30px;
+    color: #5b5b5b;
+    margin-bottom: 8px;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    transition-duration: 0.5s;
+}
+
+    .link:hover {
+        gap: 5px;
+    }
+
+.link_img {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0px 20px;
+}
+
+.slide-wrap {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #98999b;
+    padding-bottom: 20px;
+    border-radius: 16px;
+}
+
+.slider {
+    background: red;
+    color: white;
+    width: 390px;
+    height: 200px;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    border-radius: 16px;
+}
+
+.slide::-webkit-scrollbar {
+    display: none;
+}
+
+.slide {
+    width: 390px;
+    flex-shrink: 0;
+    height: 100%;
+}
+
+.slides > div:target {
+    transform: scale(0.8);
+}
+
+a {
+    width: 100px;
+    height: 60px;
+    overflow: hidden;
+}
+
+.li {
+    list-style-type: none;
+    margin-left: 20px;
+    width: 500px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    list-style-type: circle;
+}
+
+    .li::before {
+        content: "• ";
+    }
+
+.checkbox-list {
+    display: flex;
+    gap: 30px;
+    font-size: 20px;
+    color: rgb(138, 136, 136);
+    font-weight: 400;
+    margin-bottom: 10px;
+    overflow-x: scroll;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+}
+
+    .checkbox-list::-webkit-scrollbar {
+        height: 5px;
+        width: 100%;
+    }
+
+    .checkbox-list::-webkit-scrollbar-track {
+        background: #f1f1f1; /* Màu nền của thanh cuộn */
+    }
+
+    /* Nút cuộn */
+    .checkbox-list::-webkit-scrollbar-thumb {
+        background: #888; /* Màu của nút cuộn */
+        border-radius: 5px; /* Độ cong của nút cuộn */
+    }
+
+    .checkbox-list label {
+        display: flex;
+        gap: 5px;
+        width: max-content;
+        align-items: center;
+        white-space: nowrap;
+    }

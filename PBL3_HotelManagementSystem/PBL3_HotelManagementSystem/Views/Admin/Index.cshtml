@@ -1,0 +1,376 @@
+﻿@model IEnumerable<PBL3_HotelManagementSystem.Models.IndexViewModel>
+
+@{
+    ViewBag.Title = "Admin";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/Assets/QUAN_LY.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="Form" id="RoomForm">
+        <div class="Form_container">
+            <div class="Form_item" style="justify-content: center;">
+                <p style="font-weight: 600;font-size: 24px;color: black;">ĐẶT PHÒNG</p>
+            </div>
+            <div class="Form_item">
+                <p>Họ và tên:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item">
+                <p>Email:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" class="input">
+                <p>SĐT:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" class="input">
+                <p>Loại phòng:</p>
+                <input list="roomTypes" id="roomType" name="roomType" class="input">
+                <datalist id="roomTypes">
+                    <option value="Thường">
+                    <option value="Vip1">
+                    <option value="Vip2">
+                </datalist>
+            </div>
+            <div class="Form_item" class="input">
+                <p>Số lượng:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item">
+                <p>Ngày nhận phòng:</p>
+                <input type="date" class="input">
+            </div>
+            <div class="Form_item">
+                <p>Ngày trả phòng:</p>
+                <input type="date" class="input">
+            </div>
+            <div class="Form_item" style="justify-content: center;margin-top: 20px;">
+                <button class="button1">ĐẶT PHÒNG</button>
+                <button class="button1" onclick="CloseForm('RoomForm')">Thoát</button>
+            </div>
+        </div>
+    </div>
+    <div class="Form" id="ActorForm">
+        <div class="Form_container">
+            <div class="Form_item" style="justify-content: center;">
+                <p style="font-weight: 600;font-size: 24px;color: black;">THÊM KHÁCH HÀNG</p>
+            </div>
+            <div class="Form_item">
+                <p>Họ và tên:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item">
+                <p>Email:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" class="input">
+                <p>SĐT:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" class="input">
+                <p>Mật khẩu</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" style="justify-content: center;margin-top: 20px;">
+                <button class="button1">THÊM</button>
+                <button class="button1" onclick="CloseForm('ActorForm')">Thoát</button>
+            </div>
+        </div>
+    </div>
+    <div class="Form" id="ServiceForm">
+        <div class="Form_container">
+            <div class="Form_item" style="justify-content: center;">
+                <p style="font-weight: 600;font-size: 24px;color: black;">THÊM DỊCH VỤ</p>
+            </div>
+            <div class="Form_item">
+                <p>Tên dịch vụ:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item">
+                <p>Giá dịch vụ:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" style="justify-content: center;margin-top: 20px;">
+                <button class="button1">THÊM</button>
+                <button class="button1" onclick="CloseForm('ServiceForm')">Thoát</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="taskbar">
+            <div style="display: flex;align-items: center;">
+                <img src="~/Assets/Logo_white.png" alt="" width="100px">
+                HMV HOTEL
+            </div>
+            <div class="Admin">
+                <i class="fa-solid fa-user-tie"></i>
+                ADMIN
+            </div>
+        </div>
+        <div class="container_content">
+            <div class="Title">
+                <div class="Title_item" onclick="window.location.href='@Url.Action("Index", "Home")'">
+                    <i class="fa-solid fa-house"></i>
+                    Trang chủ
+                </div>
+                <div class="Title_item">
+                    <i class="fa-solid fa-address-card"></i>
+                    Giới thiệu
+                </div>
+                <div class="Title_item" onclick="MyForm('RoomForm')">
+                    <i class="fa-solid fa-cart-flatbed"></i>
+                    Đặt ngay
+                </div>
+                <div class="Title_item" id="manager">
+                    <div>
+                        <i class="fa-solid fa-list-check"></i>
+                        Quản lý
+                    </div>
+                    <i class="fa-solid fa-arrow-down" id="Arrow"></i>
+                </div>
+                <div class="manager_item">
+                    <div>
+                        <input type="radio" name="type" onclick="roomManagement()" checked>
+                        Tình trạng phòng
+                    </div>
+                    <div>
+                        <input type="radio" name="type" onclick="actorManagement()">
+                        Quản lý khách hàng
+                    </div>
+                    <div>
+                        <input type="radio" name="type" onclick="serviceManagement()">
+                        Quản lý dịch vụ
+                    </div>
+                    <div>
+                        <input type="radio" name="type" onclick="billManagement()">
+                        Quản lý hóa đơn
+                    </div>
+                </div>
+            </div>
+            <div class="manager_container" id="Room_management">
+                <div class="manager_item1">
+                    <div style="width: 100%;">
+                        Quản lý phòng
+                        <div class="line"></div>
+                    </div>
+                    <div class="room_choice_container">
+                        <div class="choice">
+                            Từ ngày:
+                            <input type="date" class="input1">
+                        </div>
+                        <div class="choice">
+                            Đến ngày:
+                            <input type="date" class="input1">
+                        </div>
+                        <div class="choice">
+                            Loại phòng:
+                            <select id="condition1" class="input input1"></select>
+                        </div>
+                        <div class="choice">
+                            Trạng thái:
+                            <select id="condition" class="input input1"></select>
+                        </div>
+                    </div>
+                    <div style="width:100%;display: flex;justify-content: center;gap: 20px;">
+                        <button class="button1">Kiểm tra</button>
+                        <button class="button1" onclick="MyForm('RoomForm')">Đặt phòng</button>
+                    </div>
+                </div>
+                <div class="manager_item2">
+                    <table>
+                        <thead>
+                            <th>ID Phòng</th>
+                            <th>Tên Phòng</th>
+                            <th>Loại Phòng</th>
+                            <th>Giá</th>
+                            <th>Số giường</th>
+                            <th>Số người</th>
+                            <th>Trạng thái</th>
+                        </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    foreach (var room in item.Rooms)
+                                    {
+                                        <tr>
+                                            <td>@room.IDPHG</td>
+                                            <td>@room.TenPHG</td>
+                                            <td>@room.LoaiPhong.TenLoaiPhong</td>
+                                            <td>@room.LoaiPhong.DonGia</td>
+                                            <td>@room.LoaiPhong.SoGiuong</td>
+                                            <td>@room.LoaiPhong.SoNguoi</td>
+                                            <td>@room.TrangThai</td>
+                                            <td>
+                                                <!-- Thêm cột cho nút thao tác -->
+                                                <button onclick="editRoom('@room.IDPHG')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                                <button onclick="deleteRoom('@room.IDPHG')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="manager_container" id="Actor_management">
+                <div class="manager_item1">
+                    <div style="width: 100%;">
+                        Quản lý khách hàng
+                        <div class="line"></div>
+                    </div>
+                    <div class="filter">
+                        Số điện thoại:
+                        <input type="text" id="searchCustomerInput" placeholder="Nhập số điện thoại">
+                        <button onclick="searchCustomers()">Tìm kiếm</button>
+                        <button class="button2" onclick="MyForm('ActorForm')">Thêm khách hàng</button>
+                    </div>
+                </div>
+                <div class="manager_item2">
+                    <table id = "customerTable">
+                    <thead>
+                    <tr>
+                    <th>IDKH</th>
+                    <th>Họ và tên</th>
+                    <th>CCCD</th>
+                    <th>SĐT</th>
+                    <th>Email</th>
+                    <th>Giới tính</th>
+                    <th>Địa chỉ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        foreach (var customer in item.Customers)
+                        {
+                            <tr>
+                            <td>@customer.IDKH</td>
+                            <td>@customer.HoTen</td>
+                            <td>@customer.CCCD</td>
+                            <td>@customer.SDT</td>
+                            <td>@customer.Email</td>
+                            <td>@(customer.GioiTinh.HasValue ? (customer.GioiTinh.Value ? "Nam" : "Nữ") : "")</td>
+                            <td>@customer.DiaChi</td>
+                            <td>
+                            <!-- Thêm cột cho nút thao tác -->
+                            <button onclick="editCustomer('@customer.IDKH')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                            <button onclick="deleteCustomer('@customer.IDKH')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                            </td>
+
+                            </tr>
+                        }
+                    }
+
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="manager_container" id="Service_management">
+                <div class="manager_item1">
+                    <div style="width: 100%;">
+                        Quản lý dịch vụ
+                        <div class="line"></div>
+                    </div>
+                    <div class="filter">
+                        Dịch vụ:
+                        <input type="text" ID="searchServiceInput" placeholder="Thông tin dịch vụ">
+                        <button onclick="searchServices()">Tìm kiếm</button>
+                        <button class="button2" onclick="MyForm('ServiceForm')">Thêm dịch vụ</button>
+                    </div>
+                </div>
+                <div class="manager_item2">
+                    <table id="serviceTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên dịch vụ</th>
+                                <th>Tên loại dịch vụ</th>
+                                <th>Giá dịch vụ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                foreach (var service in item.Services)
+                                {
+                                    <tr>
+                                        <td>@service.IDDV</td>
+                                        <td>@service.TenDV</td>
+                                        <td>@service.LoaiDV.TenLoaiDV</td>
+                                        <td>@service.LoaiDV.DonGia</td>
+                                        <td>
+                                            <!-- Thêm cột cho nút thao tác -->
+                                            <button onclick="editService('@service.IDDV')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="deleteService('@service.IDDV')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="manager_container" id="Bill_management">
+                <div class="manager_item1">
+                    <div style="width: 100%;">
+                        Quản lý hóa đơn
+                        <div class="line"></div>
+                    </div>
+                    <div class="filter">
+                        Từ ngày
+                        <input type="date">
+                        đến ngày
+                        <input type="date">
+                        <button>Tìm kiếm</button>
+                    </div>
+                </div>
+                <div class="manager_item2">
+                    <table>
+                        <thead>
+                            <th>ID Hóa đơn</th>
+                            <th>ID Khách Hàng</th>
+                            <th>Thành tiền</th>
+                        </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    foreach (var bill in item.Bills)
+                                    {
+                                        <tr>
+                                            <td>@bill.IDHD</td>
+                                            <td>@bill.IDKH</td>
+                                            <td>@bill.TongDonGia</td>
+                                            <td>
+                                                <!-- Thêm cột cho nút thao tác -->
+                                                <button onclick="editBill('@bill.IDHD')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                                <button onclick="deleteBill('@bill.IDHD')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Assets/QUAN_LY.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+</body>
+</html>
