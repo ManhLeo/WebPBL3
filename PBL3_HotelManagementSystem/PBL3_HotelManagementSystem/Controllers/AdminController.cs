@@ -1,17 +1,20 @@
-﻿using PBL3_HotelManagementSystem.Models;
+﻿using PBL3_HotelManagementSystem.Helpers;
+using PBL3_HotelManagementSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 //giao diện đặt dịch vụ, giao diện thông tin đặt phòng của khách hàng, giao diện sửa các thông tin, 
 
 namespace PBL3_HotelManagementSystem.Controllers
 {
-    
+
     public class AdminController : Controller
     {
         private HotelManagementDbContext db = new HotelManagementDbContext();
@@ -22,19 +25,20 @@ namespace PBL3_HotelManagementSystem.Controllers
             var services = db.DichVus.ToList();
             var customers = db.KhachHangs.ToList();
             var rooms = db.Phongs.ToList();
-            var bills = db.HoaDons.ToList(); 
+            var bills = db.HoaDons.ToList();
 
-            var viewModelList = new List<IndexViewModel>(){
+            var viewModel = new List<IndexViewModel>(){
                 new IndexViewModel
                 {
                     Services = services,
                     Customers = customers,
                     Rooms = rooms,
-                    Bills = bills
+                    Bills = bills,
+                    NewCustomer = new CustomerViewModel()
                 }
             };
 
-            return View(viewModelList);
+            return View(viewModel);
         }
 
 
@@ -88,6 +92,7 @@ namespace PBL3_HotelManagementSystem.Controllers
 
             return RedirectToAction("Index");
         }
+
 
         // POST: Admin/DeleteService
         [HttpPost]
@@ -173,11 +178,11 @@ namespace PBL3_HotelManagementSystem.Controllers
             // Tìm kiếm dịch vụ theo tên
             var searchResult = db.KhachHangs.Where(s => s.HoTen.Contains(searchText)).Select(s => new {
                 IDKH = s.IDKH,
-                HoTen = s.HoTen,    
-                CCCD = s.CCCD,  
-                SDT = s.SDT,        
+                HoTen = s.HoTen,
+                CCCD = s.CCCD,
+                SDT = s.SDT,
                 Email = s.Email,
-                GioiTinh = s.GioiTinh,  
+                GioiTinh = s.GioiTinh,
                 DiaChi = s.DiaChi
             }).ToList();
 
@@ -197,6 +202,137 @@ namespace PBL3_HotelManagementSystem.Controllers
             var roomStatuses = db.Phongs.Select(r => r.TrangThai).Distinct().ToList();
             return Json(roomStatuses, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult SearchRooms(string roomType, string condition, DateTime? fromDate, DateTime? toDate)
+        {
+            var query = db.Phongs.AsQueryable();
+
+            if (!string.IsNullOrEmpty(roomType) && roomType != "Tất cả")
+            {
+                query = query.Where(p => p.LoaiPhong.TenLoaiPhong == roomType);
+            }
+
+            if (!string.IsNullOrEmpty(condition) && condition != "Tất cả")
+            {
+                query = query.Where(p => p.TrangThai == condition);
+            }
+            if (!string.IsNullOrEmpty(condition) && condition != "Tất cả")
+            {
+                if (condition == "Trống")
+                {
+                    query = query.Where(p => !db.DatPhongs.Any(d => d.IDPHG == p.IDPHG &&
+                    ((d.NgayDat <= fromDate && d.NgayTra >= fromDate) ||
+                    (d.NgayDat <= toDate && d.NgayTra >= toDate) ||
+                    (d.NgayDat >= fromDate && d.NgayTra <= toDate))));
+                }
+                else if (condition == "Bận")
+                {
+                    query = query.Where(p => db.DatPhongs.Any(d => d.IDPHG == p.IDPHG &&
+                    ((d.NgayDat <= fromDate && d.NgayTra >= fromDate) ||
+                    (d.NgayDat <= toDate && d.NgayTra >= toDate) ||
+                    (d.NgayDat >= fromDate && d.NgayTra <= toDate))));
+                }
+            }
+            var searchResult = query.Select(p => new
+            {
+                p.IDPHG,
+                p.TenPHG,
+                p.LoaiPhong.TenLoaiPhong,
+                p.LoaiPhong.DonGia,
+                p.LoaiPhong.SoGiuong,
+                p.LoaiPhong.SoNguoi,
+                p.TrangThai
+            }).ToList();
+
+            return Json(searchResult);
+        }
+
+
+
+        //==================Add====================//
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddCustomer(CustomerViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var existingUser = db.Accounts.FirstOrDefault(u => u.Email == model.Email);
+                    if (existingUser != null)
+                    {
+                        ViewBag.ErrorMessage = "Email đã tồn tại.";
+                        return RedirectToAction("Index");
+                    }
+
+                    // Tạo ID khách hàng mới
+                    var newIDKH = GenerateNewCustomerId();
+
+                    var newUser = new Account
+                    {
+                        IDAccount = newIDKH,
+                        UserName = model.FullName,
+                        Email = model.Email,
+                        Pass = model.Password, // Sử dụng mật khẩu chưa hash
+                        PhanQuyen = "Khách Hàng"
+                    };
+
+                    db.Accounts.Add(newUser);
+
+                    var newCustomer = new KhachHang
+                    {
+                        IDKH = newUser.IDAccount,
+                        HoTen = model.FullName,
+                        CCCD = model.CCCD,
+                        SDT = model.PhoneNumber,
+                        Email = model.Email,
+                        GioiTinh = model.Gender,
+                        DiaChi = model.Address
+                    };
+
+                    db.KhachHangs.Add(newCustomer);
+                    db.SaveChanges();
+
+                    // Chuyển hướng về trang quản lý sau khi thêm thành công
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.ErrorMessage = "Vui lòng kiểm tra lại thông tin.";
+                return RedirectToAction("Index");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in entityValidationErrors.ValidationErrors)
+                    {
+                        // Hiển thị lỗi cụ thể cho từng thuộc tính
+                        Console.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                    }
+                }
+
+                // Xử lý lỗi ở đây hoặc trả về một view với thông báo lỗi phù hợp
+                ViewBag.ErrorMessage = "Lỗi khi kiểm tra dữ liệu.";
+                return RedirectToAction("Index");
+            }
+        }
+
+        private string GenerateNewCustomerId()
+        {
+            var lastCustomer = db.KhachHangs.OrderByDescending(c => c.IDKH).FirstOrDefault();
+            if (lastCustomer != null)
+            {
+                int newIdNumber = int.Parse(lastCustomer.IDKH.Substring(2)) + 1;
+                return "KH" + newIdNumber.ToString("D2");
+            }
+            else
+            {
+                return "KH01";
+            }
+        }
+
 
     }
 }

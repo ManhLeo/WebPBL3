@@ -139,6 +139,7 @@
     <Compile Include="Models\Account.cs">
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\DatDichVu.cs">
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
@@ -290,7 +291,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\PageUser.cshtml" />
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />

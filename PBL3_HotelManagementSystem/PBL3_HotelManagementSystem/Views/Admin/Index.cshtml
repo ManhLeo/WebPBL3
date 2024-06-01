@@ -37,6 +37,21 @@
                 <input type="text" class="input">
             </div>
             <div class="Form_item" class="input">
+                <p>Giới tính:</p>
+                <div style="display: flex;">
+                    <div>
+                        <input type="radio" name="Gender">Nam
+                    </div>
+                    <div>
+                        <input type="radio" name="Gender">Nữ
+                    </div>
+                </div>
+            </div>
+            <div class="Form_item" class="input">
+                <p>Địa chỉ:</p>
+                <input type="text" class="input">
+            </div>
+            <div class="Form_item" class="input">
                 <p>Loại phòng:</p>
                 <input list="roomTypes" id="roomType" name="roomType" class="input">
                 <datalist id="roomTypes">
@@ -46,8 +61,29 @@
                 </datalist>
             </div>
             <div class="Form_item" class="input">
-                <p>Số lượng:</p>
+                <p>Số người(<= 2)</p>
                 <input type="text" class="input">
+            </div>
+            <p>Dịch vụ:</p>
+            <div class="checkbox-list">
+                <label>
+                    <input type="checkbox" name="DV" value="Buffet sáng" onchange="updateSelection()"> Buffet sáng
+                </label>
+                <label>
+                    <input type="checkbox" name="DV" value="Buffet trưa" onchange="updateSelection()"> Buffet trưa
+                </label>
+                <label>
+                    <input type="checkbox" name="DV" value="Tiệc đêm" onchange="updateSelection()"> Tiệc đêm
+                </label>
+                <label>
+                    <input type="checkbox" name="DV" value="Massage" onchange="updateSelection()"> Massage
+                </label>
+                <label>
+                    <input type="checkbox" name="DV" value="Đưa đón" onchange="updateSelection()"> Đưa đón
+                </label>
+                <label>
+                    <input type="checkbox" name="DV" value="Bể bơi" onchange="updateSelection()"> Bể bơi
+                </label>
             </div>
             <div class="Form_item">
                 <p>Ngày nhận phòng:</p>
@@ -63,33 +99,56 @@
             </div>
         </div>
     </div>
-    <div class="Form" id="ActorForm">
-        <div class="Form_container">
-            <div class="Form_item" style="justify-content: center;">
-                <p style="font-weight: 600;font-size: 24px;color: black;">THÊM KHÁCH HÀNG</p>
-            </div>
-            <div class="Form_item">
-                <p>Họ và tên:</p>
-                <input type="text" class="input">
-            </div>
-            <div class="Form_item">
-                <p>Email:</p>
-                <input type="text" class="input">
-            </div>
-            <div class="Form_item" class="input">
-                <p>SĐT:</p>
-                <input type="text" class="input">
-            </div>
-            <div class="Form_item" class="input">
-                <p>Mật khẩu</p>
-                <input type="text" class="input">
-            </div>
-            <div class="Form_item" style="justify-content: center;margin-top: 20px;">
-                <button class="button1">THÊM</button>
-                <button class="button1" onclick="CloseForm('ActorForm')">Thoát</button>
-            </div>
+
+    @foreach (var viewmodel in Model)
+    {
+        <div class="Form" id="ActorForm">
+            @using (Html.BeginForm("AddCustomer", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="Form_container">
+                    <div class="Form_item" style="justify-content: center;">
+                        <p style="font-weight: 600;font-size: 24px;color: black;">THÊM KHÁCH HÀNG</p>
+                    </div>
+                    <div class="Form_item">
+                        <p>Họ và tên:</p>
+                        @Html.TextBoxFor(m => viewmodel.NewCustomer.FullName, new { @class = "input" })
+                    </div>
+                    <div class="Form_item">
+                        <p>CCCD:</p>
+                        @Html.TextBoxFor(m => viewmodel.NewCustomer.CCCD, new { @class = "input" })
+                    </div>
+                    <div class="Form_item">
+                        <p>SĐT:</p>
+                        @Html.TextBoxFor(m => viewmodel.NewCustomer.PhoneNumber, new { @class = "input" })
+                    </div>
+                    <div class="Form_item">
+                        <p>Email:</p>
+                        @Html.TextBoxFor(m => viewmodel.NewCustomer.Email, new { @class = "input" })
+                    </div>
+                    <div class="Form_item">
+                        <p>Giới tính:</p>
+                        <div style="display: flex;gap: 20px;">
+                            <div>@Html.RadioButtonFor(m => viewmodel.NewCustomer.Gender, "Nam", new { id = "gender_male_" + viewmodel.GetHashCode() }) Nam</div>
+                            <div>@Html.RadioButtonFor(m => viewmodel.NewCustomer.Gender, "Nữ", new { id = "gender_female_" + viewmodel.GetHashCode() }) Nữ</div>
+                        </div>
+                    </div>
+                    <div class="Form_item">
+                        <p>Địa chỉ:</p>
+                        @Html.TextBoxFor(m => viewmodel.NewCustomer.Address, new { @class = "input" })
+                    </div>
+                    <div class="Form_item">
+                        <p>Mật khẩu:</p>
+                        @Html.PasswordFor(m => viewmodel.NewCustomer.Password, new { @class = "input" })
+                    </div>
+                    <div class="Form_item" style="justify-content: center;margin-top: 20px;">
+                        <button type="submit" class="button1">THÊM</button>
+                        <button type="button" class="button1" onclick="CloseForm('ActorForm')">Thoát</button>
+                    </div>
+                </div>
+            }
         </div>
-    </div>
+    }
     <div class="Form" id="ServiceForm">
         <div class="Form_container">
             <div class="Form_item" style="justify-content: center;">
@@ -169,11 +228,11 @@
                     <div class="room_choice_container">
                         <div class="choice">
                             Từ ngày:
-                            <input type="date" class="input1">
+                            <input type="date" id="fromDate" class="input1">
                         </div>
                         <div class="choice">
                             Đến ngày:
-                            <input type="date" class="input1">
+                            <input type="date" id="toDate" class="input1">
                         </div>
                         <div class="choice">
                             Loại phòng:
@@ -185,44 +244,50 @@
                         </div>
                     </div>
                     <div style="width:100%;display: flex;justify-content: center;gap: 20px;">
-                        <button class="button1">Kiểm tra</button>
+                        <button class="button1" onclick="searchRooms()">Kiểm tra</button>
                         <button class="button1" onclick="MyForm('RoomForm')">Đặt phòng</button>
                     </div>
                 </div>
                 <div class="manager_item2">
                     <table>
                         <thead>
-                            <th>ID Phòng</th>
-                            <th>Tên Phòng</th>
-                            <th>Loại Phòng</th>
-                            <th>Giá</th>
-                            <th>Số giường</th>
-                            <th>Số người</th>
-                            <th>Trạng thái</th>
+                        <th>ID Phòng</th>
+                        <th>Tên Phòng</th>
+                        <th>Loại Phòng</th>
+                        <th>Giá</th>
+                        <th>Số giường</th>
+                        <th>Số người</th>
+                        <th>Trạng thái</th>
                         </thead>
-                            <tbody>
-                                @foreach (var item in Model)
+                        <tbody id="roomTableBody">
+                            @foreach (var item in Model)
+                            {
+                                foreach (var room in item.Rooms)
                                 {
-                                    foreach (var room in item.Rooms)
-                                    {
-                                        <tr>
-                                            <td>@room.IDPHG</td>
-                                            <td>@room.TenPHG</td>
-                                            <td>@room.LoaiPhong.TenLoaiPhong</td>
-                                            <td>@room.LoaiPhong.DonGia</td>
-                                            <td>@room.LoaiPhong.SoGiuong</td>
-                                            <td>@room.LoaiPhong.SoNguoi</td>
-                                            <td>@room.TrangThai</td>
-                                            <td>
-                                                <!-- Thêm cột cho nút thao tác -->
-                                                <button onclick="editRoom('@room.IDPHG')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
-                                                <button onclick="deleteRoom('@room.IDPHG')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
-                                            </td>
+                                    <tr>
+                                        <td>@room.IDPHG</td>
+                                        <td>@room.TenPHG</td>
+                                        <td>@room.LoaiPhong.TenLoaiPhong</td>
+                                        <td>@room.LoaiPhong.DonGia</td>
+                                        <td>@room.LoaiPhong.SoGiuong</td>
+                                        <td>@room.LoaiPhong.SoNguoi</td>
+                                        <td>@room.TrangThai</td>
+                                        <td>
+                                            @if (room.TrangThai == "Bận")
+                                            {
+                                                <button onclick="createInvoice('@room.IDPHG')">Checkout</button>
+                                            }
+                                        </td>
+                                        <td>
+                                            <!-- Thêm cột cho nút thao tác -->
+                                            <button onclick="editRoom('@room.IDPHG')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="deleteRoom('@room.IDPHG')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                        </td>
 
-                                        </tr>
-                                    }
+                                    </tr>
                                 }
-                            </tbody>
+                            }
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -233,50 +298,50 @@
                         <div class="line"></div>
                     </div>
                     <div class="filter">
-                        Số điện thoại:
-                        <input type="text" id="searchCustomerInput" placeholder="Nhập số điện thoại">
+                        Tên khách hàng:
+                        <input type="text" id="searchCustomerInput" placeholder="Nhập tên khách hàng">
                         <button onclick="searchCustomers()">Tìm kiếm</button>
                         <button class="button2" onclick="MyForm('ActorForm')">Thêm khách hàng</button>
                     </div>
                 </div>
                 <div class="manager_item2">
-                    <table id = "customerTable">
-                    <thead>
-                    <tr>
-                    <th>IDKH</th>
-                    <th>Họ và tên</th>
-                    <th>CCCD</th>
-                    <th>SĐT</th>
-                    <th>Email</th>
-                    <th>Giới tính</th>
-                    <th>Địa chỉ</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    @foreach (var item in Model)
-                    {
-                        foreach (var customer in item.Customers)
-                        {
+                    <table id="customerTable">
+                        <thead>
                             <tr>
-                            <td>@customer.IDKH</td>
-                            <td>@customer.HoTen</td>
-                            <td>@customer.CCCD</td>
-                            <td>@customer.SDT</td>
-                            <td>@customer.Email</td>
-                            <td>@(customer.GioiTinh.HasValue ? (customer.GioiTinh.Value ? "Nam" : "Nữ") : "")</td>
-                            <td>@customer.DiaChi</td>
-                            <td>
-                            <!-- Thêm cột cho nút thao tác -->
-                            <button onclick="editCustomer('@customer.IDKH')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
-                            <button onclick="deleteCustomer('@customer.IDKH')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
-                            </td>
-
+                                <th>IDKH</th>
+                                <th>Họ và tên</th>
+                                <th>CCCD</th>
+                                <th>SĐT</th>
+                                <th>Email</th>
+                                <th>Giới tính</th>
+                                <th>Địa chỉ</th>
                             </tr>
-                        }
-                    }
+                        </thead>
+                        <tbody>
 
-                    </tbody>
+                            @foreach (var item in Model)
+                            {
+                                foreach (var customer in item.Customers)
+                                {
+                                    <tr>
+                                        <td>@customer.IDKH</td>
+                                        <td>@customer.HoTen</td>
+                                        <td>@customer.CCCD</td>
+                                        <td>@customer.SDT</td>
+                                        <td>@customer.Email</td>
+                                        <td>@(customer.GioiTinh.HasValue ? (customer.GioiTinh.Value ? "Nam" : "Nữ") : "")</td>
+                                        <td>@customer.DiaChi</td>
+                                        <td>
+                                            <!-- Thêm cột cho nút thao tác -->
+                                            <button onclick="editCustomer('@customer.IDKH')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="deleteCustomer('@customer.IDKH')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -343,28 +408,28 @@
                 <div class="manager_item2">
                     <table>
                         <thead>
-                            <th>ID Hóa đơn</th>
-                            <th>ID Khách Hàng</th>
-                            <th>Thành tiền</th>
+                        <th>ID Hóa đơn</th>
+                        <th>ID Khách Hàng</th>
+                        <th>Thành tiền</th>
                         </thead>
-                            <tbody>
-                                @foreach (var item in Model)
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                foreach (var bill in item.Bills)
                                 {
-                                    foreach (var bill in item.Bills)
-                                    {
-                                        <tr>
-                                            <td>@bill.IDHD</td>
-                                            <td>@bill.IDKH</td>
-                                            <td>@bill.TongDonGia</td>
-                                            <td>
-                                                <!-- Thêm cột cho nút thao tác -->
-                                                <button onclick="editBill('@bill.IDHD')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
-                                                <button onclick="deleteBill('@bill.IDHD')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
-                                            </td>
-                                        </tr>
-                                    }
+                                    <tr>
+                                        <td>@bill.IDHD</td>
+                                        <td>@bill.IDKH</td>
+                                        <td>@bill.TongDonGia</td>
+                                        <td>
+                                            <!-- Thêm cột cho nút thao tác -->
+                                            <button onclick="editBill('@bill.IDHD')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="deleteBill('@bill.IDHD')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
+                                        </td>
+                                    </tr>
                                 }
-                            </tbody>
+                            }
+                        </tbody>
                     </table>
                 </div>
             </div>

@@ -41,7 +41,7 @@ namespace PBL3_HotelManagementSystem.Controllers
                     }
                     else if (account.PhanQuyen == "Khách Hàng")
                     {
-                        return RedirectToAction("Index", "Home"); // Chuyển hướng đến trang chính của khách hàng
+                        return RedirectToAction("PageUser", "Home"); // Chuyển hướng đến trang chính của khách hàng
                     }
                 }
                 else
@@ -190,9 +190,12 @@ namespace PBL3_HotelManagementSystem.Controllers
                     return View(model);
                 }
 
+                // Tạo ID khách hàng mới
+                var newIDKH = GenerateNewCustomerId();
+
                 var newUser = new Account
                 {
-                    IDAccount = "KH" + (db.KhachHangs.Count() + 1).ToString("D2"),
+                    IDAccount = newIDKH,
                     UserName = model.FullName,
                     Email = model.Email,
                     Pass = PasswordHelper.HashPassword(model.Password), // Hash mật khẩu trước khi lưu
@@ -205,7 +208,7 @@ namespace PBL3_HotelManagementSystem.Controllers
                 {
                     IDKH = newUser.IDAccount,
                     HoTen = model.FullName,
-                    CCCD = model.CCCD, 
+                    CCCD = model.CCCD,
                     SDT = model.PhoneNumber,
                     Email = model.Email,
                     GioiTinh = model.Gender,
@@ -215,11 +218,26 @@ namespace PBL3_HotelManagementSystem.Controllers
                 db.KhachHangs.Add(newCustomer);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("PageUser", "Home");
             }
 
             ViewBag.ErrorMessage = "Vui lòng kiểm tra lại thông tin.";
             return View(model);
         }
+
+        private string GenerateNewCustomerId()
+        {
+            var lastCustomer = db.KhachHangs.OrderByDescending(c => c.IDKH).FirstOrDefault();
+            if (lastCustomer != null)
+            {
+                int newIdNumber = int.Parse(lastCustomer.IDKH.Substring(2)) + 1;
+                return "KH" + newIdNumber.ToString("D2");
+            }
+            else
+            {
+                return "KH01";
+            }
+        }
+
     }
 }

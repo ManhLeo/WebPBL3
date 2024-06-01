@@ -24,6 +24,11 @@ namespace PBL3_HotelManagementSystem
                 url: "Admin/Index",
                 defaults: new { controller = "Admin", action = "Index" }
             );
+            routes.MapRoute(
+                name: "PageUser",
+                url: "Home/PageUser",
+                defaults: new { controller = "Home", action = "PageUser" }
+            );
 
             routes.MapRoute(
                 name: "Default",

@@ -22,5 +22,6 @@ namespace PBL3_HotelManagementSystem.Models
         public DbSet<DatDichVuChiTiet> DatDichVuChiTiets { get; set; }
         public DbSet<HoaDon> HoaDons { get; set; }
         public DbSet<HoaDonChiTiet> HoaDonChiTiets { get; set; }
+        public DbSet<CustomerViewModel> Customers { get; set; }
     }
 }

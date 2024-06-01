@@ -340,6 +340,58 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 });
 
+function searchRooms() {
+    var roomTypeElement = document.getElementById('condition1');
+    var conditionElement = document.getElementById('condition');
+    var fromDateElement = document.getElementById('fromDate');
+    var toDateElement = document.getElementById('toDate');
+
+    if (roomTypeElement && conditionElement && fromDateElement && toDateElement) {
+        var roomType = roomTypeElement.value;
+        var condition = conditionElement.value;
+        var fromDate = fromDateElement.value;
+        var toDate = toDateElement.value;
+
+        $.ajax({
+            url: '/Admin/SearchRooms',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                roomType: roomType,
+                condition: condition,
+                fromDate: fromDate,
+                toDate: toDate
+            }),
+            success: function (rooms) {
+                var tableBody = document.getElementById('roomTableBody');
+                tableBody.innerHTML = '';
+
+                rooms.forEach(function (room) {
+                    var row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${room.IDPHG}</td>
+                        <td>${room.TenPHG}</td>
+                        <td>${room.TenLoaiPhong}</td>
+                        <td>${room.DonGia}</td>
+                        <td>${room.SoGiuong}</td>
+                        <td>${room.SoNguoi}</td>
+                        <td>${room.TrangThai}</td>
+                        <td>
+                            <button onclick="editRoom('${room.IDPHG}')"><i class="fas fa-edit"></i></button>
+                            <button onclick="deleteRoom('${room.IDPHG}')"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Lỗi khi tìm kiếm phòng:', error);
+            }
+        });
+    } else {
+        console.error('Không tìm thấy một hoặc nhiều phần tử nhập liệu.');
+    }
+}
 
 
 

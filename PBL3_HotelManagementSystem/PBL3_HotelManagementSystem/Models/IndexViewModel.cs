@@ -13,5 +13,7 @@ namespace PBL3_HotelManagementSystem.Models
         public IEnumerable<Phong> Rooms { get; set; }
         public IEnumerable<HoaDon> Bills { get; set; }
         public IEnumerable<LoaiPhong> KindRooms { get; set; }
+        public CustomerViewModel NewCustomer { get; set; }
+        public IEnumerable<CustomerViewModel> Customer {get; set; }
     }
 }

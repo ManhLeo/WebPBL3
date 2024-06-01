@@ -208,7 +208,11 @@
 }
 
 input {
-    margin-right: 10px;
+    margin-right: 5x;
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid black;
+    color: rgb(92, 92, 92);
 }
 
 .button1 {
@@ -299,3 +303,36 @@ th, td {
     justify-content: space-between;
     gap: 20px;
 }
+
+.checkbox-list {
+    display: flex;
+    gap: 30px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    overflow-x: scroll;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+    .checkbox-list::-webkit-scrollbar {
+        height: 5px;
+        width: 100%;
+    }
+
+    .checkbox-list::-webkit-scrollbar-track {
+        background: #f1f1f1; /* Màu nền của thanh cuộn */
+    }
+
+    /* Nút cuộn */
+    .checkbox-list::-webkit-scrollbar-thumb {
+        background: #888; /* Màu của nút cuộn */
+        border-radius: 5px; /* Độ cong của nút cuộn */
+    }
+
+    .checkbox-list label {
+        display: flex;
+        gap: 5px;
+        width: max-content;
+        align-items: center;
+        white-space: nowrap;
+    }

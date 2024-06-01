@@ -14,6 +14,12 @@ namespace PBL3_HotelManagementSystem.Controllers
             return View();
         }
 
+        // GET: PageUser
+        public ActionResult PageUser()
+        {
+            return View();
+        }
+
         // GET: Home/Details/5
         public ActionResult Details(int id)
         {
