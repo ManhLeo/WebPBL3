@@ -1,10 +1,11 @@
-﻿using PBL3_HotelManagementSystem.Helpers;
+﻿
 using PBL3_HotelManagementSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
@@ -34,9 +35,11 @@ namespace PBL3_HotelManagementSystem.Controllers
                     Customers = customers,
                     Rooms = rooms,
                     Bills = bills,
-                    NewCustomer = new CustomerViewModel()
+                    
                 }
             };
+            
+
 
             return View(viewModel);
         }
@@ -190,13 +193,14 @@ namespace PBL3_HotelManagementSystem.Controllers
             return Json(searchResult);
         }
 
-
+        [HttpGet]
         public ActionResult GetRoomTypes()
         {
             var roomTypes = db.LoaiPhongs.Select(r => r.TenLoaiPhong).Distinct().ToList();
             return Json(roomTypes, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public ActionResult GetRoomStatuses()
         {
             var roomStatuses = db.Phongs.Select(r => r.TrangThai).Distinct().ToList();
@@ -250,73 +254,157 @@ namespace PBL3_HotelManagementSystem.Controllers
 
 
 
-        //==================Add====================//
+        //==================Book====================//
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddCustomer(CustomerViewModel model)
+        public ActionResult BookRoom(BookViewModel model)
         {
-            try
+            using (var transaction = db.Database.BeginTransaction())
             {
-                if (ModelState.IsValid)
+                try
                 {
-                    var existingUser = db.Accounts.FirstOrDefault(u => u.Email == model.Email);
-                    if (existingUser != null)
+                    if (ModelState.IsValid)
                     {
-                        ViewBag.ErrorMessage = "Email đã tồn tại.";
-                        return RedirectToAction("Index");
+                        var newIDKH = GenerateNewCustomerId();
+                        var newIDBooking = GenerateNewBookRoomId();
+
+                        var newUser = new Account
+                        {
+                            IDAccount = newIDKH,
+                            UserName = model.FullName,
+                            Email = model.Email,
+                            Pass = null, // Hash mật khẩu trước khi lưu
+                            PhanQuyen = "Khách Hàng"
+                        };
+
+                        db.Accounts.Add(newUser);
+
+                        var newCustomer = new KhachHang
+                        {
+                            IDKH = newIDKH,
+                            HoTen = model.FullName,
+                            CCCD = model.CCCD,
+                            SDT = model.PhoneNumber,
+                            Email = model.Email,
+                            GioiTinh = model.Gender,
+                            DiaChi = model.Address
+                        };
+
+                        var selectedRoom = FindAvailableRoom(model.RoomType, model.CheckInDate, model.CheckOutDate);
+                        if (selectedRoom == null)
+                        {
+                            return Json(new { success = false, message = "Không tìm thấy phòng phù hợp." });
+                        }
+
+                        var bookingRoom = new DatPhong
+                        {
+                            IDDatPhong = newIDBooking,
+                            IDKH = newIDKH,
+                            IDPHG = selectedRoom.IDPHG,
+                            NgayDat = model.CheckInDate,
+                            NgayTra = model.CheckOutDate,
+                            SoNgayThue = (model.CheckOutDate - model.CheckInDate).Days,
+                            TrangThai = "Đã đặt"
+                        };
+
+                        selectedRoom.TrangThai = "Bận";
+
+                        db.KhachHangs.Add(newCustomer);
+                        db.DatPhongs.Add(bookingRoom);
+
+                        // Add selected services if any
+                        if (model.SelectedServices != null && model.SelectedServices.Any())
+                        {
+                            foreach (var IDservice in model.SelectedServices)
+                            {
+                                var newIDServiceBooking = GenerateNewBookServiceId();
+
+                                var bookingService = new DatDichVu
+                                {
+                                    IDDatDV = newIDServiceBooking,
+                                    IDKH = newIDKH,
+                                    IDDV = IDservice,
+                                    NgaySuDung = model.CheckInDate
+                                };
+                                db.DatDichVus.Add(bookingService);
+
+                                // Add details to DatDichVuChiTiet
+                                var serviceDetails = new DatDichVuChiTiet
+                                {
+                                    IDDatDVChiTiet = GenerateNewBookServiceDetailId(),
+                                    IDDatDV = newIDServiceBooking,
+                                    SoLuong = model.NumberOfPeople,
+                                    GiaTien = CalculateServicePrice(IDservice, model.NumberOfPeople)
+                                };
+
+                                db.DatDichVuChiTiets.Add(serviceDetails);
+                            }
+                        }
+
+                        db.SaveChanges();
+                        transaction.Commit();
+
+                        return Json(new { success = true, message = "Thêm khách hàng và đặt phòng thành công." });
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = "Dữ liệu không hợp lệ." });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return Json(new { success = false, message = "Lỗi khi thêm khách hàng và đặt phòng: " + ex.Message });
+                }
+            }
+        }
+
+        public double CalculateServicePrice(string serviceId, int numberOfPeople)
+        {
+            // Tìm dịch vụ dựa trên ID
+            var service = db.DichVus.FirstOrDefault(s => s.IDDV == serviceId);
+
+            if (service != null)
+            {
+                // Lấy loại dịch vụ của dịch vụ
+                var serviceType = service.LoaiDV;
+
+                // Kiểm tra xem có loại dịch vụ không
+                if (serviceType != null)
+                {
+                    // Lấy giá dịch vụ từ loại dịch vụ
+                    double servicePrice = serviceType.DonGia ?? 0;
+
+                    // Tính toán giá dịch vụ dựa trên số người
+                    if (serviceType.SoNguoi.HasValue)
+                    {
+                        // Nếu số người vượt quá số người quy định của loại dịch vụ, tính giá theo số người vượt quá
+                        int additionalPeople = Math.Max(0, numberOfPeople - serviceType.SoNguoi.Value);
+                        servicePrice += additionalPeople * 0.5; // Giả sử giá cho mỗi người vượt quá là 0.5 đơn vị tiền tệ
                     }
 
-                    // Tạo ID khách hàng mới
-                    var newIDKH = GenerateNewCustomerId();
-
-                    var newUser = new Account
-                    {
-                        IDAccount = newIDKH,
-                        UserName = model.FullName,
-                        Email = model.Email,
-                        Pass = model.Password, // Sử dụng mật khẩu chưa hash
-                        PhanQuyen = "Khách Hàng"
-                    };
-
-                    db.Accounts.Add(newUser);
-
-                    var newCustomer = new KhachHang
-                    {
-                        IDKH = newUser.IDAccount,
-                        HoTen = model.FullName,
-                        CCCD = model.CCCD,
-                        SDT = model.PhoneNumber,
-                        Email = model.Email,
-                        GioiTinh = model.Gender,
-                        DiaChi = model.Address
-                    };
-
-                    db.KhachHangs.Add(newCustomer);
-                    db.SaveChanges();
-
-                    // Chuyển hướng về trang quản lý sau khi thêm thành công
-                    return RedirectToAction("Index");
+                    return servicePrice;
                 }
-
-                ViewBag.ErrorMessage = "Vui lòng kiểm tra lại thông tin.";
-                return RedirectToAction("Index");
             }
-            catch (DbEntityValidationException ex)
+
+            // Trả về 0 nếu không tìm thấy dịch vụ hoặc loại dịch vụ
+            return 0;
+        }
+
+
+        private Phong FindAvailableRoom(string roomType, DateTime checkInDate, DateTime checkOutDate)
+        {
+            var availableRooms = db.Phongs.Where(p => p.TrangThai == "Trống" && p.LoaiPhong.TenLoaiPhong == roomType).ToList();
+            foreach (var room in availableRooms)
             {
-                foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                var bookings = db.DatPhongs.Where(b => b.IDPHG == room.IDPHG &&
+                                                       (checkInDate < b.NgayTra && checkOutDate > b.NgayDat)).ToList();
+                if (bookings.Count == 0)
                 {
-                    foreach (var validationError in entityValidationErrors.ValidationErrors)
-                    {
-                        // Hiển thị lỗi cụ thể cho từng thuộc tính
-                        Console.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
-                    }
+                    return room;
                 }
-
-                // Xử lý lỗi ở đây hoặc trả về một view với thông báo lỗi phù hợp
-                ViewBag.ErrorMessage = "Lỗi khi kiểm tra dữ liệu.";
-                return RedirectToAction("Index");
             }
+            return null;
         }
 
         private string GenerateNewCustomerId()
@@ -333,6 +421,113 @@ namespace PBL3_HotelManagementSystem.Controllers
             }
         }
 
+        private string GenerateNewBookRoomId()
+        {
+            var lastBooking = db.DatPhongs.OrderByDescending(c => c.IDDatPhong).FirstOrDefault();
+            if (lastBooking != null)
+            {
+                int newIdNumber = int.Parse(lastBooking.IDDatPhong.Substring(2)) + 1;
+                return "DP" + newIdNumber.ToString("D2");
+            }
+            else
+            {
+                return "DP01";
+            }
+        }
 
+        private string GenerateNewBookServiceId()
+        {
+            var lastBookingService = db.DatDichVus.OrderByDescending(c => c.IDDatDV).FirstOrDefault();
+            if (lastBookingService != null)
+            {
+                int newIdNumber = int.Parse(lastBookingService.IDDatDV.Substring(3)) + 1;
+                return "DDV" + newIdNumber.ToString("D2");
+            }
+            else
+            {
+                return "DDV01";
+            }
+        }
+
+        private string GenerateNewBookServiceDetailId()
+        {
+            var lastBookingServiceDetail = db.DatDichVuChiTiets.OrderByDescending(c => c.IDDatDVChiTiet).FirstOrDefault();
+            if (lastBookingServiceDetail != null)
+            {
+                int newIdNumber = int.Parse(lastBookingServiceDetail.IDDatDVChiTiet.Substring(5)) + 1;
+                return "DDVCT" + newIdNumber.ToString("D2");
+            }
+            else
+            {
+                return "DDVCT01";
+            }
+        }
+
+        //===================Add==================//
+
+        [HttpGet]
+        public ActionResult GetServiceTypes()
+        {
+            var serviceTypes = db.LoaiDVs.Select(r => r.TenLoaiDV).Distinct().ToList();
+            return Json(serviceTypes, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AddService(ServiceViewModel model)
+        {
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var newIDDV = GenerateNewServiceId();
+
+                        var tenloaiDV = model.TenLoaiDV;
+                        var loaiDV = db.LoaiDVs.FirstOrDefault(l => l.TenLoaiDV == tenloaiDV);
+
+                        var newService = new DichVu
+                        {
+                            IDDV = newIDDV,
+                            TenDV = model.TenDV,
+                            IDLoaiDV = loaiDV.IDLoaiDV // Gán ID của loại dịch vụ đã tìm được
+                        };
+
+
+                        db.DichVus.Add(newService);
+
+                        
+
+                        db.SaveChanges();
+                        transaction.Commit();
+
+                        return Json(new { success = true, message = "Thêm dịch vụ thành công." });
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = "Dữ liệu không hợp lệ." });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return Json(new { success = false, message = "Lỗi khi thêm dịch vụ: " + ex.Message });
+                }
+            }
+        }
+
+        private string GenerateNewServiceId()
+        {
+            var lastService = db.DichVus.OrderByDescending(c => c.IDDV).FirstOrDefault();
+            if (lastService != null)
+            {
+                int newIdNumber = int.Parse(lastService.IDDV.Substring(2)) + 1;
+                return "DV" + newIdNumber.ToString("D2");
+            }
+            else
+            {
+                return "DV01";
+            }
+        }
     }
 }

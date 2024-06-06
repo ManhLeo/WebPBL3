@@ -20,154 +20,104 @@
 </head>
 <body>
     <div class="Form" id="RoomForm">
-        <div class="Form_container">
-            <div class="Form_item" style="justify-content: center;">
-                <p style="font-weight: 600;font-size: 24px;color: black;">ĐẶT PHÒNG</p>
-            </div>
-            <div class="Form_item">
-                <p>Họ và tên:</p>
-                <input type="text" class="input">
-            </div>
-            <div class="Form_item">
-                <p>Email:</p>
-                <input type="text" class="input">
-            </div>
-            <div class="Form_item" class="input">
-                <p>SĐT:</p>
-                <input type="text" class="input">
-            </div>
-            <div class="Form_item" class="input">
-                <p>Giới tính:</p>
-                <div style="display: flex;">
-                    <div>
-                        <input type="radio" name="Gender">Nam
-                    </div>
-                    <div>
-                        <input type="radio" name="Gender">Nữ
-                    </div>
+        <form id="bookingForm" method="post" action="@Url.Action("BookRoom", "Admin")">
+            <div class="Form_container">
+                <div class="Form_item" style="justify-content: center;">
+                    <p style="font-weight: 600;font-size: 24px;color: black;">ĐẶT PHÒNG</p>
                 </div>
-            </div>
-            <div class="Form_item" class="input">
-                <p>Địa chỉ:</p>
-                <input type="text" class="input">
-            </div>
-            <div class="Form_item" class="input">
-                <p>Loại phòng:</p>
-                <input list="roomTypes" id="roomType" name="roomType" class="input">
-                <datalist id="roomTypes">
-                    <option value="Thường">
-                    <option value="Vip1">
-                    <option value="Vip2">
-                </datalist>
-            </div>
-            <div class="Form_item" class="input">
-                <p>Số người(<= 2)</p>
-                <input type="text" class="input">
-            </div>
-            <p>Dịch vụ:</p>
-            <div class="checkbox-list">
-                <label>
-                    <input type="checkbox" name="DV" value="Buffet sáng" onchange="updateSelection()"> Buffet sáng
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Buffet trưa" onchange="updateSelection()"> Buffet trưa
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Tiệc đêm" onchange="updateSelection()"> Tiệc đêm
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Massage" onchange="updateSelection()"> Massage
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Đưa đón" onchange="updateSelection()"> Đưa đón
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Bể bơi" onchange="updateSelection()"> Bể bơi
-                </label>
-            </div>
-            <div class="Form_item">
-                <p>Ngày nhận phòng:</p>
-                <input type="date" class="input">
-            </div>
-            <div class="Form_item">
-                <p>Ngày trả phòng:</p>
-                <input type="date" class="input">
-            </div>
-            <div class="Form_item" style="justify-content: center;margin-top: 20px;">
-                <button class="button1">ĐẶT PHÒNG</button>
-                <button class="button1" onclick="CloseForm('RoomForm')">Thoát</button>
-            </div>
-        </div>
-    </div>
-
-    @foreach (var viewmodel in Model)
-    {
-        <div class="Form" id="ActorForm">
-            @using (Html.BeginForm("AddCustomer", "Admin", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-                <div class="Form_container">
-                    <div class="Form_item" style="justify-content: center;">
-                        <p style="font-weight: 600;font-size: 24px;color: black;">THÊM KHÁCH HÀNG</p>
-                    </div>
-                    <div class="Form_item">
-                        <p>Họ và tên:</p>
-                        @Html.TextBoxFor(m => viewmodel.NewCustomer.FullName, new { @class = "input" })
-                    </div>
-                    <div class="Form_item">
-                        <p>CCCD:</p>
-                        @Html.TextBoxFor(m => viewmodel.NewCustomer.CCCD, new { @class = "input" })
-                    </div>
-                    <div class="Form_item">
-                        <p>SĐT:</p>
-                        @Html.TextBoxFor(m => viewmodel.NewCustomer.PhoneNumber, new { @class = "input" })
-                    </div>
-                    <div class="Form_item">
-                        <p>Email:</p>
-                        @Html.TextBoxFor(m => viewmodel.NewCustomer.Email, new { @class = "input" })
-                    </div>
-                    <div class="Form_item">
-                        <p>Giới tính:</p>
-                        <div style="display: flex;gap: 20px;">
-                            <div>@Html.RadioButtonFor(m => viewmodel.NewCustomer.Gender, "Nam", new { id = "gender_male_" + viewmodel.GetHashCode() }) Nam</div>
-                            <div>@Html.RadioButtonFor(m => viewmodel.NewCustomer.Gender, "Nữ", new { id = "gender_female_" + viewmodel.GetHashCode() }) Nữ</div>
+                <div class="Form_item">
+                    <p>Họ và tên:</p>
+                    <input type="text" class="input" name="FullName" required>
+                </div>
+                <div class="Form_item">
+                    <p>Email:</p>
+                    <input type="email" class="input" name="Email" required>
+                </div>
+                <div class="Form_item">
+                    <p>CCCD:</p>
+                    <input type="text" class="input" name="CCCD" required>
+                </div>
+                <div class="Form_item">
+                    <p>SĐT:</p>
+                    <input type="text" class="input" name="PhoneNumber" required>
+                </div>
+                <div class="Form_item">
+                    <p>Giới tính:</p>
+                    <div style="display: flex;">
+                        <div>
+                            <input type="radio" name="Gender" value="true" required>Nam
+                        </div>
+                        <div>
+                            <input type="radio" name="Gender" value="false" required>Nữ
                         </div>
                     </div>
-                    <div class="Form_item">
-                        <p>Địa chỉ:</p>
-                        @Html.TextBoxFor(m => viewmodel.NewCustomer.Address, new { @class = "input" })
-                    </div>
-                    <div class="Form_item">
-                        <p>Mật khẩu:</p>
-                        @Html.PasswordFor(m => viewmodel.NewCustomer.Password, new { @class = "input" })
-                    </div>
-                    <div class="Form_item" style="justify-content: center;margin-top: 20px;">
-                        <button type="submit" class="button1">THÊM</button>
-                        <button type="button" class="button1" onclick="CloseForm('ActorForm')">Thoát</button>
+                </div>
+                <div class="Form_item">
+                    <p>Địa chỉ:</p>
+                    <input type="text" class="input" name="Address" required>
+                </div>
+                <div class="Form_item">
+                    <p>Loại phòng:</p>
+                    <select id="condition2" class="input input1" name="RoomType" required></select>
+                </div>
+                <div class="Form_item">
+                    <p>Số người (<= 2):</p>
+                    <input type="number" class="input" name="NumberOfPeople" max="2" required>
+                </div>
+                <div class="Form_item">
+                    <p>Dịch vụ:</p>
+                    <div class="checkbox-list">
+                        @foreach (var item in Model)
+                        {
+                            foreach (var service in item.Services)
+                            {
+                                <label>
+                                    <input type="checkbox" name="SelectedServices" value="@service.IDDV"> @service.TenDV
+                                </label>
+                            }
+                        }
                     </div>
                 </div>
-            }
-        </div>
-    }
-    <div class="Form" id="ServiceForm">
-        <div class="Form_container">
-            <div class="Form_item" style="justify-content: center;">
-                <p style="font-weight: 600;font-size: 24px;color: black;">THÊM DỊCH VỤ</p>
+                <div class="Form_item">
+                    <p>Ngày nhận phòng:</p>
+                    <input type="date" class="input" name="CheckInDate" required>
+                </div>
+                <div class="Form_item">
+                    <p>Ngày trả phòng:</p>
+                    <input type="date" class="input" name="CheckOutDate" required>
+                </div>
+                <div class="Form_item" style="justify-content: center;margin-top: 20px;">
+                    <button type="submit" class="button1">ĐẶT PHÒNG</button>
+                    <button type="button" class="button1" onclick="CloseForm('RoomForm')">Thoát</button>
+                </div>
             </div>
-            <div class="Form_item">
-                <p>Tên dịch vụ:</p>
-                <input type="text" class="input">
-            </div>
-            <div class="Form_item">
-                <p>Giá dịch vụ:</p>
-                <input type="text" class="input">
-            </div>
-            <div class="Form_item" style="justify-content: center;margin-top: 20px;">
-                <button class="button1">THÊM</button>
-                <button class="button1" onclick="CloseForm('ServiceForm')">Thoát</button>
-            </div>
-        </div>
+        </form>
     </div>
+
+
+
+    <div class="Form" id="ServiceForm">
+        <form id="addServiceForm" method="post" action="@Url.Action("AddService", "Admin")">
+            <div class="Form_container">
+                <div class="Form_item" style="justify-content: center;">
+                    <p style="font-weight: 600;font-size: 24px;color: black;">THÊM DỊCH VỤ</p>
+                </div>
+                <div class="Form_item">
+                    <p>Tên dịch vụ:</p>
+                    <input type="text" class="input" name="TenDV" required>
+                </div>
+                <div class="Form_item">
+                    <p>Loại dịch vụ:</p>
+                    <select id="condition3" class="input input1" name="TenLoaiDV" required></select>
+                </div>
+                <div class="Form_item" style="justify-content: center; margin-top: 20px;">
+                    <button type="submit" class="button1" >THÊM</button>
+                    <button type="button" class="button1" onclick="CloseForm('ServiceForm')">Thoát</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div class="container">
         <div class="taskbar">
             <div style="display: flex;align-items: center;">
@@ -301,7 +251,6 @@
                         Tên khách hàng:
                         <input type="text" id="searchCustomerInput" placeholder="Nhập tên khách hàng">
                         <button onclick="searchCustomers()">Tìm kiếm</button>
-                        <button class="button2" onclick="MyForm('ActorForm')">Thêm khách hàng</button>
                     </div>
                 </div>
                 <div class="manager_item2">

@@ -31,6 +31,18 @@ namespace PBL3_HotelManagementSystem
             );
 
             routes.MapRoute(
+                name: "AddCustomer",
+                url: "Admin/AddCustomer",
+                defaults: new { controller = "Admin", action = "AddCustomer" }
+            );
+            routes.MapRoute(
+                name: "bookRoom",
+                url: "Admin/bookRoom",
+                defaults: new { controller = "Admin", action = "bookRoom" }
+            );
+
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

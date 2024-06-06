@@ -26,6 +26,7 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     })
         .then(response => {
             if (response.ok) {
+                onLoginSuccess(response.customerId);
                 window.location.href = response.url; // Chuyển hướng đến URL được trả về nếu đăng nhập thành công
             } else {
                 // Nếu đăng nhập không thành công, hiển thị thông báo lỗi

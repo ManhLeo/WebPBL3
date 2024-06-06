@@ -308,6 +308,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     });
 
+    
+
     // Lấy trạng thái phòng từ server và cập nhật dropdown menu
     $.ajax({
         url: '/Admin/GetRoomStatuses',
@@ -339,6 +341,53 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Hàm cập nhật dropdown menu
+    function updateDropdown(dropdownId, items, defaultOptionText = 'Tất cả') {
+        const dropdown = document.getElementById(dropdownId);
+        if (dropdown) {
+            dropdown.innerHTML = ''; // Xóa các tùy chọn cũ
+
+            // Thêm tùy chọn "Chọn loại phòng" vào đầu danh sách
+            const allOption = document.createElement('option');
+            allOption.value = '';
+            allOption.textContent = defaultOptionText;
+            dropdown.appendChild(allOption);
+
+            // Thêm các tùy chọn mới
+            items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item;
+                option.textContent = item;
+                dropdown.appendChild(option);
+            });
+        } else {
+            console.error(`Không tìm thấy phần tử HTML với id là ${dropdownId}`);
+        }
+    }
+
+    // Hàm lấy dữ liệu từ server
+    function fetchData(url, callback) {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => callback(data))
+            .catch(error => console.error('Lỗi khi lấy dữ liệu:', error));
+    }
+
+    // Lấy loại phòng và cập nhật dropdown menu
+    fetchData('/Admin/GetRoomTypes', function (roomTypes) {
+        updateDropdown('condition2', roomTypes, 'Chọn loại phòng');
+    });
+});
+
+
 
 function searchRooms() {
     var roomTypeElement = document.getElementById('condition1');
@@ -394,7 +443,149 @@ function searchRooms() {
 }
 
 
+$(document).ready(function () {
+    $('#submitCustomerForm').click(function () {
+        var fullName = $('#FullName').val();
+        var cccd = $('#CCCD').val();
+        var phoneNumber = $('#PhoneNumber').val();
+        var email = $('#Email').val();
+        var gender = $('input[name="Gender"]:checked').val();
+        var address = $('#Address').val();
+        var password = $('#Password').val();
+
+        $.ajax({
+            url: '/Admin/AddCustomer',
+            type: 'POST',
+            data: {
+                FullName: fullName,
+                CCCD: cccd,
+                PhoneNumber: phoneNumber,
+                Email: email,
+                Gender: gender,
+                Address: address,
+                Password: password
+            },
+            success: function (response) {
+                if (response.success) {
+                    // Thành công, hiển thị thông báo thành công
+                    alert(response.message);
+                    // Cập nhật giao diện hoặc chuyển hướng người dùng đến trang khác tùy theo yêu cầu của bạn
+                } else {
+                    // Thất bại, hiển thị thông báo lỗi
+                    alert(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                // Xử lý lỗi trong trường hợp request gặp vấn đề
+                alert('Đã xảy ra lỗi: ' + error);
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('#bookingForm').submit(function (event) {
+        event.preventDefault(); // Ngăn chặn form gửi đi mặc định
+
+        var formData = $(this).serialize(); // Chuẩn bị dữ liệu form
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                // Xử lý kết quả từ Controller
+                if (response.success) {
+                    alert(response.message); // Hiển thị thông báo thành công
+                    // Cập nhật giao diện hoặc thực hiện các thao tác khác sau khi đặt phòng thành công
+                } else {
+                    alert(response.message); // Hiển thị thông báo lỗi
+                }
+            },
+            error: function (xhr, status, error) {
+                // Xử lý lỗi
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    });
+});
 
 
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Hàm cập nhật dropdown menu
+    function updateDropdown(dropdownId, items, defaultOptionText = 'Tất cả') {
+        const dropdown = document.getElementById(dropdownId);
+        if (dropdown) {
+            dropdown.innerHTML = ''; // Xóa các tùy chọn cũ
+
+            // Thêm tùy chọn "Chọn loại phòng" vào đầu danh sách
+            const allOption = document.createElement('option');
+            allOption.value = '';
+            allOption.textContent = defaultOptionText;
+            dropdown.appendChild(allOption);
+
+            // Thêm các tùy chọn mới
+            items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item;
+                option.textContent = item;
+                dropdown.appendChild(option);
+            });
+        } else {
+            console.error(`Không tìm thấy phần tử HTML với id là ${dropdownId}`);
+        }
+    }
+
+    // Hàm lấy dữ liệu từ server
+    function fetchData(url, callback) {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => callback(data))
+            .catch(error => console.error('Lỗi khi lấy dữ liệu:', error));
+    }
+
+    // Lấy loại phòng và cập nhật dropdown menu
+    fetchData('/Admin/GetServiceTypes', function (serviceTypes) {
+        updateDropdown('condition3', serviceTypes, 'Chọn loại dịch vụ');
+    });
+});
+
+
+
+$(document).ready(function () {
+    $('#addServiceForm').submit(function (event) {
+        event.preventDefault(); // Ngăn chặn form gửi đi mặc định
+
+        var formData = $(this).serialize(); // Chuẩn bị dữ liệu form
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                // Xử lý kết quả từ Controller
+                if (response.success) {
+                    alert(response.message); // Hiển thị thông báo thành công
+                    // Cập nhật giao diện hoặc thực hiện các thao tác khác sau khi đặt phòng thành công
+                } else {
+                    alert(response.message); // Hiển thị thông báo lỗi
+                }
+            },
+            error: function (xhr, status, error) {
+                // Xử lý lỗi
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    });
+});

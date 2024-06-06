@@ -132,14 +132,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PasswordHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs">
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CustomerViewModel.cs" />
+    <Compile Include="Models\BookViewModel.cs" />
     <Compile Include="Models\DatDichVu.cs">
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
@@ -194,6 +193,7 @@
       <DependentUpon>QLKhachSan.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\ServiceViewModel.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
