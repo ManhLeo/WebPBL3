@@ -78,6 +78,8 @@ function MyForm(ID) {
 function CloseForm(ID) {
     document.getElementById(ID).style.display = "none";
 }
+
+//===================================================================================//
 // Function to delete a customer
 function deleteCustomer(customerID) {
     // Confirm with the user before deleting
@@ -198,7 +200,7 @@ function deleteBill(billID) {
     }
 }
 
-
+//========================================================================================//
 // Function to search services
 function searchServices() {
     var searchText = document.getElementById("searchServiceInput").value;
@@ -275,7 +277,7 @@ function searchCustomers() {
         });
 }
 
-
+//=============================================================================================//
 document.addEventListener("DOMContentLoaded", function (event) {
     // Lấy loại phòng từ server và cập nhật dropdown menu
     $.ajax({
@@ -443,45 +445,6 @@ function searchRooms() {
 }
 
 
-$(document).ready(function () {
-    $('#submitCustomerForm').click(function () {
-        var fullName = $('#FullName').val();
-        var cccd = $('#CCCD').val();
-        var phoneNumber = $('#PhoneNumber').val();
-        var email = $('#Email').val();
-        var gender = $('input[name="Gender"]:checked').val();
-        var address = $('#Address').val();
-        var password = $('#Password').val();
-
-        $.ajax({
-            url: '/Admin/AddCustomer',
-            type: 'POST',
-            data: {
-                FullName: fullName,
-                CCCD: cccd,
-                PhoneNumber: phoneNumber,
-                Email: email,
-                Gender: gender,
-                Address: address,
-                Password: password
-            },
-            success: function (response) {
-                if (response.success) {
-                    // Thành công, hiển thị thông báo thành công
-                    alert(response.message);
-                    // Cập nhật giao diện hoặc chuyển hướng người dùng đến trang khác tùy theo yêu cầu của bạn
-                } else {
-                    // Thất bại, hiển thị thông báo lỗi
-                    alert(response.message);
-                }
-            },
-            error: function (xhr, status, error) {
-                // Xử lý lỗi trong trường hợp request gặp vấn đề
-                alert('Đã xảy ra lỗi: ' + error);
-            }
-        });
-    });
-});
 
 $(document).ready(function () {
     $('#bookingForm').submit(function (event) {

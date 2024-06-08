@@ -40,8 +40,8 @@ namespace PBL3_HotelManagementSystem.Controllers
                         return RedirectToAction("Index", "Admin");
                     }
                     else if (account.PhanQuyen == "Khách Hàng")
-                        Session["CustomerId"] = account.IDAccount;
                     {
+                        Session["CustomerId"] = account.IDAccount;
                         return RedirectToAction("PageUser", "Home"); // Chuyển hướng đến trang chính của khách hàng
                     }
                 }
@@ -52,6 +52,7 @@ namespace PBL3_HotelManagementSystem.Controllers
             }
             return View();
         }
+
 
 
 

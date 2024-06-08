@@ -162,6 +162,8 @@
     <Compile Include="Models\HoaDonChiTiet.cs">
       <DependentUpon>QLKhachSan.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Home1IndexViewModel.cs" />
+    <Compile Include="Models\HomeIndexViewModel.cs" />
     <Compile Include="Models\HotelManagementDbContext.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\KhachHang.cs">

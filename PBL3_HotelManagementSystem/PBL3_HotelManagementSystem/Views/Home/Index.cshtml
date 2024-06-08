@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<PBL3_HotelManagementSystem.Models.HomeIndexViewModel>
 
 @{
     ViewBag.Title = "Page";
@@ -62,59 +62,61 @@
         </div>
     </div>
     <div class="Form" id="Form">
-        <div class="Form_container">
-            <div class="Form_logo">
-                <img src="~/Assets/Logo.png" alt="" width="50px">
-                HMV Hotel
+        @using (Html.BeginForm("BookRoom", "Home", FormMethod.Post, new { @id = "Form" }))
+        {
+            <div class="Form_container">
+                <div class="Form_logo">
+                    <img src="~/Assets/Logo.png" alt="" width="50px">
+                    HMV Hotel
+                </div>
+                <div class="Form_title">
+                    ĐẶT PHÒNG
+                </div>
+
+                <input type="text" name="FullName" placeholder="Họ và tên:" class="input50" required>
+                <input type="text" name="CCCD" placeholder="CCCD:" class="input50" required>
+                <input type="text" name="Email" placeholder="Email:" class="input50" required>
+                <input type="text" name="PhoneNumber" placeholder="Số điện thoại:" class="input50" required>
+                <input type="text" name="Address" placeholder="Địa chỉ" class="input100" required>
+                <select id="roomType" class="input50" name="RoomType" required></select>
+
+                <input type="number" name="NumberOfPeople" placeholder="Số người:" class="input50" required>
+                <div class="Form_item">
+                    <p>Giới tính:</p>
+                    <div style="display: flex;">
+                        <div>
+                            <input type="radio" name="Gender" value="true" required>Nam
+                        </div>
+                        <div>
+                            <input type="radio" name="Gender" value="false" required>Nữ
+                        </div>
+                    </div>
+                </div>
+                <div class="checkbox-list">
+                    @foreach (var service in Model.FirstOrDefault().Services)
+                    {
+                        <label>
+                            <input type="checkbox" name="SelectedServices" value="@service.IDDV"> @service.TenDV
+                        </label>
+                    }
+                </div>
+
+                <input type="date" name="CheckInDate" placeholder="Ngày nhận phòng" class="input50" required>
+                <i class="fa-solid fa-arrow-right"></i>
+                <input type="date" name="CheckOutDate" placeholder="Ngày trả phòng" class="input50" required>
+                <div class="Form_note">
+                    <span style="color: red;font-weight: 600;margin-bottom: 30px;text-decoration: underline;">Lưu ý:</span>
+                    Quý khách vui lòng trả phòng trước 10 giờ sáng
+                </div>
+                <div style="width: 100%;display: flex;gap: 20px;justify-content: center;">
+                    <button type="submit">Đặt phòng</button>
+                    <button type="button" onclick="Close()">Thoát</button>
+                </div>
+                
             </div>
-            <div class="Form_title">
-                ĐẶT PHÒNG
-            </div>
-            <input type="text" placeholder="Họ và tên:" class="input50">
-            <input type="text" placeholder="CCCD:" class="input50">
-            <input type="text" placeholder="Email:" class="input50">
-            <input type="text" placeholder="Số điện thoại:" class="input50">
-            <input type="text" placeholder="Địa chỉ" class="input100">
-            <input list="roomTypes" id="roomType" name="roomType" class="input50" placeholder="Loại phòng">
-            <datalist id="roomTypes">
-                <option value="Thường">
-                <option value="Vip1">
-                <option value="Vip2">
-            </datalist>
-            <input type="text" placeholder="Số lượng phòng:" class="input50">
-            <div class="checkbox-list">
-                <label>
-                    <input type="checkbox" name="DV" value="Buffet sáng" onchange="updateSelection()"> Buffet sáng
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Buffet trưa" onchange="updateSelection()"> Buffet trưa
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Tiệc đêm" onchange="updateSelection()"> Tiệc đêm
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Massage" onchange="updateSelection()"> Massage
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Đưa đón" onchange="updateSelection()"> Đưa đón
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Bể bơi" onchange="updateSelection()"> Bể bơi
-                </label>
-            </div>
-            <input type="date" placeholder="Ngày nhận phòng" class="input50">
-            <i class="fa-solid fa-arrow-right"></i>
-            <input type="date" placeholder="Ngày trả phòng" class="input50">
-            <div class="Form_note">
-                <span style="color: red;font-weight: 600;margin-bottom: 30px;text-decoration: underline;">Lưu ý:</span>
-                Quý khách vui lòng trả phòng trước 10 giờ sáng
-            </div>
-            <div style="width: 100%;display: flex;gap: 20px;justify-content: center;">
-                <button>Đặt phòng</button>
-                <button onclick="Close()">Thoát</button>
-            </div>
-        </div>
+        }
     </div>
+
 
     <div class="Taskbar">
         <div class="Taskbar_container">
@@ -228,6 +230,8 @@
             </div>
         </div>
     </div>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Assets/Page.js"></script>
+
 </body>
 </html>

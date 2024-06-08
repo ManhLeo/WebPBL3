@@ -1,4 +1,6 @@
-﻿@{
+﻿
+@model IEnumerable<PBL3_HotelManagementSystem.Models.Home1IndexViewModel>
+@{
     ViewBag.Title = "Page User";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -14,6 +16,8 @@
     <link rel="stylesheet" href="~/Assets/Page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
     <div class="detail" id="detail">
@@ -44,14 +48,14 @@
             </div>
             <div class="detail_infor">
                 <div class="Room_title">
-                    Phòng tổng thống
+                    Phòng tổng thống(VIP2)
                     <div onclick="MyCloseDetail()">
                         <i class="fa-solid fa-circle-xmark"></i>
                     </div>
                 </div>
                 <ul>
                     <li>
-                        Chào mừng quý khách đến với phòng Tổng thống - biểu tượng của sự sang trọng và đẳng cấp.
+                        Chào mừng quý khách đến với phòng Tổng thống(VIP2) - biểu tượng của sự sang trọng và đẳng cấp.
                         Nằm ở vị trí đặc biệt trong khách sạn của chúng tôi, phòng Tổng thống không chỉ là nơi lưu trú mà còn là trải nghiệm đỉnh cao dành cho những ai tìm kiếm sự hoàn hảo và tinh tế.
                     </li>
                     <li>Tiện ích: Xe đưa đón tận nơi, hồ bơi, phòng Gym,...</li>
@@ -61,59 +65,62 @@
         </div>
     </div>
     <div class="Form" id="Form">
-        <div class="Form_container">
-            <div class="Form_logo">
-                <img src="~/Assets/Logo.png" alt="" width="50px">
-                HMV Hotel
+        @using (Html.BeginForm("BookRoom", "Home", FormMethod.Post, new { @id = "Form" }))
+        {
+            <div class="Form_container">
+                <div class="Form_logo">
+                    <img src="~/Assets/Logo.png" alt="" width="50px">
+                    HMV Hotel
+                </div>
+                <div class="Form_title">
+                    ĐẶT PHÒNG
+                </div>
+
+                <input type="text" name="FullName" placeholder="Họ và tên:" class="input50" required>
+                <input type="text" name="CCCD" placeholder="CCCD:" class="input50" required>
+                <input type="text" name="Email" placeholder="Email:" class="input50" required>
+                <input type="text" name="PhoneNumber" placeholder="Số điện thoại:" class="input50" required>
+                <input type="text" name="Address" placeholder="Địa chỉ" class="input100" required>
+                <select id="roomType" class="input50" name="RoomType" required></select>
+
+                <input type="number" name="NumberOfPeople" placeholder="Số người:" class="input50" required>
+                <div class="Form_item">
+                    <p>Giới tính:</p>
+                    <div style="display: flex;">
+                        <div>
+                            <input type="radio" name="Gender" value="true" required>Nam
+                        </div>
+                        <div>
+                            <input type="radio" name="Gender" value="false" required>Nữ
+                        </div>
+                    </div>
+                </div>
+                <div class="checkbox-list">
+                    @foreach (var item in Model)
+                    {
+                        foreach (var service in item.Services)
+                        {
+                            <label>
+                                <input type="checkbox" name="SelectedServices" value="@service.IDDV"> @service.TenDV
+                            </label>
+                        }
+                    }
+                </div>
+
+                <input type="date" name="CheckInDate" placeholder="Ngày nhận phòng" class="input50" required>
+                <i class="fa-solid fa-arrow-right"></i>
+                <input type="date" name="CheckOutDate" placeholder="Ngày trả phòng" class="input50" required>
+                <div class="Form_note">
+                    <span style="color: red;font-weight: 600;margin-bottom: 30px;text-decoration: underline;">Lưu ý:</span>
+                    Quý khách vui lòng trả phòng trước 10 giờ sáng
+                </div>
+                <div style="width: 100%;display: flex;gap: 20px;justify-content: center;">
+                    <button type="submit">Đặt phòng</button>
+                    <button type="button" onclick="Close()">Thoát</button>
+                </div>
+
             </div>
-            <div class="Form_title">
-                ĐẶT PHÒNG
-            </div>
-            <input type="text" placeholder="Họ và tên:" class="input50">
-            <input type="text" placeholder="CCCD:" class="input50">
-            <input type="text" placeholder="Email:" class="input50">
-            <input type="text" placeholder="Số điện thoại:" class="input50">
-            <input type="text" placeholder="Địa chỉ" class="input100">
-            <input list="roomTypes" id="roomType" name="roomType" class="input50" placeholder="Loại phòng">
-            <datalist id="roomTypes">
-                <option value="Thường">
-                <option value="Vip1">
-                <option value="Vip2">
-            </datalist>
-            <input type="text" placeholder="Số lượng phòng:" class="input50">
-            <p style="font-size: 20px;font-weight: 400;color: rgb(138, 136, 136);;">Dịch vụ:</p>
-            <div class="checkbox-list">
-                <label>
-                    <input type="checkbox" name="DV" value="Buffet sáng" onchange="updateSelection()"> Buffet sáng
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Buffet trưa" onchange="updateSelection()"> Buffet trưa
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Tiệc đêm" onchange="updateSelection()"> Tiệc đêm
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Massage" onchange="updateSelection()"> Massage
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Đưa đón" onchange="updateSelection()"> Đưa đón
-                </label>
-                <label>
-                    <input type="checkbox" name="DV" value="Bể bơi" onchange="updateSelection()"> Bể bơi
-                </label>
-            </div>
-            <input type="date" placeholder="Ngày nhận phòng" class="input50">
-            <i class="fa-solid fa-arrow-right"></i>
-            <input type="date" placeholder="Ngày trả phòng" class="input50">
-            <div class="Form_note">
-                <span style="color: red;font-weight: 600;margin-bottom: 30px;text-decoration: underline;">Lưu ý:</span>
-                Quý khách vui lòng trả phòng trước 10 giờ sáng
-            </div>
-            <div style="width: 100%;display: flex;gap: 20px;justify-content: center;">
-                <button>Đặt phòng</button>
-                <button onclick="Close()">Thoát</button>
-            </div>
-        </div>
+        }
     </div>
     <div class="Taskbar">
         <div class="Taskbar_container">
@@ -157,11 +164,11 @@
                 <img src="~/Assets/Room3_1.png" alt="" style="border-radius: 8px;" width="260px">
                 <div class="Room_infor">
                     <div class="Room_title" id="Room1">
-                        Phòng tổng thống
+                        Phòng tổng thống(VIP2)
                     </div>
                     <ul id="Room1_infor">
                         <li class="li">
-                            Chào mừng quý khách đến với phòng Tổng thống - biểu tượng của sự sang trọng và đẳng cấp.
+                            Chào mừng quý khách đến với phòng Tổng thống(VIP2) - biểu tượng của sự sang trọng và đẳng cấp.
                             Nằm ở vị trí đặc biệt trong khách sạn của chúng tôi, phòng Tổng thống không chỉ là nơi lưu trú mà còn là trải nghiệm đỉnh cao dành cho những ai tìm kiếm sự hoàn hảo và tinh tế.
                         </li>
                         <li class="li">Tiện ích: Xe đưa đón tận nơi, hồ bơi, phòng Gym,...</li>
@@ -178,11 +185,11 @@
                 <img src="~/Assets/Room2_1.png" alt="" style="border-radius: 8px;" width="260px">
                 <div class="Room_infor">
                     <div class="Room_title" id="Room2">
-                        Phòng hạng sang
+                        Phòng hạng sang(VIP1)
                     </div>
                     <ul id="Room2_infor">
                         <li class="li">
-                            Chào mừng quý khách đến với phòng Hạng Sang - nơi kết hợp hoàn hảo giữa sự thoải mái và phong cách hiện đại.
+                            Chào mừng quý khách đến với phòng Hạng Sang(VIP1) - nơi kết hợp hoàn hảo giữa sự thoải mái và phong cách hiện đại.
 
                             Quý khách sẽ được tận hưởng giường ngủ êm ái, không gian làm việc thuận tiện, và khu vực tiếp khách thoải mái. Phòng tắm riêng với bồn tắm và vòi sen cao cấp, kèm theo các sản phẩm chăm sóc cá nhân chất lượng, sẽ mang đến cho quý khách những giây phút thư giãn tuyệt đối.
                         </li>
@@ -233,6 +240,7 @@
             </div>
         </div>
     </div>
+
     <div class="container" id="HistoryContainer">
         <div class="History">
             <div class="Room_item">
@@ -276,41 +284,46 @@
         </div>
 
     </div>
+
     <div class="container" id="PersonalInfor">
         <div class="Personal_infor">
             <p class="Personal_infor_Title">Thông tin cá nhân</p>
-            <div>
-                <p>Họ và tên</p>
-                <input type="text" value="Nguyễn A" onchange="MyInfor()">
-            </div>
-            <div>
-                <p>Căn cước công dân</p>
-                <input type="text" value="012345678911" onchange="MyInfor()">
-            </div>
-            <div>
-                <p>Số điện thoại</p>
-                <input type="text" value="0123456781" onchange="MyInfor()">
-            </div>
-            <div>
-                <p>Email</p>
-                <input type="text" value="A@gmail.com" onchange="MyInfor()">
-            </div>
-            <div>
-                <p>Giới tính</p>
-                <div>
-                    <input type="radio" name="Gender" checked onchange="MyInfor()">
-                    Nam
-                    <input type="radio" name="Gender" onchange="MyInfor()">
-                    Nữ
-                </div>
-            </div>
-            <div>
-                <p>Địa chỉ</p>
-                <input type="text" value="Hồ Chí Minh" onchange="MyInfor()">
-            </div>
-            <button id="Check" disabled>Xác nhận</button>
+            <form id="personalInfoForm">
+                <table class="table">
+                    <tr>
+                        <td><strong>Họ và Tên:</strong></td>
+                        <td><input type="text" id="txtHoTen" class="textbox" value="@Model.FirstOrDefault().User.HoTen" /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Căn Cước Công Dân:</strong></td>
+                        <td><input type="text" id="txtCCCD" class="textbox" value="@Model.FirstOrDefault().User.CCCD" /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Số Điện Thoại:</strong></td>
+                        <td><input type="text" id="txtSDT" class="textbox" value="@Model.FirstOrDefault().User.SDT" /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email:</strong></td>
+                        <td><input type="text" id="txtEmail" class="textbox" value="@Model.FirstOrDefault().User.Email" /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Giới Tính:</strong></td>
+                        <td>
+                            <label><input type="radio" name="gioiTinh" value="true" @(Model.FirstOrDefault().User.GioiTinh.GetValueOrDefault() ? "checked" : "") /> Nam</label>
+                            <label><input type="radio" name="gioiTinh" value="false" @(Model.FirstOrDefault().User.GioiTinh.GetValueOrDefault() ? "" : "checked") /> Nữ</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Địa Chỉ:</strong></td>
+                        <td><input type="text" id="txtDiaChi" class="textbox" value="@Model.FirstOrDefault().User.DiaChi" /></td>
+                    </tr>
+                </table>
+                <input type="hidden" id="txtIDKH" value="@Model.FirstOrDefault().User.IDKH" name="IDKH" />
+                <button type="submit">Xác nhận</button>
+            </form>
         </div>
     </div>
+
     <script src="~/Assets/Page.js"></script>
 </body>
 </html>
