@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 $(document).ready(function () {
-    $('#Form').submit(function (event) {
+    $('#Form1').submit(function (event) {
         event.preventDefault(); // Ngăn chặn form gửi đi mặc định
 
         var formData = $(this).serialize(); // Chuẩn bị dữ liệu form
@@ -175,6 +175,36 @@ $(document).ready(function () {
         });
     });
 });
+
+$(document).ready(function () {
+    $('#Form2').submit(function (event) {
+        event.preventDefault(); // Ngăn chặn form gửi đi mặc định
+
+        var formData = $(this).serialize(); // Chuẩn bị dữ liệu form
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                // Xử lý kết quả từ Controller
+                if (response.success) {
+                    alert(response.message); // Hiển thị thông báo thành công
+                    // Cập nhật giao diện hoặc thực hiện các thao tác khác sau khi đặt phòng thành công
+                } else {
+                    alert(response.message); // Hiển thị thông báo lỗi
+                }
+            },
+            error: function (xhr, status, error) {
+                // Xử lý lỗi
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    });
+});
+
 
 
 $(document).ready(function () {

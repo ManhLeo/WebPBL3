@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="Form" id="Form">
-        @using (Html.BeginForm("BookRoom", "Home", FormMethod.Post, new { @id = "Form" }))
+        @using (Html.BeginForm("BookRoom2", "Home", FormMethod.Post, new { @id = "Form2" }))
         {
             <div class="Form_container">
                 <div class="Form_logo">
@@ -76,11 +76,11 @@
                     ĐẶT PHÒNG
                 </div>
 
-                <input type="text" name="FullName" placeholder="Họ và tên:" class="input50" required>
-                <input type="text" name="CCCD" placeholder="CCCD:" class="input50" required>
-                <input type="text" name="Email" placeholder="Email:" class="input50" required>
-                <input type="text" name="PhoneNumber" placeholder="Số điện thoại:" class="input50" required>
-                <input type="text" name="Address" placeholder="Địa chỉ" class="input100" required>
+                <input type="text" name="FullName" placeholder="Họ và tên:" value="@Model.FirstOrDefault().User.HoTen" class="input50" required>
+                <input type="text" name="CCCD" placeholder="CCCD:" value="@Model.FirstOrDefault().User.CCCD" class="input50" required>
+                <input type="text" name="Email" placeholder="Email:" value="@Model.FirstOrDefault().User.Email" class="input50" required>
+                <input type="text" name="PhoneNumber" placeholder="Số điện thoại:" value="@Model.FirstOrDefault().User.SDT" class="input50" required>
+                <input type="text" name="Address" placeholder="Địa chỉ" value="@Model.FirstOrDefault().User.DiaChi" class="input100" required>
                 <select id="roomType" class="input50" name="RoomType" required></select>
 
                 <input type="number" name="NumberOfPeople" placeholder="Số người:" class="input50" required>
@@ -88,10 +88,10 @@
                     <p>Giới tính:</p>
                     <div style="display: flex;">
                         <div>
-                            <input type="radio" name="Gender" value="true" required>Nam
+                            <input type="radio" name="Gender" value="true" @(Model.FirstOrDefault().User.GioiTinh.GetValueOrDefault() ? "checked" : "") required>Nam
                         </div>
                         <div>
-                            <input type="radio" name="Gender" value="false" required>Nữ
+                            <input type="radio" name="Gender" value="false" @(Model.FirstOrDefault().User.GioiTinh.GetValueOrDefault() ? "" : "checked") required>Nữ
                         </div>
                     </div>
                 </div>
@@ -243,47 +243,46 @@
 
     <div class="container" id="HistoryContainer">
         <div class="History">
-            <div class="Room_item">
-                <img src="~/Assets/Room3_1.png" alt="" style="border-radius: 8px;" width="260px">
-                <div class="Room_infor">
-                    <div class="Room_title" id="Room1">
-                        Phòng tổng thống
-                    </div>
-                    <ul id="Room1_infor">
-                        <li class="li">
-                            Chào mừng quý khách đến với phòng Tổng thống - biểu tượng của sự sang trọng và đẳng cấp.
-                            Nằm ở vị trí đặc biệt trong khách sạn của chúng tôi, phòng Tổng thống không chỉ là nơi lưu trú mà còn là trải nghiệm đỉnh cao dành cho những ai tìm kiếm sự hoàn hảo và tinh tế.
-                        </li>
-                        <li class="li">Tiện ích: Xe đưa đón tận nơi, hồ bơi, phòng Gym,...</li>
-                        <li class="li">Giá phòng: 5.000.000 đồng/ đêm</li>
-                    </ul>
-                    <div class="link" onclick="Mydetail('Room1')">
-                        Chi tiết
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </div>
-                </div>
-            </div>
             <div class="History_infor">
-                <div class="History_infor_content">
-                    <p>Ngày nhận phòng</p>
-                    <p>10/02/2024</p>
-                </div>
-                <div class="History_infor_content">
-                    <p>Ngày trả phòng</p>
-                    <p>12/02/2024</p>
-                </div>
-                <div class="History_infor_content">
-                    <p>Tổng tiền</p>
-                    <p style="color: blue;">2.000.000 đồng</p>
-                </div>
-                <div class="History_infor_content">
-                    <p>Trạng thái</p>
-                    <p class="History_condition_1">Đã thanh toán</p>
-                </div>
+                @if (Model.FirstOrDefault().BookRooms != null)
+                {
+                    <div class="History_infor_content">
+                        <p>Phòng</p>
+                        <p>@Model.FirstOrDefault().BookRooms.IDPHG</p>
+                    </div>
+                    <div class="History_infor_content">
+                        <p>Ngày nhận phòng</p>
+                        @foreach (var bill in Model)
+                        {
+                            foreach (var billDetail in bill.Bills.HoaDonChiTiets)
+                            {
+                                <p>@billDetail.NgayDat.Value.ToShortDateString()</p>
+                            }
+                        }
+                    </div>
+                    <div class="History_infor_content">
+                        <p>Ngày trả phòng</p>
+                        @foreach (var bill in Model)
+                        {
+                            foreach (var billDetail in bill.Bills.HoaDonChiTiets)
+                            {
+                                <p>@billDetail.NgayTra.Value.ToShortDateString()</p>
+                            }
+                        }
+                    </div>
+                    <div class="History_infor_content">
+                        <p>Tổng tiền</p>
+                        <p style="color: blue;">@Model.FirstOrDefault().Bills.TongDonGia đồng</p>
+                    </div>
+                }
+                else
+                {
+                    <p>Không tìm thấy thông tin hóa đơn cho khách hàng này.</p>
+                }
             </div>
         </div>
-
     </div>
+
 
     <div class="container" id="PersonalInfor">
         <div class="Personal_infor">

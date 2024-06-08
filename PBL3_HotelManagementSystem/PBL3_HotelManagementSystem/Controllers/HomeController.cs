@@ -37,11 +37,15 @@ namespace PBL3_HotelManagementSystem.Controllers
                 {
                     var services = db.DichVus.ToList();
                     var rooms = db.Phongs.ToList();
+                    var bills = db.HoaDons.FirstOrDefault(k=>k.IDKH == userID);
+                    var bookr = db.DatPhongs.FirstOrDefault(k=>k.IDKH==userID);
                     var viewModel = new Home1IndexViewModel
                     {
                         User = user,
                         Services = services,
-                        Rooms = rooms
+                        Rooms = rooms,
+                        Bills = bills,
+                        BookRooms = bookr
                     };
                     return View(new List<Home1IndexViewModel> { viewModel }); // Truyền vào một danh sách chứa một phần tử
                 }
@@ -68,7 +72,7 @@ namespace PBL3_HotelManagementSystem.Controllers
 
         //===================================================//
         [HttpPost]
-        public ActionResult BookRoom(BookViewModel model)
+        public ActionResult BookRoom1(BookViewModel model) //Dành cho người chưa đăng nhập
         {
             using (var transaction = db.Database.BeginTransaction())
             {
@@ -169,6 +173,89 @@ namespace PBL3_HotelManagementSystem.Controllers
                 }
             }
         }
+
+
+        public ActionResult BookRoom2(BookViewModel model) //Dành cho người đã đăng nhập
+        {
+            if (Session["UserID"] != null)
+            {
+                string userID = Session["UserID"].ToString();
+                var user = db.KhachHangs.FirstOrDefault(k => k.IDKH == userID);
+                if (user != null)
+                {
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            // Generate new IDs
+                            var newIDKH = user.IDKH; // Sử dụng ID của khách hàng đăng nhập
+                            var newIDBooking = GenerateNewBookRoomId();
+
+                            // Find available room
+                            var selectedRoom = FindAvailableRoom(model.RoomType, model.CheckInDate, model.CheckOutDate);
+                            if (selectedRoom == null)
+                            {
+                                return Json(new { success = false, message = "Không tìm thấy phòng phù hợp." });
+                            }
+
+                            // Create new booking
+                            var bookingRoom = new DatPhong
+                            {
+                                IDDatPhong = newIDBooking,
+                                IDKH = newIDKH,
+                                IDPHG = selectedRoom.IDPHG,
+                                NgayDat = model.CheckInDate,
+                                NgayTra = model.CheckOutDate,
+                                SoNgayThue = (model.CheckOutDate - model.CheckInDate).Days,
+                                TrangThai = "Đã đặt"
+                            };
+                            selectedRoom.TrangThai = "Bận";
+                            db.DatPhongs.Add(bookingRoom);
+
+                            // Add selected services
+                            if (model.SelectedServices != null && model.SelectedServices.Any())
+                            {
+                                foreach (var IDservice in model.SelectedServices)
+                                {
+                                    var newIDServiceBooking = GenerateNewBookServiceId();
+                                    var bookingService = new DatDichVu
+                                    {
+                                        IDDatDV = newIDServiceBooking,
+                                        IDKH = newIDKH,
+                                        IDDV = IDservice,
+                                        NgaySuDung = model.CheckInDate
+                                    };
+                                    db.DatDichVus.Add(bookingService);
+
+                                    var serviceDetails = new DatDichVuChiTiet
+                                    {
+                                        IDDatDVChiTiet = GenerateNewBookServiceDetailId(),
+                                        IDDatDV = newIDServiceBooking,
+                                        SoLuong = model.NumberOfPeople,
+                                        GiaTien = CalculateServicePrice(IDservice, model.NumberOfPeople)
+                                    };
+                                    db.DatDichVuChiTiets.Add(serviceDetails);
+                                }
+                            }
+
+                            // Save changes and commit transaction
+                            db.SaveChanges();
+                            transaction.Commit();
+
+                            return Json(new { success = true, message = "Đặt phòng thành công." });
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            return Json(new { success = false, message = "Lỗi khi đặt phòng: " + ex.Message });
+                        }
+                    }
+                }
+            }
+            // Trường hợp không tìm thấy thông tin khách hàng hoặc người dùng chưa đăng nhập, chuyển hướng về trang đăng nhập
+            return RedirectToAction("Login", "Account");
+        }
+
 
         public double CalculateServicePrice(string serviceId, int numberOfPeople)
         {
