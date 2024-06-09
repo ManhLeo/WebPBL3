@@ -475,6 +475,27 @@ $(document).ready(function () {
     });
 });
 
+function createInvoice(roomId) {
+    // Gửi yêu cầu tạo hóa đơn đến máy chủ với roomId của phòng đã chọn
+    $.ajax({
+        url: '/Admin/CreateBill',
+        type: 'POST',
+        data: { roomId: roomId },
+        success: function (response) {
+            if (response.success) {
+                alert('Hóa đơn đã được tạo thành công.');
+                // Cập nhật giao diện hoặc thực hiện các thao tác khác sau khi tạo hóa đơn thành công
+            } else {
+                alert('Đã xảy ra lỗi: ' + response.message);
+            }
+        },
+        error: function () {
+            alert('Đã xảy ra lỗi khi gửi yêu cầu tạo hóa đơn.');
+        }
+    });
+}
+
+
 
 
 
