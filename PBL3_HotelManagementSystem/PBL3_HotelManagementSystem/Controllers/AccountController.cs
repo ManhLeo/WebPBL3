@@ -33,7 +33,6 @@ namespace PBL3_HotelManagementSystem.Controllers
                 if (account != null)
                 {
                     Session["UserID"] = account.IDAccount;
-                    Session["UserName"] = account.UserName;
                     Session["UserRole"] = account.PhanQuyen;
                     if (account.PhanQuyen == "admin")
                     {
@@ -93,7 +92,6 @@ namespace PBL3_HotelManagementSystem.Controllers
                 var newUser = new Account
                 {
                     IDAccount = newIDKH,
-                    UserName = model.FullName,
                     Email = model.Email,
                     Pass = model.Password, // Hash mật khẩu trước khi lưu
                     PhanQuyen = "Khách Hàng"
@@ -108,7 +106,6 @@ namespace PBL3_HotelManagementSystem.Controllers
                     CCCD = model.CCCD,
                     SDT = model.PhoneNumber,
                     Email = model.Email,
-                    GioiTinh = model.Gender,
                     DiaChi = model.Address
                 };
 

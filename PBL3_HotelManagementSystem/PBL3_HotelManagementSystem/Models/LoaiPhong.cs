@@ -22,10 +22,7 @@ namespace PBL3_HotelManagementSystem.Models
     
         public string IDLoaiPhong { get; set; }
         public string TenLoaiPhong { get; set; }
-        public string HinhAnh { get; set; }
-        public Nullable<double> DonGia { get; set; }
-        public Nullable<int> SoNguoi { get; set; }
-        public Nullable<int> SoGiuong { get; set; }
+        public int DonGia { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Phong> Phongs { get; set; }

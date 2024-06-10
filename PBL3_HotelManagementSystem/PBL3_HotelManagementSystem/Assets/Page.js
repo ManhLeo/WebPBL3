@@ -1,6 +1,6 @@
 ﻿
-function MyForm() {
-    document.getElementById("Form").style.display = "flex";
+function MyForm(ID) {
+    document.getElementById(ID).style.display = "flex";
 }
 function Mydetail(id) {
     const Room = document.getElementById(`${id}_infor`);
@@ -26,8 +26,8 @@ function Mydetail(id) {
     });
 }
 
-function Close() {
-    document.getElementById("Form").style.display = "none";
+function Close(id) {
+    document.getElementById(id).style.display = "none";
 }
 function MyCloseDetail() {
     document.getElementById("detail").style.display = "none";
@@ -205,7 +205,63 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $('#Form3').submit(function (event) {
+        event.preventDefault(); // Ngăn chặn form gửi đi mặc định
 
+        var formData = $(this).serialize(); // Chuẩn bị dữ liệu form
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                // Xử lý kết quả từ Controller
+                if (response.success) {
+                    alert(response.message); // Hiển thị thông báo thành công
+                    // Cập nhật giao diện hoặc thực hiện các thao tác khác sau khi đặt phòng thành công
+                } else {
+                    alert(response.message); // Hiển thị thông báo lỗi
+                }
+            },
+            error: function (xhr, status, error) {
+                // Xử lý lỗi
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('#Form4').submit(function (event) {
+        event.preventDefault(); // Ngăn chặn form gửi đi mặc định
+
+        var formData = $(this).serialize(); // Chuẩn bị dữ liệu form
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                // Xử lý kết quả từ Controller
+                if (response.success) {
+                    alert(response.message); // Hiển thị thông báo thành công
+                    // Cập nhật giao diện hoặc thực hiện các thao tác khác sau khi đặt phòng thành công
+                } else {
+                    alert(response.message); // Hiển thị thông báo lỗi
+                }
+            },
+            error: function (xhr, status, error) {
+                // Xử lý lỗi
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    });
+});
 
 $(document).ready(function () {
     $("#personalInfoForm").submit(function (e) {
@@ -217,7 +273,6 @@ $(document).ready(function () {
             CCCD: $("#txtCCCD").val(),
             SDT: $("#txtSDT").val(),
             Email: $("#txtEmail").val(),
-            GioiTinh: $("input[name='GioiTinh']:checked").val() === "true",
             DiaChi: $("#txtDiaChi").val()
         };
 
@@ -240,3 +295,4 @@ $(document).ready(function () {
         });
     });
 });
+

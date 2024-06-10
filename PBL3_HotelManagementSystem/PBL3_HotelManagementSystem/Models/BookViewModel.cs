@@ -12,11 +12,11 @@ namespace PBL3_HotelManagementSystem.Models
         public string Email { get; set; }
         public string CCCD { get; set; }
         public string PhoneNumber { get; set; }
-        public bool Gender { get; set; }
         public string Address { get; set; }
         public string RoomType { get; set; }
-        public int NumberOfPeople { get; set; }
+        public int NumberOfService { get; set; }
         public List<string> SelectedServices { get; set; }
+        public DateTime NgaySuDung { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
     }

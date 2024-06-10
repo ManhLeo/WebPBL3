@@ -224,9 +224,13 @@ function searchServices() {
                 var row = document.createElement('tr');
                 row.innerHTML = `<td>${service.IDDV}</td>` +
                     `<td>${service.TenDV}</td>` +
-                    `<td>${service.LoaiDV}</td>` +
-                    `<td>${service.DonGia}</td>`;
-
+                    `<td>${service.DonGia}</td>` +
+                    `<td>${service.SoLuongMax}</td>` +
+                    `<td>${service.Soluong}</td>` +
+                    `<td>` +
+                    '<button onclick="Update(this)"><i class="fas fa-pen-to-square"></i></button>'+
+                    `<button onclick="deleteService('${service.IDDV}')"><i class="fas fa-trash-alt"></i></button>` +
+                    `</td>`;
                 // Thêm hàng vào bảng
                 tbody.appendChild(row);
             });
@@ -263,7 +267,6 @@ function searchCustomers() {
                     `<td>${customer.CCCD}</td>` +
                     `<td>${customer.SDT}</td>` +
                     `<td>${customer.Email}</td>` +
-                    `<td>${customer.GioiTinh ? "Nam" : "Nữ"}</td>` +
                     `<td>${customer.DiaChi}</td>`; 
 
                 // Thêm hàng vào bảng
@@ -276,6 +279,60 @@ function searchCustomers() {
             alert("An error occurred while searching customers.");
         });
 }
+
+// Hàm chuyển đổi định dạng ngày từ /Date(xxx)/ sang dd/MM/yyyy
+function formatJsonDate(jsonDate) {
+    var date = new Date(parseInt(jsonDate.substr(6)));
+    var day = String(date.getDate()).padStart(2, '0');
+    var month = String(date.getMonth() + 1).padStart(2, '0');
+    var year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
+function searchBills() {
+    var searchText = document.getElementById("searchBillInput").value;
+
+    // Gửi yêu cầu tìm kiếm dịch vụ đến server
+    fetch('/Admin/SearchBills', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ searchText: searchText })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Xóa các hàng hiện có trong bảng
+            var tbody = document.querySelector('#billTable tbody');
+            tbody.innerHTML = '';
+
+            // Hiển thị kết quả tìm kiếm trong bảng
+            data.forEach(bill => {
+                var row = document.createElement('tr');
+                row.innerHTML = `<td>${bill.IDHD}</td>` +
+                    `<td>${bill.IDKH}</td>` +
+                    `<td>${bill.HoTen}</td>` +
+                    `<td>${bill.CCCD}</td>` +
+                    `<td>${formatJsonDate(bill.NgayNhan)}</td>` +
+                    `<td>${formatJsonDate(bill.NgayTra)}</td>` +
+                    `<td>${bill.DonGia}</td>` +
+                    `<td style="color: red;" >${bill.TrangThai}</td>` +
+                    `<td>` +
+                    `<button onclick="deleteBill('${bill.IDHD}')"><i class="fas fa-trash-alt"></i></button>` +
+                    `</td>`;
+
+
+                // Thêm hàng vào bảng
+                tbody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            // Hiển thị thông báo lỗi nếu có lỗi xảy ra
+            console.error('Error:', error);
+            alert("An error occurred while searching customers.");
+        });
+}
+
+
 
 //=============================================================================================//
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -425,7 +482,6 @@ function searchRooms() {
                         <td>${room.TenLoaiPhong}</td>
                         <td>${room.DonGia}</td>
                         <td>${room.SoGiuong}</td>
-                        <td>${room.SoNguoi}</td>
                         <td>${room.TrangThai}</td>
                         <td>
                             <button onclick="editRoom('${room.IDPHG}')"><i class="fas fa-edit"></i></button>
@@ -475,73 +531,8 @@ $(document).ready(function () {
     });
 });
 
-function createInvoice(roomId) {
-    // Gửi yêu cầu tạo hóa đơn đến máy chủ với roomId của phòng đã chọn
-    $.ajax({
-        url: '/Admin/CreateBill',
-        type: 'POST',
-        data: { roomId: roomId },
-        success: function (response) {
-            if (response.success) {
-                alert('Hóa đơn đã được tạo thành công.');
-                // Cập nhật giao diện hoặc thực hiện các thao tác khác sau khi tạo hóa đơn thành công
-            } else {
-                alert('Đã xảy ra lỗi: ' + response.message);
-            }
-        },
-        error: function () {
-            alert('Đã xảy ra lỗi khi gửi yêu cầu tạo hóa đơn.');
-        }
-    });
-}
 
 
-
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Hàm cập nhật dropdown menu
-    function updateDropdown(dropdownId, items, defaultOptionText = 'Tất cả') {
-        const dropdown = document.getElementById(dropdownId);
-        if (dropdown) {
-            dropdown.innerHTML = ''; // Xóa các tùy chọn cũ
-
-            // Thêm tùy chọn "Chọn loại phòng" vào đầu danh sách
-            const allOption = document.createElement('option');
-            allOption.value = '';
-            allOption.textContent = defaultOptionText;
-            dropdown.appendChild(allOption);
-
-            // Thêm các tùy chọn mới
-            items.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item;
-                option.textContent = item;
-                dropdown.appendChild(option);
-            });
-        } else {
-            console.error(`Không tìm thấy phần tử HTML với id là ${dropdownId}`);
-        }
-    }
-
-    // Hàm lấy dữ liệu từ server
-    function fetchData(url, callback) {
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => callback(data))
-            .catch(error => console.error('Lỗi khi lấy dữ liệu:', error));
-    }
-
-    // Lấy loại phòng và cập nhật dropdown menu
-    fetchData('/Admin/GetServiceTypes', function (serviceTypes) {
-        updateDropdown('condition3', serviceTypes, 'Chọn loại dịch vụ');
-    });
-});
 
 
 
@@ -573,3 +564,107 @@ $(document).ready(function () {
         });
     });
 });
+
+
+$(document).ready(function () {
+    $('#ServiceForm').submit(function (event) {
+        event.preventDefault(); // Ngăn chặn form gửi đi mặc định
+
+        var formData = $(this).serialize(); // Chuẩn bị dữ liệu form
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                // Xử lý kết quả từ Controller
+                if (response.success) {
+                    alert(response.message); // Hiển thị thông báo thành công
+                    // Cập nhật giao diện hoặc thực hiện các thao tác khác sau khi đặt phòng thành công
+                } else {
+                    alert(response.message); // Hiển thị thông báo lỗi
+                }
+            },
+            error: function (xhr, status, error) {
+                // Xử lý lỗi
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const checkboxes = document.querySelectorAll('.service-checkbox');
+
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            const serviceInputs = this.closest('label').nextElementSibling.querySelectorAll('.service-input');
+            serviceInputs.forEach(function (input) {
+                input.disabled = !checkbox.checked;
+                input.required = checkbox.checked;
+            });
+        });
+    });
+});
+
+
+
+
+function createInvoice(roomId) {
+    // Gửi yêu cầu tạo hóa đơn đến máy chủ với roomId của phòng đã chọn
+    $.ajax({
+        url: '/Admin/CreateBill',
+        type: 'POST',
+        data: { roomId: roomId },
+        success: function (response) {
+            if (response.success) {
+                alert('Hóa đơn đã được tạo thành công.');
+                // Cập nhật giao diện hoặc thực hiện các thao tác khác sau khi tạo hóa đơn thành công
+            } else {
+                alert('Đã xảy ra lỗi: ' + response.message);
+            }
+        },
+        error: function () {
+            alert('Đã xảy ra lỗi khi gửi yêu cầu tạo hóa đơn.');
+        }
+    });
+}
+
+function Update(element) {
+    // Get the parent row of the clicked element
+    var row = element.parentElement.parentElement;
+    let Titles = row.parentElement.querySelector('tr').querySelectorAll('th');
+    let Container = document.getElementById("Update_container");
+    console.log(element.closest('.manager_container').id);
+    // Clear the container content before updating
+    Container.innerHTML = '';
+
+    // Add title for the form
+    Container.innerHTML += `
+        <div class="Form_item" style="justify-content: center;">
+            <p style="font-weight: 600;font-size: 24px;color: black;">Thông tin</p>
+        </div>
+    `;
+    // Iterate through each title and corresponding cell in the row
+    Titles.forEach(function (title, index) {
+        if (index != Titles.length - 1 && index != 0) {
+            Container.innerHTML += `
+            <div class="Form_item">
+                <p>${title.innerText}</p>
+                <input type="text" class="input" value="${row.cells[index].innerText}">
+            </div>
+        `;
+        }
+    });
+    Container.innerHTML += `
+        <div class="Form_item" style="justify-content: center;margin-top: 20px;">
+            <button class="button1">Chỉnh sửa</button>
+            <button class="button1" onclick="CloseForm('Update')">Thoát</button>
+        </div>
+    `;
+
+    // Correcting the display property
+    document.getElementById("Update").style.display = "flex";
+}

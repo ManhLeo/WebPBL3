@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-    <div class="Form" id="Form">
+    <div class="Form" id="FormDP">
         @using (Html.BeginForm("BookRoom1", "Home", FormMethod.Post, new { @id = "Form1" }))
         {
             <div class="Form_container">
@@ -78,31 +78,8 @@
                 <input type="text" name="Email" placeholder="Email:" class="input50" required>
                 <input type="text" name="PhoneNumber" placeholder="Số điện thoại:" class="input50" required>
                 <input type="text" name="Address" placeholder="Địa chỉ" class="input100" required>
-                <select id="roomType" class="input50" name="RoomType" required></select>
-
-                <input type="number" name="NumberOfPeople" placeholder="Số người:" class="input50" required>
-                <div class="Form_item">
-                    <p>Giới tính:</p>
-                    <div style="display: flex;">
-                        <div>
-                            <input type="radio" name="Gender" value="true" required>Nam
-                        </div>
-                        <div>
-                            <input type="radio" name="Gender" value="false" required>Nữ
-                        </div>
-                    </div>
-                </div>
-                <div class="checkbox-list">
-                    @foreach (var service in Model.FirstOrDefault().Services)
-                    {
-                        <label>
-                            <input type="checkbox" name="SelectedServices" value="@service.IDDV"> @service.TenDV
-                        </label>
-                    }
-                </div>
-
+                <select id="roomType" class="input100" name="RoomType" required></select>
                 <input type="date" name="CheckInDate" placeholder="Ngày nhận phòng" class="input50" required>
-                <i class="fa-solid fa-arrow-right"></i>
                 <input type="date" name="CheckOutDate" placeholder="Ngày trả phòng" class="input50" required>
                 <div class="Form_note">
                     <span style="color: red;font-weight: 600;margin-bottom: 30px;text-decoration: underline;">Lưu ý:</span>
@@ -110,12 +87,57 @@
                 </div>
                 <div style="width: 100%;display: flex;gap: 20px;justify-content: center;">
                     <button type="submit">Đặt phòng</button>
-                    <button type="button" onclick="Close()">Thoát</button>
+                    <button type="button" onclick="Close('FormDP')">Thoát</button>
                 </div>
-                
+
             </div>
         }
     </div>
+
+    <div class="Form" id="FormDV">
+        @using (Html.BeginForm("BookService1", "Home", FormMethod.Post, new { @id = "Form3" }))
+        {
+            <div class="Form_container">
+                <div class="Form_logo">
+                    <img src="~/Assets/Logo.png" alt="" width="50px">
+                    HMV Hotel
+                </div>
+                <div class="Form_title">
+                    ĐẶT DỊCH VỤ
+                </div>
+
+                <input type="text" name="FullName" placeholder="Họ và tên:" class="input50" required>
+                <input type="text" name="CCCD" placeholder="CCCD:" class="input50" required>
+                <input type="text" name="Email" placeholder="Email:" class="input50" required>
+                <input type="text" name="PhoneNumber" placeholder="Số điện thoại:" class="input50" required>
+                <input type="text" name="Address" placeholder="Địa chỉ" class="input100" required>
+                <div class="checkbox-list">
+                    @foreach (var service in Model.FirstOrDefault().Services)
+                    {
+                        <label>
+                            <div>
+                                <input type="checkbox" name="SelectedServices" value="@service.IDDV"> @service.TenDV
+                            </div>
+                            <div>
+                                <input type="text" name=" NumberofService" placeholder="SL" class="input50" required>
+                                <input type="date" name="NgaySuDung" class="input50" required>
+                            </div>
+                        </label>
+                    }
+                </div>
+                
+                <div>
+                    <span style="color: red;font-weight: 600;margin-bottom: 30px;text-decoration: underline;">Lưu ý:</span>
+                    Quý khách vui lòng trả phòng trước 10 giờ sáng
+                </div>
+                <div style="width: 100%;display: flex;gap: 20px;justify-content: center;">
+                    <button type="submit">Đặt dịch vụ</button>
+                    <button type="button" onclick="Close('FormDV')">Thoát</button>
+                </div>
+            </div>
+        }
+    </div>
+
 
 
     <div class="Taskbar">
@@ -146,7 +168,8 @@
             <div class="Selecter_container">
                 <input type="text" placeholder="Thông tin phòng, tiện ích,.." class="input1">
                 <button>Tìm kiếm</button>
-                <button onclick="MyForm()">Đặt phòng</button>
+                <button onclick="MyForm('FormDP')">Đặt phòng</button>
+                <button onclick="MyForm('FormDV')">Đặt dịch vụ</button>
             </div>
         </div>
         <div class="Room">
@@ -168,7 +191,7 @@
                         Chi tiết
                         <i class="fa-solid fa-arrow-right"></i>
                     </div>
-                    <button onclick="MyForm()">Đặt phòng</button>
+                    <button onclick="MyForm('FormDP')">Đặt phòng</button>
                 </div>
             </div>
             <div class="Room_item">
@@ -190,7 +213,7 @@
                         Chi tiết
                         <i class="fa-solid fa-arrow-right"></i>
                     </div>
-                    <button onclick="MyForm()">Đặt phòng</button>
+                    <button onclick="MyForm('FormDP')">Đặt phòng</button>
                 </div>
             </div>
             <div class="Room_item">
@@ -208,7 +231,7 @@
                         Chi tiết
                         <i class="fa-solid fa-arrow-right"></i>
                     </div>
-                    <button onclick="MyForm()">Đặt phòng</button>
+                    <button onclick="MyForm('FormDP')">Đặt phòng</button>
                 </div>
             </div>
         </div>

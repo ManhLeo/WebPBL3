@@ -21,8 +21,9 @@ namespace PBL3_HotelManagementSystem.Models
         }
     
         public string IDPHG { get; set; }
-        public string IDLoaiPhong { get; set; }
         public string TenPHG { get; set; }
+        public string IDLoaiPhong { get; set; }
+        public int SoGiuong { get; set; }
         public string TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

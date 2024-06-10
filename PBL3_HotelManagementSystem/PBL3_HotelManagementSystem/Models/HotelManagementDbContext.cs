@@ -16,12 +16,10 @@ namespace PBL3_HotelManagementSystem.Models
         public DbSet<LoaiPhong> LoaiPhongs { get; set; }
         public DbSet<Phong> Phongs { get; set; }
         public DbSet<DatPhong> DatPhongs { get; set; }
-        public DbSet<LoaiDV> LoaiDVs { get; set; }
         public DbSet<DichVu> DichVus { get; set; }
         public DbSet<DatDichVu> DatDichVus { get; set; }
-        public DbSet<DatDichVuChiTiet> DatDichVuChiTiets { get; set; }
+
         public DbSet<HoaDon> HoaDons { get; set; }
-        public DbSet<HoaDonChiTiet> HoaDonChiTiets { get; set; }
         public DbSet<RegisterViewModel> Customers { get; set; }
     }
 }

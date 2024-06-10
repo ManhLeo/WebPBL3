@@ -70,15 +70,6 @@
                             <div class="title">Số điện thoại</div>
                             @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "input", required = "required" })
 
-                            <div class="title">Giới tính</div>
-                            <div style="display: flex; gap: 20px; font-size: 20px; font-weight: 400;">
-                                <div>
-                                    @Html.RadioButtonFor(m => m.Gender, true, new { @class = "radio", id = "GenderMale" }) Nam
-                                </div>
-                                <div>
-                                    @Html.RadioButtonFor(m => m.Gender, false, new { @class = "radio", id = "GenderFemale" }) Nữ
-                                </div>
-                            </div>
 
                             <div class="title">Địa chỉ</div>
                             @Html.TextBoxFor(m => m.Address, new { @class = "input" })

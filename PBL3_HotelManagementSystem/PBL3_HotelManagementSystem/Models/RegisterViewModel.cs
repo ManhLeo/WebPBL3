@@ -16,10 +16,6 @@ namespace PBL3_HotelManagementSystem.Models
 
         [Required]
         public string PhoneNumber { get; set; }
-
-        [Required]
-        public bool? Gender { get; set; } //true = nam, false = nữ
-
         [Required]
         public string Address { get; set; }
 

@@ -305,18 +305,21 @@ th, td {
 }
 
 .checkbox-list {
+    width: 100%;
+    height: 18vh;
     display: flex;
-    gap: 30px;
-    font-size: 20px;
+    flex-direction: column;
+    gap: 10px;
     margin-bottom: 10px;
-    overflow-x: scroll;
+    overflow-y: scroll;
     padding-right: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
 }
 
     .checkbox-list::-webkit-scrollbar {
-        height: 5px;
-        width: 100%;
+        height: 100%;
+        width: 3px;
     }
 
     .checkbox-list::-webkit-scrollbar-track {
@@ -329,10 +332,15 @@ th, td {
         border-radius: 5px; /* Độ cong của nút cuộn */
     }
 
-    .checkbox-list label {
-        display: flex;
-        gap: 5px;
-        width: max-content;
-        align-items: center;
-        white-space: nowrap;
+    .checkbox-list input[type="text"] {
+        width: 50px;
+        height: 25px;
+        margin-bottom: 3px;
+    }
+
+    .checkbox-list label input[type="date"] {
+        width: 250px;
+        height: 25px;
+        margin-left: 10px;
+        margin-bottom: 3px;
     }

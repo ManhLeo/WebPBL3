@@ -42,17 +42,6 @@
                     <input type="text" class="input" name="PhoneNumber" required>
                 </div>
                 <div class="Form_item">
-                    <p>Giới tính:</p>
-                    <div style="display: flex;">
-                        <div>
-                            <input type="radio" name="Gender" value="true" required>Nam
-                        </div>
-                        <div>
-                            <input type="radio" name="Gender" value="false" required>Nữ
-                        </div>
-                    </div>
-                </div>
-                <div class="Form_item">
                     <p>Địa chỉ:</p>
                     <input type="text" class="input" name="Address" required>
                 </div>
@@ -60,24 +49,7 @@
                     <p>Loại phòng:</p>
                     <select id="condition2" class="input input1" name="RoomType" required></select>
                 </div>
-                <div class="Form_item">
-                    <p>Số người (<= 2):</p>
-                    <input type="number" class="input" name="NumberOfPeople" max="2" required>
-                </div>
-                <div class="Form_item">
-                    <p>Dịch vụ:</p>
-                    <div class="checkbox-list">
-                        @foreach (var item in Model)
-                        {
-                            foreach (var service in item.Services)
-                            {
-                                <label>
-                                    <input type="checkbox" name="SelectedServices" value="@service.IDDV"> @service.TenDV
-                                </label>
-                            }
-                        }
-                    </div>
-                </div>
+                
                 <div class="Form_item">
                     <p>Ngày nhận phòng:</p>
                     <input type="date" class="input" name="CheckInDate" required>
@@ -94,9 +66,60 @@
         </form>
     </div>
 
+    <div class="Form" id="BookServiceForm">
+        <form id="ServiceForm" method="post" action="@Url.Action("BookService", "Admin")">
+            <div class="Form_container">
+                <div class="Form_item" style="justify-content: center;">
+                    <p style="font-weight: 600;font-size: 24px;color: black;">ĐẶT DỊCH VỤ</p>
+                </div>
+                <div class="Form_item">
+                    <p>Họ và tên:</p>
+                    <input type="text" class="input" name="FullName" required>
+                </div>
+                <div class="Form_item">
+                    <p>Email:</p>
+                    <input type="email" class="input" name="Email" required>
+                </div>
+                <div class="Form_item">
+                    <p>CCCD:</p>
+                    <input type="text" class="input" name="CCCD" required>
+                </div>
+                <div class="Form_item">
+                    <p>SĐT:</p>
+                    <input type="text" class="input" name="PhoneNumber" required>
+                </div>
+                <div class="Form_item">
+                    <p>Địa chỉ:</p>
+                    <input type="text" class="input" name="Address" required>
+                </div>
+                <div class="Form_item">
+                    <p>Dịch vụ:</p>
+                    <div class="checkbox-list">
+                        @foreach (var item in Model)
+                        {
+                            foreach (var service in item.Services)
+                            {
+                                <label>
+                                    <input type="checkbox" name="SelectedServices" value="@service.IDDV" class="service-checkbox"> @service.TenDV
+                                </label>
+                                <div class="service-details">
+                                    <input type="text" name="NumberofService" placeholder="SL" class="input50 service-input" disabled>
+                                    <input type="date" name="NgaySuDung" class="input50 service-input" disabled>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="Form_item" style="justify-content: center;margin-top: 20px;">
+                    <button type="submit" class="button1">ĐẶT DịCH VỤ</button>
+                    <button type="button" class="button1" onclick="CloseForm('BookServiceForm')">Thoát</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
 
-    <div class="Form" id="ServiceForm">
+    <div class="Form" id="addServiceForm1">
         <form id="addServiceForm" method="post" action="@Url.Action("AddService", "Admin")">
             <div class="Form_container">
                 <div class="Form_item" style="justify-content: center;">
@@ -107,21 +130,30 @@
                     <input type="text" class="input" name="TenDV" required>
                 </div>
                 <div class="Form_item">
-                    <p>Loại dịch vụ:</p>
-                    <select id="condition3" class="input input1" name="TenLoaiDV" required></select>
+                    <p>Đơn giá:</p>
+                    <input class="text" name="DonGia" required>
+                </div>
+                <div class="Form_item">
+                    <p>Số lượng Max:</p>
+                    <input class="text" name="SoLuongMax" required>
                 </div>
                 <div class="Form_item" style="justify-content: center; margin-top: 20px;">
-                    <button type="submit" class="button1" >THÊM</button>
-                    <button type="button" class="button1" onclick="CloseForm('ServiceForm')">Thoát</button>
+                    <button type="submit" class="button1">THÊM</button>
+                    <button type="button" class="button1" onclick="CloseForm('addServiceForm1')">Thoát</button>
                 </div>
             </div>
         </form>
     </div>
 
+    <div class="Form" id="Update">
+        <div class="Form_container" id="Update_container">
+        </div>
+    </div>
+
     <div class="container">
         <div class="taskbar">
             <div style="display: flex;align-items: center;">
-                <img src="~/Assets/Logo_white.png" alt="" width="100px">
+                <img src="~/Assets/Logo_white.png" alt="" width="100">
                 HMV HOTEL
             </div>
             <div class="Admin">
@@ -201,13 +233,14 @@
                 <div class="manager_item2">
                     <table>
                         <thead>
-                        <th>ID Phòng</th>
-                        <th>Tên Phòng</th>
-                        <th>Loại Phòng</th>
-                        <th>Giá</th>
-                        <th>Số giường</th>
-                        <th>Số người</th>
-                        <th>Trạng thái</th>
+                            <tr>
+                                <th>ID Phòng</th>
+                                <th>Tên Phòng</th>
+                                <th>Loại Phòng</th>
+                                <th>Giá</th>
+                                <th>Số giường</th>
+                                <th>Trạng thái</th>
+                            </tr>
                         </thead>
                         <tbody id="roomTableBody">
                             @foreach (var item in Model)
@@ -219,8 +252,7 @@
                                         <td>@room.TenPHG</td>
                                         <td>@room.LoaiPhong.TenLoaiPhong</td>
                                         <td>@room.LoaiPhong.DonGia</td>
-                                        <td>@room.LoaiPhong.SoGiuong</td>
-                                        <td>@room.LoaiPhong.SoNguoi</td>
+                                        <td>@room.SoGiuong</td>
                                         <td>@room.TrangThai</td>
                                         <td>
                                             @if (room.TrangThai == "Bận")
@@ -230,10 +262,9 @@
                                         </td>
                                         <td>
                                             <!-- Thêm cột cho nút thao tác -->
-                                            <button onclick="editRoom('@room.IDPHG')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="Update(this)"><i class="fas fa-pen-to-square"></i></button> <!-- Icon chỉnh sửa -->
                                             <button onclick="deleteRoom('@room.IDPHG')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
                                         </td>
-
                                     </tr>
                                 }
                             }
@@ -262,7 +293,6 @@
                                 <th>CCCD</th>
                                 <th>SĐT</th>
                                 <th>Email</th>
-                                <th>Giới tính</th>
                                 <th>Địa chỉ</th>
                             </tr>
                         </thead>
@@ -278,11 +308,10 @@
                                         <td>@customer.CCCD</td>
                                         <td>@customer.SDT</td>
                                         <td>@customer.Email</td>
-                                        <td>@(customer.GioiTinh.HasValue ? (customer.GioiTinh.Value ? "Nam" : "Nữ") : "")</td>
                                         <td>@customer.DiaChi</td>
                                         <td>
                                             <!-- Thêm cột cho nút thao tác -->
-                                            <button onclick="editCustomer('@customer.IDKH')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="Update(this)"><i class="fas fa-pen-to-square"></i></button> <!-- Icon chỉnh sửa -->
                                             <button onclick="deleteCustomer('@customer.IDKH')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
                                         </td>
 
@@ -304,7 +333,8 @@
                         Dịch vụ:
                         <input type="text" ID="searchServiceInput" placeholder="Thông tin dịch vụ">
                         <button onclick="searchServices()">Tìm kiếm</button>
-                        <button class="button2" onclick="MyForm('ServiceForm')">Thêm dịch vụ</button>
+                        <button class="button2" onclick="MyForm('addServiceForm1')">Thêm dịch vụ</button>
+                        <button class="button2" onclick="MyForm('BookServiceForm')">Đặt dịch vụ</button>
                     </div>
                 </div>
                 <div class="manager_item2">
@@ -313,8 +343,9 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Tên dịch vụ</th>
-                                <th>Tên loại dịch vụ</th>
                                 <th>Giá dịch vụ</th>
+                                <th>Số lượng max</th>
+                                <th>Số lượng đang dùng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -325,11 +356,12 @@
                                     <tr>
                                         <td>@service.IDDV</td>
                                         <td>@service.TenDV</td>
-                                        <td>@service.LoaiDV.TenLoaiDV</td>
-                                        <td>@service.LoaiDV.DonGia</td>
+                                        <td>@service.DonGia</td>
+                                        <td>@service.SoLuongMax</td>
+                                        <td>@service.Soluong</td>
                                         <td>
                                             <!-- Thêm cột cho nút thao tác -->
-                                            <button onclick="editService('@service.IDDV')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="Update(this)"><i class="fas fa-pen-to-square"></i></button> <!-- Icon chỉnh sửa -->
                                             <button onclick="deleteService('@service.IDDV')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
                                         </td>
 
@@ -347,19 +379,24 @@
                         <div class="line"></div>
                     </div>
                     <div class="filter">
-                        Từ ngày
-                        <input type="date">
-                        đến ngày
-                        <input type="date">
-                        <button>Tìm kiếm</button>
+                        Tên khách hàng:
+                        <input type="text" id="searchBillInput" placeholder="Nhập tên khách hàng">
+                        <button onclick="searchBills()">Tìm kiếm</button>
                     </div>
                 </div>
                 <div class="manager_item2">
-                    <table>
+                    <table id="billTable">
                         <thead>
-                        <th>ID Hóa đơn</th>
-                        <th>ID Khách Hàng</th>
-                        <th>Thành tiền</th>
+                            <tr>
+                                <th>ID Hóa đơn</th>
+                                <th>ID Khách Hàng</th>
+                                <th>Họ tên</th>
+                                <th>CCCD</th>
+                                <th>Ngày nhận</th>
+                                <th>Ngày trả</th>
+                                <th>Thành tiền</th>
+                                <th>Trạng thái</th>
+                            </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
@@ -369,10 +406,13 @@
                                     <tr>
                                         <td>@bill.IDHD</td>
                                         <td>@bill.IDKH</td>
-                                        <td>@bill.TongDonGia</td>
+                                        <td>@bill.KhachHang.HoTen</td>
+                                        <td>@bill.KhachHang.CCCD</td>
+                                        <td>@bill.DatPhongs.FirstOrDefault().NgayNhan.ToShortDateString()</td>
+                                        <td>@bill.DatPhongs.FirstOrDefault().NgayTra.ToShortDateString()</td>
+                                        <td>@bill.DonGia</td>
+                                        <td style="color: red;"> @bill.TrangThai</td>
                                         <td>
-                                            <!-- Thêm cột cho nút thao tác -->
-                                            <button onclick="editBill('@bill.IDHD')"><i class="fas fa-edit"></i></button> <!-- Icon chỉnh sửa -->
                                             <button onclick="deleteBill('@bill.IDHD')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
                                         </td>
                                     </tr>

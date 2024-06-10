@@ -22,10 +22,11 @@ namespace PBL3_HotelManagementSystem.Models
     
         public string IDDV { get; set; }
         public string TenDV { get; set; }
-        public string IDLoaiDV { get; set; }
+        public int DonGia { get; set; }
+        public int SoLuongMax { get; set; }
+        public int Soluong { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DatDichVu> DatDichVus { get; set; }
-        public virtual LoaiDV LoaiDV { get; set; }
     }
 }

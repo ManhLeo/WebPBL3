@@ -13,10 +13,10 @@ namespace PBL3_HotelManagementSystem.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OKEntities : DbContext
+    public partial class OK1Entities : DbContext
     {
-        public OKEntities()
-            : base("name=OKEntities")
+        public OK1Entities()
+            : base("name=OK1Entities")
         {
         }
     
@@ -27,15 +27,11 @@ namespace PBL3_HotelManagementSystem.Models
     
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<DatDichVu> DatDichVus { get; set; }
-        public virtual DbSet<DatDichVuChiTiet> DatDichVuChiTiets { get; set; }
         public virtual DbSet<DatPhong> DatPhongs { get; set; }
         public virtual DbSet<DichVu> DichVus { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
-        public virtual DbSet<HoaDonChiTiet> HoaDonChiTiets { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
-        public virtual DbSet<LoaiDV> LoaiDVs { get; set; }
         public virtual DbSet<LoaiPhong> LoaiPhongs { get; set; }
         public virtual DbSet<Phong> Phongs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

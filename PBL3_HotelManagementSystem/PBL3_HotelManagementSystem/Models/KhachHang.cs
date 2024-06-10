@@ -17,23 +17,16 @@ namespace PBL3_HotelManagementSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhachHang()
         {
-            this.DatDichVus = new HashSet<DatDichVu>();
-            this.DatPhongs = new HashSet<DatPhong>();
             this.HoaDons = new HashSet<HoaDon>();
         }
     
         public string IDKH { get; set; }
-        public string HoTen { get; set; }
-        public string CCCD { get; set; }
-        public string SDT { get; set; }
         public string Email { get; set; }
-        public Nullable<bool> GioiTinh { get; set; }
+        public string HoTen { get; set; }
+        public string SDT { get; set; }
+        public string CCCD { get; set; }
         public string DiaChi { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DatDichVu> DatDichVus { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DatPhong> DatPhongs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
     }

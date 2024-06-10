@@ -38,7 +38,7 @@ namespace PBL3_HotelManagementSystem.Controllers
                     var services = db.DichVus.ToList();
                     var rooms = db.Phongs.ToList();
                     var bills = db.HoaDons.FirstOrDefault(k=>k.IDKH == userID);
-                    var bookr = db.DatPhongs.FirstOrDefault(k=>k.IDKH==userID);
+                    var bookr = db.DatPhongs.FirstOrDefault(k=>k.IDHD==userID);
                     var viewModel = new Home1IndexViewModel
                     {
                         User = user,
@@ -82,18 +82,10 @@ namespace PBL3_HotelManagementSystem.Controllers
                     {
                         // Generate new IDs
                         var newIDKH = GenerateNewCustomerId();
+                        var newIDHD = GenerateNewBillId();
                         var newIDBooking = GenerateNewBookRoomId();
 
-                        // Create new account
-                        var newUser = new Account
-                        {
-                            IDAccount = newIDKH,
-                            UserName = model.FullName,
-                            Email = model.Email,
-                            Pass = null, // Hash password before saving
-                            PhanQuyen = "Khách Hàng"
-                        };
-                        db.Accounts.Add(newUser);
+                       
 
                         // Create new customer
                         var newCustomer = new KhachHang
@@ -103,10 +95,19 @@ namespace PBL3_HotelManagementSystem.Controllers
                             CCCD = model.CCCD,
                             SDT = model.PhoneNumber,
                             Email = model.Email,
-                            GioiTinh = model.Gender,
                             DiaChi = model.Address
                         };
                         db.KhachHangs.Add(newCustomer);
+
+
+
+                        var newBills = new HoaDon
+                        {
+                            IDHD = newIDHD,
+                            IDKH = newIDKH,
+                            //DonGia = ,//CÒN ĐƠN GIÁ===================================
+                            TrangThai = "Chưa thanh toán"
+                        };
 
                         // Find available room
                         var selectedRoom = FindAvailableRoom(model.RoomType, model.CheckInDate, model.CheckOutDate);
@@ -115,45 +116,21 @@ namespace PBL3_HotelManagementSystem.Controllers
                             return Json(new { success = false, message = "Không tìm thấy phòng phù hợp." });
                         }
 
+                        var songay = (model.CheckOutDate - model.CheckInDate).Days;
                         // Create new booking
                         var bookingRoom = new DatPhong
                         {
-                            IDDatPhong = newIDBooking,
-                            IDKH = newIDKH,
+                            IDDatPHG = newIDBooking,
+                            IDHD = newIDHD,
                             IDPHG = selectedRoom.IDPHG,
-                            NgayDat = model.CheckInDate,
+                            NgayNhan = model.CheckInDate,
                             NgayTra = model.CheckOutDate,
-                            SoNgayThue = (model.CheckOutDate - model.CheckInDate).Days,
-                            TrangThai = "Đã đặt"
+                            DonGia = selectedRoom.LoaiPhong.DonGia * songay
                         };
                         selectedRoom.TrangThai = "Bận";
                         db.DatPhongs.Add(bookingRoom);
 
-                        // Add selected services
-                        if (model.SelectedServices != null && model.SelectedServices.Any())
-                        {
-                            foreach (var IDservice in model.SelectedServices)
-                            {
-                                var newIDServiceBooking = GenerateNewBookServiceId();
-                                var bookingService = new DatDichVu
-                                {
-                                    IDDatDV = newIDServiceBooking,
-                                    IDKH = newIDKH,
-                                    IDDV = IDservice,
-                                    NgaySuDung = model.CheckInDate
-                                };
-                                db.DatDichVus.Add(bookingService);
-
-                                var serviceDetails = new DatDichVuChiTiet
-                                {
-                                    IDDatDVChiTiet = GenerateNewBookServiceDetailId(),
-                                    IDDatDV = newIDServiceBooking,
-                                    SoLuong = model.NumberOfPeople,
-                                    GiaTien = CalculateServicePrice(IDservice, model.NumberOfPeople)
-                                };
-                                db.DatDichVuChiTiets.Add(serviceDetails);
-                            }
-                        }
+                        
 
                         // Save changes and commit transaction
                         db.SaveChanges();
@@ -189,6 +166,7 @@ namespace PBL3_HotelManagementSystem.Controllers
                         {
                             // Generate new IDs
                             var newIDKH = user.IDKH; // Sử dụng ID của khách hàng đăng nhập
+                            var newIDHD = GenerateNewBillId();
                             var newIDBooking = GenerateNewBookRoomId();
 
                             // Find available room
@@ -197,46 +175,21 @@ namespace PBL3_HotelManagementSystem.Controllers
                             {
                                 return Json(new { success = false, message = "Không tìm thấy phòng phù hợp." });
                             }
-
+                            var songay = (model.CheckOutDate-model.CheckInDate).Days;
                             // Create new booking
                             var bookingRoom = new DatPhong
                             {
-                                IDDatPhong = newIDBooking,
-                                IDKH = newIDKH,
+                                IDDatPHG = newIDBooking,
+                                IDHD = newIDHD,
                                 IDPHG = selectedRoom.IDPHG,
-                                NgayDat = model.CheckInDate,
+                                NgayNhan = model.CheckInDate,
                                 NgayTra = model.CheckOutDate,
-                                SoNgayThue = (model.CheckOutDate - model.CheckInDate).Days,
-                                TrangThai = "Đã đặt"
+                                DonGia = selectedRoom.LoaiPhong.DonGia * songay
                             };
                             selectedRoom.TrangThai = "Bận";
                             db.DatPhongs.Add(bookingRoom);
 
-                            // Add selected services
-                            if (model.SelectedServices != null && model.SelectedServices.Any())
-                            {
-                                foreach (var IDservice in model.SelectedServices)
-                                {
-                                    var newIDServiceBooking = GenerateNewBookServiceId();
-                                    var bookingService = new DatDichVu
-                                    {
-                                        IDDatDV = newIDServiceBooking,
-                                        IDKH = newIDKH,
-                                        IDDV = IDservice,
-                                        NgaySuDung = model.CheckInDate
-                                    };
-                                    db.DatDichVus.Add(bookingService);
-
-                                    var serviceDetails = new DatDichVuChiTiet
-                                    {
-                                        IDDatDVChiTiet = GenerateNewBookServiceDetailId(),
-                                        IDDatDV = newIDServiceBooking,
-                                        SoLuong = model.NumberOfPeople,
-                                        GiaTien = CalculateServicePrice(IDservice, model.NumberOfPeople)
-                                    };
-                                    db.DatDichVuChiTiets.Add(serviceDetails);
-                                }
-                            }
+                          
 
                             // Save changes and commit transaction
                             db.SaveChanges();
@@ -257,24 +210,73 @@ namespace PBL3_HotelManagementSystem.Controllers
         }
 
 
-        public double CalculateServicePrice(string serviceId, int numberOfPeople)
+        [HttpPost]
+        public ActionResult BookService1(BookViewModel model) //Dành cho người chưa đăng nhập
         {
-            var service = db.DichVus.FirstOrDefault(s => s.IDDV == serviceId);
-            if (service != null)
+            using (var transaction = db.Database.BeginTransaction())
             {
-                var serviceType = service.LoaiDV;
-                if (serviceType != null)
+                try
                 {
-                    double servicePrice = serviceType.DonGia ?? 0;
-                    if (serviceType.SoNguoi.HasValue)
+                    if (ModelState.IsValid)
                     {
-                        int additionalPeople = Math.Max(0, numberOfPeople - serviceType.SoNguoi.Value);
-                        servicePrice += additionalPeople * 0.5;
+                        // Generate new IDs
+                        var newIDKH = GenerateNewCustomerId();
+                        var newIDHD = GenerateNewBillId();
+ 
+
+                        // Create new customer
+                        var newCustomer = new KhachHang
+                        {
+                            IDKH = newIDKH,
+                            HoTen = model.FullName,
+                            CCCD = model.CCCD,
+                            SDT = model.PhoneNumber,
+                            Email = model.Email,
+                            DiaChi = model.Address
+                        };
+                        db.KhachHangs.Add(newCustomer);
+
+                        // Add selected services
+                        if (model.SelectedServices != null && model.SelectedServices.Any())
+                        {
+                            foreach (var IDservice in model.SelectedServices)
+                            {
+                                var selectedService = db.DichVus.FirstOrDefault(s => s.IDDV == IDservice);
+                                var newIDServiceBooking = GenerateNewBookServiceId();
+                                var bookingService = new DatDichVu
+                                {
+                                    IDDatDV = newIDServiceBooking,
+                                    IDHD = newIDHD,
+                                    IDDV = IDservice,
+                                    NgaySD = model.NgaySuDung,
+                                    SoLuong = model.NumberOfService,
+                                    DonGia = selectedService.DonGia * model.NumberOfService
+                                };
+                                selectedService.Soluong += 1; 
+                                db.DatDichVus.Add(bookingService);
+                            }
+                        }
+
+
+
+
+                            // Save changes and commit transaction
+                            db.SaveChanges();
+                        transaction.Commit();
+
+                        return Json(new { success = true, message = "Đặt dịch vụ thành công." });
                     }
-                    return servicePrice;
+                    else
+                    {
+                        return Json(new { success = false, message = "Dữ liệu không hợp lệ." });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return Json(new { success = false, message = "Lỗi khi thêm khách hàng và đặt phòng: " + ex.Message });
                 }
             }
-            return 0;
         }
 
         private Phong FindAvailableRoom(string roomType, DateTime checkInDate, DateTime checkOutDate)
@@ -283,13 +285,24 @@ namespace PBL3_HotelManagementSystem.Controllers
             foreach (var room in availableRooms)
             {
                 var bookings = db.DatPhongs.Where(b => b.IDPHG == room.IDPHG &&
-                                                       (checkInDate < b.NgayTra && checkOutDate > b.NgayDat)).ToList();
+                                                       (checkInDate < b.NgayTra && checkOutDate > b.NgayNhan)).ToList();
                 if (bookings.Count == 0)
                 {
                     return room;
                 }
             }
             return null;
+        }
+
+        private string GenerateNewBillId()
+        {
+            var lastBill = db.HoaDons.OrderByDescending(c => c.IDHD).FirstOrDefault();
+            if (lastBill != null)
+            {
+                int newIdNumber = int.Parse(lastBill.IDHD.Substring(2)) + 1;
+                return "HD" + newIdNumber.ToString("D2");
+            }
+            return "HD01";
         }
 
         private string GenerateNewCustomerId()
@@ -305,10 +318,10 @@ namespace PBL3_HotelManagementSystem.Controllers
 
         private string GenerateNewBookRoomId()
         {
-            var lastBooking = db.DatPhongs.OrderByDescending(c => c.IDDatPhong).FirstOrDefault();
+            var lastBooking = db.DatPhongs.OrderByDescending(c => c.IDDatPHG).FirstOrDefault();
             if (lastBooking != null)
             {
-                int newIdNumber = int.Parse(lastBooking.IDDatPhong.Substring(2)) + 1;
+                int newIdNumber = int.Parse(lastBooking.IDDatPHG.Substring(2)) + 1;
                 return "DP" + newIdNumber.ToString("D2");
             }
             return "DP01";
@@ -325,16 +338,6 @@ namespace PBL3_HotelManagementSystem.Controllers
             return "DDV01";
         }
 
-        private string GenerateNewBookServiceDetailId()
-        {
-            var lastBookingServiceDetail = db.DatDichVuChiTiets.OrderByDescending(c => c.IDDatDVChiTiet).FirstOrDefault();
-            if (lastBookingServiceDetail != null)
-            {
-                int newIdNumber = int.Parse(lastBookingServiceDetail.IDDatDVChiTiet.Substring(5)) + 1;
-                return "DDVCT" + newIdNumber.ToString("D2");
-            }
-            return "DDVCT01";
-        }
 
         //=================================//
 
@@ -353,7 +356,6 @@ namespace PBL3_HotelManagementSystem.Controllers
                     existingKhachHang.CCCD = khachHang.CCCD;
                     existingKhachHang.SDT = khachHang.SDT;
                     existingKhachHang.Email = khachHang.Email;
-                    existingKhachHang.GioiTinh = khachHang.GioiTinh;
                     existingKhachHang.DiaChi = khachHang.DiaChi;
 
                     try

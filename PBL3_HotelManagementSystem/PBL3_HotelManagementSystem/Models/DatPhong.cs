@@ -14,15 +14,14 @@ namespace PBL3_HotelManagementSystem.Models
     
     public partial class DatPhong
     {
-        public string IDDatPhong { get; set; }
-        public string IDKH { get; set; }
+        public string IDDatPHG { get; set; }
+        public string IDHD { get; set; }
         public string IDPHG { get; set; }
-        public Nullable<System.DateTime> NgayDat { get; set; }
-        public Nullable<System.DateTime> NgayTra { get; set; }
-        public Nullable<int> SoNgayThue { get; set; }
-        public string TrangThai { get; set; }
+        public System.DateTime NgayNhan { get; set; }
+        public System.DateTime NgayTra { get; set; }
+        public Nullable<int> DonGia { get; set; }
     
-        public virtual KhachHang KhachHang { get; set; }
+        public virtual HoaDon HoaDon { get; set; }
         public virtual Phong Phong { get; set; }
     }
 }

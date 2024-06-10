@@ -14,20 +14,14 @@ namespace PBL3_HotelManagementSystem.Models
     
     public partial class DatDichVu
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DatDichVu()
-        {
-            this.DatDichVuChiTiets = new HashSet<DatDichVuChiTiet>();
-        }
-    
         public string IDDatDV { get; set; }
-        public string IDKH { get; set; }
+        public string IDHD { get; set; }
         public string IDDV { get; set; }
-        public Nullable<System.DateTime> NgaySuDung { get; set; }
+        public Nullable<System.DateTime> NgaySD { get; set; }
+        public Nullable<int> SoLuong { get; set; }
+        public Nullable<int> DonGia { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DatDichVuChiTiet> DatDichVuChiTiets { get; set; }
         public virtual DichVu DichVu { get; set; }
-        public virtual KhachHang KhachHang { get; set; }
+        public virtual HoaDon HoaDon { get; set; }
     }
 }
