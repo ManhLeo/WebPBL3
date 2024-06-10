@@ -101,14 +101,7 @@ namespace PBL3_HotelManagementSystem.Controllers
 
 
 
-                        var newBills = new HoaDon
-                        {
-                            IDHD = newIDHD,
-                            IDKH = newIDKH,
-                            //DonGia = ,//CÒN ĐƠN GIÁ===================================
-                            TrangThai = "Chưa thanh toán"
-                        };
-
+                        
                         // Find available room
                         var selectedRoom = FindAvailableRoom(model.RoomType, model.CheckInDate, model.CheckOutDate);
                         if (selectedRoom == null)
@@ -130,7 +123,14 @@ namespace PBL3_HotelManagementSystem.Controllers
                         selectedRoom.TrangThai = "Bận";
                         db.DatPhongs.Add(bookingRoom);
 
-                        
+                        var newBills = new HoaDon
+                        {
+                            IDHD = newIDHD,
+                            IDKH = newIDKH,
+                            DonGia = bookingRoom.DonGia,
+                            TrangThai = "Chưa thanh toán"
+                        };
+                        db.HoaDons.Add(newBills);
 
                         // Save changes and commit transaction
                         db.SaveChanges();
@@ -189,7 +189,14 @@ namespace PBL3_HotelManagementSystem.Controllers
                             selectedRoom.TrangThai = "Bận";
                             db.DatPhongs.Add(bookingRoom);
 
-                          
+                            var newBills = new HoaDon
+                            {
+                                IDHD = newIDHD,
+                                IDKH = newIDKH,
+                                DonGia = bookingRoom.DonGia,
+                                TrangThai = "Chưa thanh toán"
+                            };
+                            db.HoaDons.Add(newBills);
 
                             // Save changes and commit transaction
                             db.SaveChanges();
@@ -217,54 +224,43 @@ namespace PBL3_HotelManagementSystem.Controllers
             {
                 try
                 {
-                    if (ModelState.IsValid)
+                    if (ModelState.IsValid && model.Email != null)
                     {
-                        // Generate new IDs
-                        var newIDKH = GenerateNewCustomerId();
-                        var newIDHD = GenerateNewBillId();
- 
+                        var newIDBooking = GenerateNewBookRoomId();
 
-                        // Create new customer
-                        var newCustomer = new KhachHang
+                        var kh = db.KhachHangs.FirstOrDefault(s => s.Email == model.Email);
+                        if (kh != null)
                         {
-                            IDKH = newIDKH,
-                            HoTen = model.FullName,
-                            CCCD = model.CCCD,
-                            SDT = model.PhoneNumber,
-                            Email = model.Email,
-                            DiaChi = model.Address
-                        };
-                        db.KhachHangs.Add(newCustomer);
-
-                        // Add selected services
-                        if (model.SelectedServices != null && model.SelectedServices.Any())
-                        {
-                            foreach (var IDservice in model.SelectedServices)
+                            var hd = db.HoaDons.FirstOrDefault(k => k.IDKH == kh.IDKH);
+                            if (hd != null && model.SelectedServices != null && model.SelectedServices.Any())
                             {
-                                var selectedService = db.DichVus.FirstOrDefault(s => s.IDDV == IDservice);
-                                var newIDServiceBooking = GenerateNewBookServiceId();
-                                var bookingService = new DatDichVu
+                                foreach (var IDservice in model.SelectedServices)
                                 {
-                                    IDDatDV = newIDServiceBooking,
-                                    IDHD = newIDHD,
-                                    IDDV = IDservice,
-                                    NgaySD = model.NgaySuDung,
-                                    SoLuong = model.NumberOfService,
-                                    DonGia = selectedService.DonGia * model.NumberOfService
-                                };
-                                selectedService.Soluong += 1; 
-                                db.DatDichVus.Add(bookingService);
+                                    var newIDServiceBooking = GenerateNewBookServiceId();
+                                    var selectedService = db.DichVus.FirstOrDefault(s => s.IDDV == IDservice);
+
+                                    if (selectedService != null)
+                                    {
+                                        var bookingService = new DatDichVu
+                                        {
+                                            IDDatDV = newIDServiceBooking,
+                                            IDHD = hd.IDHD,
+                                            IDDV = IDservice,
+                                            NgaySD = model.NgaySuDung,
+                                            SoLuong = model.NumberOfService,
+                                            DonGia = selectedService.DonGia * model.NumberOfService
+                                        };
+                                        selectedService.Soluong += model.NumberOfService;
+                                        db.DatDichVus.Add(bookingService);
+                                    }
+                                }
                             }
-                        }
-
-
-
-
-                            // Save changes and commit transaction
                             db.SaveChanges();
-                        transaction.Commit();
+                            transaction.Commit();
 
-                        return Json(new { success = true, message = "Đặt dịch vụ thành công." });
+                            return Json(new { success = true, message = "Đặt dịch vụ thành công." });
+                        }
+                        else return Json(new { success = false, message = "Email không tồn tại trong hệ thống, vui lòng đăng nhập để đặt dịch vụ" });
                     }
                     else
                     {
@@ -274,7 +270,7 @@ namespace PBL3_HotelManagementSystem.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    return Json(new { success = false, message = "Lỗi khi thêm khách hàng và đặt phòng: " + ex.Message });
+                    return Json(new { success = false, message = "Lỗi khi Đặt dịch vụ: " + ex.Message });
                 }
             }
         }

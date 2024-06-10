@@ -49,7 +49,7 @@
                     <p>Loại phòng:</p>
                     <select id="condition2" class="input input1" name="RoomType" required></select>
                 </div>
-                
+
                 <div class="Form_item">
                     <p>Ngày nhận phòng:</p>
                     <input type="date" class="input" name="CheckInDate" required>
@@ -144,6 +144,92 @@
             </div>
         </form>
     </div>
+    @*================================================================================================*@
+    <div class="Form" id="EditRoomForm">
+        <form id="editRoomForm">
+            <div class="Form_container">
+                <div class="Form_item" style="justify-content: center;">
+                    <p style="font-weight: 600; font-size: 24px; color: black;">CHỈNH SỬA PHÒNG</p>
+                </div>
+                <input type="hidden" name="IDPHG" id="editRoomIDPHG">
+                <div class="Form_item">
+                    <p>Tên phòng:</p>
+                    <input type="text" class="input" name="TenPHG" id="editRoomTenPHG" required>
+                </div>
+                <div class="Form_item">
+                    <p>Loại phòng:</p>
+                    <input id="editRoomLoaiPhong" class="input" name="TenLoaiPhong" required>
+                </div>
+                <div class="Form_item">
+                    <p>Số giường:</p>
+                    <input type="text" class="input" name="SoGiuong" id="editRoomSoGiuong" required>
+                </div>
+                <div class="Form_item" style="justify-content: center; margin-top: 20px;">
+                    <button type="submit" class="button1" onclick="saveRoom()">LƯU</button>
+                    <button type="button" class="button1" onclick="closeEditRoomForm()">Thoát</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="Form" id="EditCustomerForm">
+        <form id="editCustomerForm">
+            <div class="Form_container">
+                <div class="Form_item" style="justify-content: center;">
+                    <p style="font-weight: 600; font-size: 24px; color: black;">CHỈNH SỬA THÔNG TIN</p>
+                </div>
+                <input type="hidden" name="IDKH" id="editCustomerIDKH">
+                <div class="Form_item">
+                    <p>Họ Tên:</p>
+                    <input type="text" class="input" name="HoTen" id="editCustomerHoTen" required>
+                </div>
+                <div class="Form_item">
+                    <p>CCCD:</p>
+                    <input id="editCustomerCCCD" class="input" name="CCCD" required>
+                </div>
+                <div class="Form_item">
+                    <p>SDT:</p>
+                    <input type="text" class="input" name="SDT" id="editCustomerSDT" required>
+                </div>
+                <div class="Form_item">
+                    <p>Địa Chỉ:</p>
+                    <input type="text" class="input" name="DiaChi" id="editCustomerDiaChi" required>
+                </div>
+                <div class="Form_item" style="justify-content: center; margin-top: 20px;">
+                    <button type="submit" class="button1" onclick="saveCustomer()">LƯU</button>
+                    <button type="button" class="button1" onclick="closeEditCustomerForm()">Thoát</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="Form" id="EditServiceForm">
+        <form id="editServiceForm">
+            <div class="Form_container">
+                <div class="Form_item" style="justify-content: center;">
+                    <p style="font-weight: 600; font-size: 24px; color: black;">CHỈNH SỬA DỊCH VỤ</p>
+                </div>
+                <input type="hidden" name="IDDV" id="editServiceIDDV">
+                <div class="Form_item">
+                    <p>Tên dịch vụ:</p>
+                    <input type="text" class="input" name="TenDV" id="editServiceTenDV" required>
+                </div>
+                <div class="Form_item">
+                    <p>Đơn giá:</p>
+                    <input id="editServiceDonGia" class="input" name="DonGia" required>
+                </div>
+                <div class="Form_item">
+                    <p>Số lượng max:</p>
+                    <input type="text" class="input" name="SoLuongMax" id="editServiceSoLuongMax" required>
+                </div>
+                <div class="Form_item" style="justify-content: center; margin-top: 20px;">
+                    <button type="submit" class="button1" onclick="saveService()">LƯU</button>
+                    <button type="button" class="button1" onclick="closeEditServiceForm()">Thoát</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
 
     <div class="Form" id="Update">
         <div class="Form_container" id="Update_container">
@@ -240,6 +326,7 @@
                                 <th>Giá</th>
                                 <th>Số giường</th>
                                 <th>Trạng thái</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody id="roomTableBody">
@@ -262,7 +349,7 @@
                                         </td>
                                         <td>
                                             <!-- Thêm cột cho nút thao tác -->
-                                            <button onclick="Update(this)"><i class="fas fa-pen-to-square"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="openEditRoomForm('@room.IDPHG')">><i class="fas fa-pen-to-square"></i></button> <!-- Icon chỉnh sửa -->
                                             <button onclick="deleteRoom('@room.IDPHG')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
                                         </td>
                                     </tr>
@@ -294,6 +381,7 @@
                                 <th>SĐT</th>
                                 <th>Email</th>
                                 <th>Địa chỉ</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -311,7 +399,7 @@
                                         <td>@customer.DiaChi</td>
                                         <td>
                                             <!-- Thêm cột cho nút thao tác -->
-                                            <button onclick="Update(this)"><i class="fas fa-pen-to-square"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="openEditCustomerForm('@customer.IDKH')">><i class="fas fa-pen-to-square"></i></button> <!-- Icon chỉnh sửa -->
                                             <button onclick="deleteCustomer('@customer.IDKH')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
                                         </td>
 
@@ -346,6 +434,7 @@
                                 <th>Giá dịch vụ</th>
                                 <th>Số lượng max</th>
                                 <th>Số lượng đang dùng</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -361,7 +450,7 @@
                                         <td>@service.Soluong</td>
                                         <td>
                                             <!-- Thêm cột cho nút thao tác -->
-                                            <button onclick="Update(this)"><i class="fas fa-pen-to-square"></i></button> <!-- Icon chỉnh sửa -->
+                                            <button onclick="openEditServiceForm('@service.IDDV')">><i class="fas fa-pen-to-square"></i></button> <!-- Icon chỉnh sửa -->
                                             <button onclick="deleteService('@service.IDDV')"><i class="fas fa-trash-alt"></i></button> <!-- Icon xóa -->
                                         </td>
 
@@ -396,6 +485,7 @@
                                 <th>Ngày trả</th>
                                 <th>Thành tiền</th>
                                 <th>Trạng thái</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>

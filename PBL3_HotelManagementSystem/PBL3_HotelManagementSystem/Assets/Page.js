@@ -296,3 +296,50 @@ $(document).ready(function () {
     });
 });
 
+// Hàm xử lý sự kiện Tìm kiếm
+function searchRooms() {
+    var searchInput = document.getElementById('searchInput').value.toLowerCase();
+    var roomItems = document.querySelectorAll('.Room_item');
+
+    // Biến để kiểm tra xem đã tìm thấy Room item phù hợp hay chưa
+    var found = false;
+
+    roomItems.forEach(function (room) {
+        var roomTitle = room.querySelector('.Room_title').innerText.toLowerCase();
+        var roomInfor = room.querySelector('.li').innerText.toLowerCase();
+
+        // Kiểm tra xem tiêu đề hoặc thông tin có chứa từ khóa tìm kiếm không
+        if (roomTitle.includes(searchInput) || roomInfor.includes(searchInput)) {
+            room.style.display = 'block'; // Hiển thị Room item nếu phù hợp
+            // Nếu từ khóa tìm kiếm là "phòng tổng thống" và Room item đang xét là Room item đầu tiên
+            if (searchInput === 'phòng tổng thống' && !found) {
+                room.scrollIntoView({ behavior: 'smooth' }); // Cuộn để hiển thị Room item đầu tiên
+                found = true; // Đánh dấu đã tìm thấy Room item phù hợp
+            }
+            else if (searchInput === 'phòng hạng sang' && !found) {
+                room.scrollIntoView({ behavior: 'smooth' }); // Cuộn để hiển thị Room item đầu tiên
+                found = true; // Đánh dấu đã tìm thấy Room item phù hợp
+            }
+            else if(searchInput === 'phòng thường' && !found) {
+                room.scrollIntoView({ behavior: 'smooth' }); // Cuộn để hiển thị Room item đầu tiên
+                found = true; // Đánh dấu đã tìm thấy Room item phù hợp
+            }
+        } else {
+            room.style.display = 'none'; // Ẩn Room item nếu không phù hợp
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const checkboxes = document.querySelectorAll('.service-checkbox');
+
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            const serviceInputs = this.closest('label').nextElementSibling.querySelectorAll('.service-input');
+            serviceInputs.forEach(function (input) {
+                input.disabled = !checkbox.checked;
+                input.required = checkbox.checked;
+            });
+        });
+    });
+});

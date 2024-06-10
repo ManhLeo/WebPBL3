@@ -112,7 +112,7 @@ namespace PBL3_HotelManagementSystem.Controllers
                 db.KhachHangs.Add(newCustomer);
                 db.SaveChanges();
 
-                return RedirectToAction("PageUser", "Home");
+                return RedirectToAction("Login", "Account");
             }
 
             ViewBag.ErrorMessage = "Vui lòng kiểm tra lại thông tin.";

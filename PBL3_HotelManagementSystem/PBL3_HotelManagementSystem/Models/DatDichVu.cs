@@ -18,7 +18,7 @@ namespace PBL3_HotelManagementSystem.Models
         public string IDHD { get; set; }
         public string IDDV { get; set; }
         public Nullable<System.DateTime> NgaySD { get; set; }
-        public Nullable<int> SoLuong { get; set; }
+        public int SoLuong { get; set; }
         public Nullable<int> DonGia { get; set; }
     
         public virtual DichVu DichVu { get; set; }

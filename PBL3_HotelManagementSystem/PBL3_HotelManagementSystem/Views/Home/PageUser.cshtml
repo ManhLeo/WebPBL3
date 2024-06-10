@@ -119,14 +119,12 @@
                     @foreach (var service in Model.FirstOrDefault().Services)
                     {
                         <label>
-                            <div>
-                                <input type="checkbox" name="SelectedServices" value="@service.IDDV"> @service.TenDV
-                            </div>
-                            <div>
-                                <input type="text" name=" NumberofService" placeholder="SL" class="input50" required>
-                                <input type="date" name="NgaySuDung" class="input50" required>
-                            </div>
+                            <input type="checkbox" name="SelectedServices" value="@service.IDDV" class="service-checkbox"> @service.TenDV
                         </label>
+                        <div class="service-details">
+                            <input type="text" name="NumberofService" placeholder="SL" class="input50 service-input" disabled>
+                            <input type="date" name="NgaySuDung" class="input50 service-input" disabled>
+                        </div>
                     }
                 </div>
 
@@ -173,8 +171,8 @@
         </div>
         <div class="Selecter">
             <div class="Selecter_container">
-                <input type="text" placeholder="Thông tin phòng, tiện ích,.." class="input1">
-                <button>Tìm kiếm</button>
+                <input type="text" placeholder="Loại phòng" class="input1" id="searchInput">
+                <button onclick="searchRooms()">Tìm kiếm</button>
                 <button onclick="MyForm('FormDP')">Đặt phòng</button>
                 <button onclick="MyForm('FormDV')">Đặt dịch vụ</button>
             </div>

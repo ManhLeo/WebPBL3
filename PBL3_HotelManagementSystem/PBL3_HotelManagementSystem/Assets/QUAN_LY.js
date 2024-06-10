@@ -75,6 +75,7 @@ function billManagement() {
 function MyForm(ID) {
     document.getElementById(ID).style.display = "Flex";
 }
+
 function CloseForm(ID) {
     document.getElementById(ID).style.display = "none";
 }
@@ -228,7 +229,7 @@ function searchServices() {
                     `<td>${service.SoLuongMax}</td>` +
                     `<td>${service.Soluong}</td>` +
                     `<td>` +
-                    '<button onclick="Update(this)"><i class="fas fa-pen-to-square"></i></button>'+
+                    `<button onclick="openEditServiceForm('${service.IDDV}')"><i class="fas fa-pen-to-square"></i></button>` + 
                     `<button onclick="deleteService('${service.IDDV}')"><i class="fas fa-trash-alt"></i></button>` +
                     `</td>`;
                 // Thêm hàng vào bảng
@@ -267,7 +268,11 @@ function searchCustomers() {
                     `<td>${customer.CCCD}</td>` +
                     `<td>${customer.SDT}</td>` +
                     `<td>${customer.Email}</td>` +
-                    `<td>${customer.DiaChi}</td>`; 
+                    `<td>${customer.DiaChi}</td>` +
+                    '<td>' +
+                    `<button onclick="openEditCustomerForm('${customer.IDKH}')"><i class="fas fa-pen-to-square"></i></button>` + 
+                    `<button onclick="deleteCustomer('${customer.IDKH}')"><i class="fas fa-trash-alt"></i></button>` +
+                    '</td>';
 
                 // Thêm hàng vào bảng
                 tbody.appendChild(row);
@@ -330,6 +335,58 @@ function searchBills() {
             console.error('Error:', error);
             alert("An error occurred while searching customers.");
         });
+}
+
+function searchRooms() {
+    var roomTypeElement = document.getElementById('condition1');
+    var conditionElement = document.getElementById('condition');
+    var fromDateElement = document.getElementById('fromDate');
+    var toDateElement = document.getElementById('toDate');
+
+    if (roomTypeElement && conditionElement && fromDateElement && toDateElement) {
+        var roomType = roomTypeElement.value;
+        var condition = conditionElement.value;
+        var fromDate = fromDateElement.value;
+        var toDate = toDateElement.value;
+
+        $.ajax({
+            url: '/Admin/SearchRooms',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                roomType: roomType,
+                condition: condition,
+                fromDate: fromDate,
+                toDate: toDate
+            }),
+            success: function (rooms) {
+                var tableBody = document.getElementById('roomTableBody');
+                tableBody.innerHTML = '';
+
+                rooms.forEach(function (room) {
+                    var row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${room.IDPHG}</td>
+                        <td>${room.TenPHG}</td>
+                        <td>${room.TenLoaiPhong}</td>
+                        <td>${room.DonGia}</td>
+                        <td>${room.SoGiuong}</td>
+                        <td>${room.TrangThai}</td>
+                        <td>
+                            <button onclick="openEditRoomForm('${room.IDPHG}')"><i class="fas fa-edit"></i></button>
+                            <button onclick="deleteRoom('${room.IDPHG}')"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Lỗi khi tìm kiếm phòng:', error);
+            }
+        });
+    } else {
+        console.error('Không tìm thấy một hoặc nhiều phần tử nhập liệu.');
+    }
 }
 
 
@@ -399,6 +456,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             console.error('Lỗi khi lấy trạng thái phòng:', error);
         }
     });
+    
 });
 
 
@@ -448,57 +506,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-function searchRooms() {
-    var roomTypeElement = document.getElementById('condition1');
-    var conditionElement = document.getElementById('condition');
-    var fromDateElement = document.getElementById('fromDate');
-    var toDateElement = document.getElementById('toDate');
 
-    if (roomTypeElement && conditionElement && fromDateElement && toDateElement) {
-        var roomType = roomTypeElement.value;
-        var condition = conditionElement.value;
-        var fromDate = fromDateElement.value;
-        var toDate = toDateElement.value;
 
-        $.ajax({
-            url: '/Admin/SearchRooms',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                roomType: roomType,
-                condition: condition,
-                fromDate: fromDate,
-                toDate: toDate
-            }),
-            success: function (rooms) {
-                var tableBody = document.getElementById('roomTableBody');
-                tableBody.innerHTML = '';
-
-                rooms.forEach(function (room) {
-                    var row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${room.IDPHG}</td>
-                        <td>${room.TenPHG}</td>
-                        <td>${room.TenLoaiPhong}</td>
-                        <td>${room.DonGia}</td>
-                        <td>${room.SoGiuong}</td>
-                        <td>${room.TrangThai}</td>
-                        <td>
-                            <button onclick="editRoom('${room.IDPHG}')"><i class="fas fa-edit"></i></button>
-                            <button onclick="deleteRoom('${room.IDPHG}')"><i class="fas fa-trash-alt"></i></button>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            },
-            error: function (xhr, status, error) {
-                console.error('Lỗi khi tìm kiếm phòng:', error);
-            }
-        });
-    } else {
-        console.error('Không tìm thấy một hoặc nhiều phần tử nhập liệu.');
-    }
-}
 
 
 
@@ -564,6 +573,8 @@ $(document).ready(function () {
         });
     });
 });
+
+
 
 
 $(document).ready(function () {
@@ -632,39 +643,169 @@ function createInvoice(roomId) {
     });
 }
 
-function Update(element) {
-    // Get the parent row of the clicked element
-    var row = element.parentElement.parentElement;
-    let Titles = row.parentElement.querySelector('tr').querySelectorAll('th');
-    let Container = document.getElementById("Update_container");
-    console.log(element.closest('.manager_container').id);
-    // Clear the container content before updating
-    Container.innerHTML = '';
 
-    // Add title for the form
-    Container.innerHTML += `
-        <div class="Form_item" style="justify-content: center;">
-            <p style="font-weight: 600;font-size: 24px;color: black;">Thông tin</p>
-        </div>
-    `;
-    // Iterate through each title and corresponding cell in the row
-    Titles.forEach(function (title, index) {
-        if (index != Titles.length - 1 && index != 0) {
-            Container.innerHTML += `
-            <div class="Form_item">
-                <p>${title.innerText}</p>
-                <input type="text" class="input" value="${row.cells[index].innerText}">
-            </div>
-        `;
+
+
+function openEditRoomForm(roomId) {
+    $.ajax({
+        url: '/Admin/GetRoomData',
+        type: 'GET',
+        data: { id: roomId },
+        success: function (response) {
+            if (response.success) {
+                $('#editRoomIDPHG').val(response.IDPHG);
+                $('#editRoomTenPHG').val(response.TenPHG);
+                $('#editRoomLoaiPhong').val(response.LoaiPhong);
+                $('#editRoomSoGiuong').val(response.SoGiuong);
+                $('#EditRoomForm').show();
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function () {
+            console.error("Error fetching room data");
+            alert("Có lỗi xảy ra khi lấy dữ liệu phòng.");
         }
     });
-    Container.innerHTML += `
-        <div class="Form_item" style="justify-content: center;margin-top: 20px;">
-            <button class="button1">Chỉnh sửa</button>
-            <button class="button1" onclick="CloseForm('Update')">Thoát</button>
-        </div>
-    `;
+}
 
-    // Correcting the display property
-    document.getElementById("Update").style.display = "flex";
+function openEditCustomerForm(customerId) {
+    $.ajax({
+        url: '/Admin/GetCustomerData',
+        type: 'GET',
+        data: { id: customerId },
+        success: function (response) {
+            if (response.success) {
+                $('#editCustomerIDKH').val(response.IDKH);
+                $('#editCustomerHoTen').val(response.HoTen);
+                $('#editCustomerCCCD').val(response.CCCD);
+                $('#editCustomerSDT').val(response.SDT);
+                $('#editCustomerDiaChi').val(response.DiaChi);
+                $('#EditCustomerForm').show();
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function () {
+            console.error("Error fetching customer data");
+            alert("Có lỗi xảy ra khi lấy dữ liệu khách hàng.");
+        }
+    });
+}
+
+function openEditServiceForm(serviceId) {
+    $.ajax({
+        url: '/Admin/GetServiceData',
+        type: 'GET',
+        data: { id: serviceId },
+        success: function (response) {
+            if (response.success) {
+                $('#editServiceIDDV').val(response.IDDV);
+                $('#editServiceTenDV').val(response.TenDV);
+                $('#editServiceDonGia').val(response.DonGia);
+                $('#editServiceSoLuongMax').val(response.SoLuongMax);
+                $('#EditServiceForm').show();
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function () {
+            console.error("Error fetching service data");
+            alert("Có lỗi xảy ra khi lấy dữ liệu dịch vụ.");
+        }
+    });
+}
+
+function closeEditRoomForm() {
+    $('#EditRoomForm').hide();
+}
+function closeEditCustomerForm() {
+    $('#EditCustomerForm').hide();
+}
+function closeEditServiceForm() {
+    $('#EditServiceForm').hide();
+}
+
+function saveRoom() {
+    var data = {
+        IDPHG: $("#editRoomIDPHG").val(),
+        TenPHG: $("#editRoomTenPHG").val(),
+        TenLoaiPhong: $("#editRoomLoaiPhong").val(),
+        SoGiuong: $("#editRoomSoGiuong").val()
+    };
+
+    $.ajax({
+        url: '/Admin/EditRoom',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (response) {
+            if (response.success) {
+                // Xử lý khi chỉnh sửa thành công
+            } else {
+                // Xử lý khi có lỗi
+                alert(response.message);
+            }
+        },
+        error: function () {
+            // Xử lý khi có lỗi
+            alert("Đã xảy ra lỗi khi gửi yêu cầu chỉnh sửa phòng.");
+        }
+    });
+}
+function saveCustomer() {
+    var data = {
+        IDKH: $("#editCustomerIDKH").val(),
+        HoTen: $("#editCustomerHoTen").val(),
+        CCCD: $("#editCustomerCCCD").val(),
+        SDT: $("#editCustomerSDT").val(),
+        DiaChi: $("#editCustomerDiaChi").val()
+    };
+
+    $.ajax({
+        url: '/Admin/EditCustomer',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (response) {
+            if (response.success) {
+                // Xử lý khi chỉnh sửa thành công
+            } else {
+                // Xử lý khi có lỗi
+                alert(response.message);
+            }
+        },
+        error: function () {
+            // Xử lý khi có lỗi
+            alert("Đã xảy ra lỗi khi gửi yêu cầu chỉnh sửa khách hàng.");
+        }
+    });
+}
+
+function saveService() {
+    var data = {
+        IDDV: $("#editServiceIDDV").val(),
+        TenDV: $("#editServiceTenDV").val(),
+        DonGia: $("#editServiceDonGia").val(),
+        SoLuongMax: $("#editServiceSoLuongMax").val()
+    };
+
+    $.ajax({
+        url: '/Admin/EditService',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (response) {
+            if (response.success) {
+                // Xử lý khi chỉnh sửa thành công
+            } else {
+                // Xử lý khi có lỗi
+                alert(response.message);
+            }
+        },
+        error: function () {
+            // Xử lý khi có lỗi
+            alert("Đã xảy ra lỗi khi gửi yêu cầu chỉnh sửa dịch vụ.");
+        }
+    });
 }
